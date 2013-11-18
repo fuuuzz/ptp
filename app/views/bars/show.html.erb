@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @bar.name %>
+</p>
+
+<p>
+  <b>Adress:</b>
+  <%= @bar.adress %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @bar.price %>
+</p>
+
+
+<%= link_to 'Edit', edit_bar_path(@bar) %> |
+<%= link_to 'Back', bars_path %>
+<div id="map-canvas" data-latitude="<%= @bar.latitude %>" data-longitude="<%= @bar.longitude %>">
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
+</div>
