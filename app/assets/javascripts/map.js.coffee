@@ -16,6 +16,8 @@ $ ->
 			map: map
 			position: myLatLng
 			animation: google.maps.Animation.DROP
+			icon: "http://imageshack.com/a/img51/5516/xljz.png"
 
 	$ ->
 		initialize()
+
