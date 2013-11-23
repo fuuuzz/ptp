@@ -1,5 +1,5 @@
 class BarsController < ApplicationController
-  
+  before_filter :authenticate_user!, :except => [:index, :show] 
   # GET /bars
   # GET /bars.json
   def index
