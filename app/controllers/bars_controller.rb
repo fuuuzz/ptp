@@ -1,4 +1,5 @@
 class BarsController < ApplicationController
+  
   # GET /bars
   # GET /bars.json
   def index

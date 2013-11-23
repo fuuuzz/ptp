@@ -6,7 +6,7 @@ gem 'rails', '3.2.13'
 gem 'rails_12factor'
 gem 'json', '1.8.0'
 gem 'geocoder'
-gem 'devise'
+gem 'devise', '1.4.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
