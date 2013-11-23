@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id_user: 1
+  id_bar: 1
+  content: MyString
+  rating: 1.5
+
+two:
+  id_user: 1
+  id_bar: 1
+  content: MyString
+  rating: 1.5
