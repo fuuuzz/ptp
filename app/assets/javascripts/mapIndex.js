@@ -15,15 +15,9 @@ function init(){
 
     })
 
-    console.log(bars[0][2]);
-
-
-
-
-
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: new google.maps.LatLng(44.833, -0.567),
+        zoom: 14,
+        center: new google.maps.LatLng(bars[0][1], bars[0][2]),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles: [{
             "stylers": [{
@@ -48,7 +42,9 @@ function init(){
     for (i = 0; i < bars.length; i++) {
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(bars[i][1], bars[i][2]),
-            map: map
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: "http://imageshack.com/a/img51/5516/xljz.png"
         });
 
         google.maps.event.addListener(marker, 'click', (function (marker, i) {

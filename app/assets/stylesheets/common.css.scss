@@ -1,0 +1,20 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700);
+
+
+$yellow : #ffdf20;
+$yellow-light: #ecff91;
+$roboto : 'Roboto Slab', serif;
+
+
+html, body{
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  max-width: 640px;
+}
+
+.clear{
+  clear:both;
+}
+
