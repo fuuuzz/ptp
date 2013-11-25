@@ -5,7 +5,7 @@ $ ->
 	myLatLng = new google.maps.LatLng(latitude, longitude)
 
 	initialize = () ->
-		mapOptions = 
+		mapOptions =
 			zoom: 14
 			center: myLatLng
 			mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -20,4 +20,5 @@ $ ->
 
 	$ ->
 		initialize()
+    alert('ta mere')
 
