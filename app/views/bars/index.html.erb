@@ -22,6 +22,42 @@
 <% end %>
 </table>
 
+<div id="bars">
+  <% @bars.each do |bar| %>
+      <div class="bar" data-name="<%= bar.name %>" data-lat="<%= bar.latitude %>" data-lnt="<%= bar.longitude %>">
+        <header class="bar-header">
+          <div class="head-content">
+            <h2><%= bar.name %></h2>
+            <div class="address">
+              <p class="street">9 quai de la douane</p>
+              <p class="ville">33000 Bordeaux</p>
+            </div>
+            <div class="price"><p>5€</p></div>
+          </div>
+        </header>
+        <div class="sub-container">
+          <div class="sub-content">
+            <p class="ambiance">Ambiance : </p><div class="notice-container"><div class="notice-bar" data-average-ambiance="3.6"></div></div>
+            <div class="avis">
+              <ul class="list-avis">
+                <li class="avi">
+                  <h3>Romain</h3>
+                  <div class="note-container"><div class="note"></div></div>
+                  <p>Ce bar est pas mal mais pourri en fait. truc de pds</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <% end %>
+</div>
 <br />
 
 <%= link_to 'New Bar', new_bar_path %>
+<div id="map" style="width: 370px; height: 600px;"></div>
+
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
+
+
