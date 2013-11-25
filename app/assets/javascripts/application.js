@@ -12,5 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bars
-//= require indexMap
+//= require_tree .
+
+
+

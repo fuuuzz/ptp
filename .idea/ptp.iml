@@ -25,13 +25,17 @@
     <orderEntry type="library" scope="PROVIDED" name="bcrypt-ruby (v3.1.2, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.0.4, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.3.5, RVM: ruby-1.9.3-p448) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="chunky_png (v1.2.9, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-rails (v3.2.2, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-script (v2.2.0, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-script-source (v1.6.3, RVM: ruby-1.9.3-p448) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="compass (v0.12.2, RVM: ruby-1.9.3-p448) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="compass-rails (v1.0.3, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="devise (v1.4.7, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubis (v2.7.0, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="execjs (v2.0.2, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffaker (v1.21.0, RVM: ruby-1.9.3-p448) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="fssm (v0.2.10, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="geocoder (v1.1.8, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hike (v1.2.3, RVM: ruby-1.9.3-p448) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v0.6.1, RVM: ruby-1.9.3-p448) [gem]" level="application" />
