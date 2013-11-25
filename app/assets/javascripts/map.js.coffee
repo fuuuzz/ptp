@@ -5,6 +5,7 @@ $ ->
 	myLatLng = new google.maps.LatLng(latitude, longitude)
 
 	initialize = () ->
+
 		mapOptions = 
 			zoom: 14
 			center: myLatLng
@@ -20,4 +21,3 @@ $ ->
 
 	$ ->
 		initialize()
-
