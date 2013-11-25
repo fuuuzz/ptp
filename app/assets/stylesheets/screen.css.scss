@@ -3,5 +3,8 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
+
+@import 'common';
+@import 'template/header';
 @import 'bars';
 @import 'scaffolds';
