@@ -5,12 +5,7 @@ $ ->
 	myLatLng = new google.maps.LatLng(latitude, longitude)
 
 	initialize = () ->
-
-<<<<<<< HEAD
 		mapOptions = 
-=======
-		mapOptions =
->>>>>>> e52d6fd16912bdf44c4a12259ea80683ab3c6fe6
 			zoom: 14
 			center: myLatLng
 			mapTypeId: google.maps.MapTypeId.ROADMAP

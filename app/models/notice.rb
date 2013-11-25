@@ -1,4 +1,5 @@
 class Notice < ActiveRecord::Base
   attr_accessible :content, :rating
-  belongs_to :bar
+  has_one :bar
+  belongs_to :user
 end
