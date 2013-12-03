@@ -27,8 +27,8 @@ function init(){
     // Generate map and marker :
     function setup_map(position){
 
-//        var user = [44.8356423, -0.5729913];
-        var user = [position.coords.latitude, position.coords.longitude];
+        var user = [44.8356423, -0.5729913];
+//        var user = [position.coords.latitude, position.coords.longitude];
 
         var options = {
             zoom: 15,
@@ -51,7 +51,6 @@ function init(){
         var map = new google.maps.Map(document.getElementById('map'),options);
 
         var markers = [];
-
 
         // When the map is loaded !
         google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -120,6 +119,7 @@ function init(){
                     addBarMarker(aroundBars[i]);
                     showBarsPreview(aroundBars[i]);
                 }
+                console.log(i);
             }
 
         }
@@ -132,8 +132,23 @@ function init(){
                 position: new google.maps.LatLng(bar[2], bar[3]),
                 map: map,
                 animation: google.maps.Animation.DROP,
-                icon: "http://imageshack.com/a/img51/5516/xljz.png"
+                icon: "http://imageshack.com/a/img51/5516/xljz.png",
             });
+            google.maps.event.addListener(marker[1], 'click', function() {
+                //Moving map center to a marker when clicking on it
+                var Latlng = new google.maps.LatLng(bar[2], bar[3]);
+                map.panTo(Latlng);
+
+                //Scrolling div when a marker is clicked
+                var $bar = $('div').find("[data-id-bar="+ bar[0] +"]");
+                $('#bars-container').animate({
+                        scrollTop: $bar.offset().top -100
+                    }, {
+                        duration: 'slow', 
+                        easing: 'swing'
+                    });
+                console.log(bar[1]);
+             });
             markers.push(marker);
         }
 
