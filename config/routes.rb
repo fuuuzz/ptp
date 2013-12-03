@@ -2,9 +2,7 @@ Payetapinte::Application.routes.draw do
 
   resources :comments
 
-
   devise_for :members
-
 
   resources :bars do
     resources :comments
@@ -17,10 +15,10 @@ Payetapinte::Application.routes.draw do
 
   resources :preview
 
+  resources :page
 
   get "members/index"
   get "members/show"
-  get "bars/preview"
 
   authenticated :members do
     root :to => 'welcome#index'

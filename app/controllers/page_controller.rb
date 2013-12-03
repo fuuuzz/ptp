@@ -1,4 +1,4 @@
-class PreviewController < ApplicationController
+class PageController < ApplicationController
 
   layout "ajax"
 
@@ -6,7 +6,7 @@ class PreviewController < ApplicationController
     @bar = Bar.find(params[:id])
 
     respond_to do |format|
-      format.html # preview.html.erb
+      format.html # page.html.erb
       format.json { render json: @bar }
     end
   end

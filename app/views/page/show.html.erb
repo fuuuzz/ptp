@@ -1,0 +1,22 @@
+<div class="fiche-bar">
+  <p>
+    <b>Name:</b>
+    <%= @bar.name %>
+    <small> <%= @bar.id %></small>
+  </p>
+
+  <p>
+    <b>Price:</b>
+    <%= @bar.price %>
+  </p>
+
+  <p>
+    <b>Address:</b>
+    <%= @bar.address %>
+  </p>
+
+  <p>
+    <b>Rate Global:</b>
+    <%= give_bar_rate(@bar) %>
+  </p>
+</div>
