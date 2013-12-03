@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PayeTaPinte</title>
+  <title>Payetapinte</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= render 'layouts/header' %>
+<div id="mobile-container">
+  <%= yield %>
+</div>
 
-<%= yield %>
-<%= render partial: "partials/print_user" %>
 </body>
 </html>

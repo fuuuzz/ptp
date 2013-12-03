@@ -1,23 +1,44 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @bar.name %>
-</p>
+<div class="fiche-bar">
+    <p>
+      <b>Name:</b>
+      <%= @bar.name %>
+      <small> <%= @bar.id %></small>
+    </p>
 
-<p>
-  <b>Adress:</b>
-  <%= @bar.adress %>
-</p>
+    <p>
+      <b>Price:</b>
+      <%= @bar.price %>
+    </p>
 
-<p>
-  <b>Price:</b>
-  <%= @bar.price %>
-</p>
+    <p>
+      <b>Address:</b>
+      <%= @bar.address %>
+    </p>
 
+    <p>
+      <b>Rate Global:</b>
+      <%= give_bar_rate(@bar) %>
+    </p>
+    <% if  @bar.comments.count > 0 %>
+        <h2>Comments</h2>
+        <%= render @bar.comments %>
 
-<%= link_to 'Edit', edit_bar_path(@bar) %> |
-<%= link_to 'Back', bars_path %>
-<div id="map-canvas" data-latitude="<%= @bar.latitude %>" data-longitude="<%= @bar.longitude %>">
-  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
+    <% else %>
+        <h2>There's no comments yet for this bar, Add One !</h2>
+    <% end %>
+
+    <% if member_already_comment(@bar, current_member) %>
+        <h2>You'd already comment this bar</h2>
+    <% else %>
+        <h2>Add a comment:</h2>
+        <%= render "comments/form" %>
+    <% end %>
+
+    <%= link_to 'Edit', edit_bar_path(@bar) %> |
+    <%= link_to 'Back', bars_path %>
+
 </div>
+
+

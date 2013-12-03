@@ -16,13 +16,14 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :adress %><br />
-    <%= f.text_field :adress %>
-  </div>
-  <div class="field">
     <%= f.label :price %><br />
     <%= f.text_field :price %>
   </div>
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+  <%= hidden_field(:bar, :member_id, :value=> current_member.id) %>
   <div class="actions">
     <%= f.submit %>
   </div>

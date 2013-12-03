@@ -11,26 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131125160430) do
+ActiveRecord::Schema.define(:version => 20131128230029) do
 
   create_table "bars", :force => true do |t|
     t.string   "name"
-    t.string   "adress"
+    t.float    "price"
     t.float    "latitude"
     t.float    "longitude"
-    t.float    "price"
+    t.string   "address"
+    t.integer  "member_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "location"
   end
 
-  create_table "notices", :force => true do |t|
-    t.text     "content"
-    t.float    "rating"
+  create_table "comments", :force => true do |t|
+    t.string   "commenter"
+    t.integer  "rate"
+    t.integer  "bar_id"
+    t.integer  "member_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "author"
   end
 
-  create_table "users", :force => true do |t|
+  add_index "comments", ["bar_id", "member_id"], :name => "index_comments_on_bar_id_and_member_id", :unique => true
+  add_index "comments", ["bar_id"], :name => "index_comments_on_bar_id"
+  add_index "comments", ["member_id"], :name => "index_comments_on_member_id"
+
+  create_table "members", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
@@ -42,14 +51,11 @@ ActiveRecord::Schema.define(:version => 20131125160430) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "name"
-    t.string   "password"
-    t.text     "content"
-    t.integer  "created_bar"
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
+    t.string   "password"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "members", ["name"], :name => "index_members_on_name", :unique => true
 
 end

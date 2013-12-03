@@ -69,7 +69,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "40734b86253690fd81c85d07769038e36b3cd4e9dc8fc61b71a8c2de42a270fba22eb8bfa2388656b2d4871fe5f318f5ce50be0f42fe3b8262c59fb7ea62c92d"
+  # config.pepper = "48fe7b4c70cd280e86aa5c7d8194b34bae95cb7b25a316dd6b3c174314e9200d4e05e0f0de8c5122808a60966cf1847bf61ea38c31902fdab1e898b3113c7927"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -84,7 +84,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.weeks
 
   # If true, a valid remember token can be re-used between multiple browsers.
   # config.remember_across_browsers = true
@@ -101,8 +101,8 @@ Devise.setup do |config|
   # config.cookie_options = {}
 
   # ==> Configuration for :validatable
-  # Range for password length. Default is 1..128.
-  # config.password_length = 1..128
+  # Range for password length. Default is 6..128.
+  # config.password_length = 6..128
 
   # Email regex used to validate email formats. It simply asserts that
   # an one (and only one) @ exists in the given string. This is mainly
@@ -171,7 +171,7 @@ Devise.setup do |config|
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
-  # config.default_scope = :user
+   config.default_scope = :member
 
   # Configure sign_out behavior.
   # Sign_out action can be scoped (i.e. /users/sign_out affects only :user scope).
@@ -205,6 +205,6 @@ Devise.setup do |config|
   # config.warden do |manager|
   #   manager.failure_app   = AnotherApp
   #   manager.intercept_401 = false
-  #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
+  #   manager.default_strategies(:scope => :member).unshift :some_external_strategy
   # end
 end

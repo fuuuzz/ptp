@@ -1,5 +1,8 @@
 class BarsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index] 
+  layout "admin"
+
+  before_filter :authenticate_member!, :except => [:index]
+
   # GET /bars
   # GET /bars.json
   def index
@@ -42,6 +45,7 @@ class BarsController < ApplicationController
   # POST /bars.json
   def create
     @bar = Bar.new(params[:bar])
+
 
     respond_to do |format|
       if @bar.save

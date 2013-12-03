@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-PayeTaPinte::Application.load_tasks
+Payetapinte::Application.load_tasks

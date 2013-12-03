@@ -2,14 +2,16 @@
 
 one:
   name: MyString
-  adress: MyString
+  price: 1.5
   latitude: 1.5
   longitude: 1.5
-  price: 1.5
+  address: MyString
+  user: 
 
 two:
   name: MyString
-  adress: MyString
+  price: 1.5
   latitude: 1.5
   longitude: 1.5
-  price: 1.5
+  address: MyString
+  user: 

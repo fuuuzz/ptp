@@ -1,33 +1,53 @@
-<header id="app-header">
-  <h1>Paye ta pinte</h1>
-</header>
+<h1>Listing bars</h1>
 
-<div id="map" style="width: 370px; height: 600px;"></div>
+<table id="admin-table-bars">
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Address</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>Member</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
 
-<div id="bars">
-  <% @bars.each do |bar| %>
-      <div class="bar" data-name="<%= bar.name %>" data-lat="<%= bar.latitude %>" data-lnt="<%= bar.longitude %>">
-        <div class="bar-header">
-          <div class="head-content">
-            <h2><%= link_to bar.name, bar %></h2>
-            <div class="address">
-              <p class="street"><%= bar.adress %></p>
-            </div>
-            <div class="price"><p><%= bar.price %></p></div>
-          </div>
-        </div>
-      </div>
-      <hr>
-  <% end %>
-</div>
+<% @bars.each do |bar| %>
+  <tr>
+    <td><%= bar.name %></td>
+    <td><%= bar.price %></td>
+    <td><%= bar.address %></td>
+    <td><%= bar.latitude %></td>
+    <td><%= bar.longitude %></td>
+    <td><%= link_to 'Show', bar %></td>
+    <td><%= link_to 'Edit', edit_bar_path(bar) %></td>
+    <td><%= link_to 'Destroy', bar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<!--<div id="bars">-->
+  <!--<% @bars.each do |bar| %>-->
+      <!--<div class="bar" data-id-bar="<%= bar.id %>">-->
+        <!--<div class="bar-header">-->
+          <!--<div class="head-content">-->
+            <!--<h2><%= bar.name %></h2>-->
+            <!--<small><%= link_to 'See more...', bar %></small>-->
+            <!--<div class="address">-->
+              <!--<p class="street"><%= bar.location %></p>-->
+            <!--</div>-->
+            <!--<div><p class="distance"></p></div>-->
+            <!--<div class="price"><p>Pinte à <%= bar.price %></p></div>-->
+            <!--<div class="rate"><p>Ambiance <%= give_bar_rate(bar) %>/5</p></div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<hr>-->
+  <!--<% end %>-->
+<!--</div>-->
+
+
 <br />
 
 <%= link_to 'New Bar', new_bar_path %>
-
-
-<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
-
-
-
-
-

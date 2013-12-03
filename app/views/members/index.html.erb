@@ -1,0 +1,25 @@
+<h3>Members</h3>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Comments</th>
+    <th>Bar</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @members.each do |member| %>
+      <tr>
+        <td><%= member.id %></td>
+        <td><%= member.name %></td>
+        <td><%= member_commenters(member).count %></td>
+        <td><%= bars_created(member).count %></td>
+
+        <td><%= link_to 'Show', member %></td>
+        <td><%= link_to 'Edit', edit_member_path(member) %></td>
+        <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+</table>

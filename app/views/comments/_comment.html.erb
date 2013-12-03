@@ -1,0 +1,18 @@
+<p>
+  <strong>Commenter written by <%= comment.author %> :</strong>
+  <%= comment.commenter %>
+</p>
+
+<p>
+  <strong>Rate:</strong>
+  <%= comment.rate %>
+</p>
+
+<p>
+  <% if comment.author == current_member.name %>
+
+     <%= link_to 'Destroy Comment', [comment.bar, comment],
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+  <% end %>
+</p>

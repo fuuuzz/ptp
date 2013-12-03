@@ -1,7 +1,32 @@
-PayeTaPinte::Application.routes.draw do
-  devise_for :users
+Payetapinte::Application.routes.draw do
 
-  resources :bars
+  resources :comments
+
+
+  devise_for :members
+
+
+  resources :bars do
+    resources :comments
+  end
+
+  resources :members do
+    resources :bars
+    resources :comments
+  end
+
+  resources :preview
+
+
+  get "members/index"
+  get "members/show"
+  get "bars/preview"
+
+  authenticated :members do
+    root :to => 'welcome#index'
+  end
+  root :to => "welcome#index"
+
 
 
   # The priority is based upon order of creation:
@@ -53,7 +78,7 @@ PayeTaPinte::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'bars#index'
+  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 
