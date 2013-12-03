@@ -7,10 +7,6 @@ function init(){
 
     var bars = getBarsLocation(),
         $bars = $(".bar"),
-        barId = '',
-        barLat = '',
-        barLnt = '',
-        barName = '',
         $dContainer = '',
         distance = '';
 
@@ -55,23 +51,23 @@ function init(){
         // When the map is loaded !
         google.maps.event.addListenerOnce(map, 'idle', function(){
 
-                var userMarker = addUserMarker(user);
-                var aroundBars = getBarsAround(bars);
+            var userMarker = addUserMarker(user);
+            var aroundBars = getBarsAround(bars);
+            CreateOrDeleteBar(markers, aroundBars);
+
+            //when user drag map
+            google.maps.event.addListener(map, 'dragend', function() {
+
+                aroundBars = getBarsAround(bars);
                 CreateOrDeleteBar(markers, aroundBars);
+            }),
 
-                //when user drag map
-                google.maps.event.addListener(map, 'dragend', function() {
+            //when user zoom map
+            google.maps.event.addListener(map, 'zoom_changed', function() {
 
-                    aroundBars = getBarsAround(bars);
-                    CreateOrDeleteBar(markers, aroundBars);
-                }),
-
-                //when user zoom map
-                google.maps.event.addListener(map, 'zoom_changed', function() {
-
-                    aroundBars = getBarsAround(bars);
-                    CreateOrDeleteBar(markers, aroundBars);
-                });
+                aroundBars = getBarsAround(bars);
+                CreateOrDeleteBar(markers, aroundBars);
+            });
         });
 
         //Add the user marker on the map
@@ -120,7 +116,6 @@ function init(){
                     showBarsPreview(aroundBars[i]);
                 }
             }
-
         }
 
         //Add the marker bar on the map
@@ -131,24 +126,12 @@ function init(){
                 position: new google.maps.LatLng(bar[2], bar[3]),
                 map: map,
                 animation: google.maps.Animation.DROP,
-                icon: "http://imageshack.com/a/img51/5516/xljz.png",
+                icon: "http://imageshack.com/a/img51/5516/xljz.png"
             });
-            google.maps.event.addListener(marker[1], 'click', function() {
-                //Moving map center to a marker when clicking on it
-                var Latlng = new google.maps.LatLng(bar[2], bar[3]);
-                map.panTo(Latlng);
 
-                //Scrolling div when a marker is clicked
-                var $bar = $('div').find("[data-id-bar="+ bar[0] +"]");
-                // $('#bars-container').animate({
-                //         scrollTop: $bar.offset().top
-                //     }, {
-                //         duration: 'slow', 
-                //         easing: 'swing'
-                //     });
-                console.log(bar[1]);
-             });
             markers.push(marker);
+            centerMarker(marker, bar);
+
         }
 
         //Screen the bar preview
@@ -197,14 +180,44 @@ function init(){
 
         //Move the center of the map to bar location
         function markerMoveMap(bar){
-
             var $bar = $('div').find("[data-id-bar="+ bar[0] +"]");
 
             $bar.click(function(){
-
                 var Latlng = new google.maps.LatLng(bar[2], bar[3]);
                 map.panTo(Latlng);
             })
+        }
+
+        //Move map to marker bar and scroll bar list
+        function centerMarker(marker, bar){
+            google.maps.event.addListener(marker[1], 'click', function() {
+                //Moving map center to a marker when clicking on it
+                var Latlng = new google.maps.LatLng(bar[2], bar[3]);
+                map.panTo(Latlng);
+                scrollBarsList(marker);
+            });
+        }
+        function scrollBarsList(marker){
+            var barId = marker[0],
+                posVSid = [],
+                $barsPrev = $('.preview-container'),
+                $container = $('#cache-container'),
+                $innerContainer = $('#bars-container'),
+                barHeight = $barsPrev.height(),
+                barPos;
+
+            console.log(barHeight);
+
+            $barsPrev.each(function(index){
+                posVSid[index] = $(this).children('.preview').data('id-bar');
+
+                if (posVSid[index]==barId)
+                     barPos = index;
+            })
+
+            $innerContainer.height(barHeight*(posVSid.length+2));
+            var time = Math.abs($container.scrollTop() -  (barHeight*barPos));
+            $container.animate({scrollTop: barHeight*barPos}, time);
         }
     }
 }

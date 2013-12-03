@@ -22,7 +22,7 @@
     left: 0;
     z-index: 10;
   }
-  #bars-container{
+  #cache-container{
     height: 170px;
     z-index: 100;
     bottom: 0;
@@ -30,5 +30,12 @@
     left: 0;
     width: 100%;
     background-color: #fff;
+    overflow-y: auto;
+    #bars-container{
+      position: relative;
+      background-color: #fff;
+
+    }
   }
+
 }
