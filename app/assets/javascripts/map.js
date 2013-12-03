@@ -116,7 +116,6 @@ function init(){
                     showBarsPreview(aroundBars[i]);
                 }
             }
-            $container.height($container.height + barHeight*2);
         }
 
         //Add the marker bar on the map
