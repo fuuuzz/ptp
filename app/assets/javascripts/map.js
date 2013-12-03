@@ -119,7 +119,6 @@ function init(){
                     addBarMarker(aroundBars[i]);
                     showBarsPreview(aroundBars[i]);
                 }
-                console.log(i);
             }
 
         }
@@ -141,12 +140,12 @@ function init(){
 
                 //Scrolling div when a marker is clicked
                 var $bar = $('div').find("[data-id-bar="+ bar[0] +"]");
-                $('#bars-container').animate({
-                        scrollTop: $bar.offset().top -100
-                    }, {
-                        duration: 'slow', 
-                        easing: 'swing'
-                    });
+                // $('#bars-container').animate({
+                //         scrollTop: $bar.offset().top
+                //     }, {
+                //         duration: 'slow', 
+                //         easing: 'swing'
+                //     });
                 console.log(bar[1]);
              });
             markers.push(marker);
