@@ -216,7 +216,7 @@ function init(){
             })
 
             $innerContainer.height(barHeight*(posVSid.length+2));
-            var time = Math.abs($container.scrollTop() -  (barHeight*barPos));
+            var time = Math.abs($container.scrollTop() -  (barHeight*barPos))*2;
             $container.animate({scrollTop: barHeight*barPos}, time);
         }
     }
