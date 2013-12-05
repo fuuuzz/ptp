@@ -149,6 +149,7 @@ function init(){
             });
         }
 
+
         //Calcul the distance between user and bars
         function distanceUserBar(bars){
 
