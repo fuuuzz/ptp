@@ -38,8 +38,18 @@
       }
       .more-btn{
         width: 60px;
+        height: 50px;
+        z-index: 200;
 
       }
     }
   }
+}
+#page-container{
+  position: absolute;
+  z-index: 300;
+  bottom: 180px;
+  left: 0;
+  height: 180px;
+  width: 100%;
 }

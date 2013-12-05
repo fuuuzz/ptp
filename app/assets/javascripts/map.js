@@ -146,7 +146,27 @@ function init(){
                 $( "#bars-container" ).append( data );
                 showDistance(bar);
                 markerMoveMap(bar);
-            });
+                showBarPage(bar);
+
+                });
+        }
+
+        //Screen the bar page
+        function showBarPage(bar){
+            var $pageBtn = $('div').find("[data-id-bar="+ bar[0] +"]").find('.more-btn');
+            console.log($pageBtn);
+
+            $pageBtn.on('click', function(){
+                var previewUrl = window.location.origin + '/page/' + bar[0];
+                console.log(bar[1]);
+                $.ajax({
+                    url: previewUrl,
+                    cache: true
+                })
+                    .done(function( page ) {
+                        $( "#bar-page" ).append( page );
+                    });
+            })
         }
 
 
