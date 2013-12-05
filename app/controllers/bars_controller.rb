@@ -1,5 +1,4 @@
 class BarsController < ApplicationController
-  layout "admin"
 
   before_filter :authenticate_member!, :except => [:index]
 
