@@ -154,7 +154,7 @@ function init(){
         //Screen the bar page
         function showBarPage(bar){
             var $pageBtn = $('div').find("[data-id-bar="+ bar[0] +"]").find('.more-btn');
-            console.log($pageBtn);
+            var $barsContainer = $('#bars');
 
             $pageBtn.on('click', function(){
                 var previewUrl = window.location.origin + '/page/' + bar[0];
@@ -165,6 +165,13 @@ function init(){
                 })
                     .done(function( page ) {
                         $( "#bar-page" ).append( page );
+                        $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
+
+                        $('.close').on('click', function(){
+                            $barsContainer.animate({left:0}, 300, function(){
+                                $('.fiche-bar').remove();
+                            });
+                        })
                     });
             })
         }
