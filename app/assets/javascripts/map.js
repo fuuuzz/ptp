@@ -9,7 +9,8 @@ function init(){
         $bars = $(".bar"),
         $dContainer = '',
         i,
-        distance = '';
+        distance = '',
+        dfd = $.Deferred;
 
     // Geolocation from user :
     function getLocation()
@@ -24,8 +25,8 @@ function init(){
     // Generate map and marker :
     function setup_map(position){
 
-        var user = [44.8356423, -0.5729913];
-//        var user = [position.coords.latitude, position.coords.longitude];
+//        var user = [44.8356423, -0.5729913];
+        var user = [position.coords.latitude, position.coords.longitude];
 
         var options = {
             zoom: 15,
@@ -56,15 +57,14 @@ function init(){
             var aroundBars = getBarsAround(bars);
             CreateOrDeleteBar(markers, aroundBars);
 
-            setupPanelOthers();
 
+            setupPanelOthers();
 
             //when user drag map
             google.maps.event.addListener(map, 'dragend', function() {
 
                 aroundBars = getBarsAround(bars);
                 CreateOrDeleteBar(markers, aroundBars);
-                reorganizeBarsList(aroundBars);
 
             }),
 
@@ -73,6 +73,7 @@ function init(){
 
                 aroundBars = getBarsAround(bars);
                 CreateOrDeleteBar(markers, aroundBars);
+
             });
         });
 
@@ -152,6 +153,7 @@ function init(){
                 showDistance(bar);
                 markerMoveMap(bar);
                 showBarPage(bar);
+                reorganizeBarsList();
             });
         }
 
@@ -169,10 +171,12 @@ function init(){
                 .done(function( page ) {
                     $( "#bar-page" ).append( page );
                     $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
+                    map.setZoom(16);
 
                     showComments();
 
                     $('.close').on('click', function(){
+                        map.setZoom(15);
                         $barsContainer.animate({left:0}, 300, function(){
                             $('.fiche-bar').remove();
                         });
@@ -272,18 +276,21 @@ function init(){
         function reorganizeBarsList(){
             var $barsPrev = $('.preview-container'), distanceT = [];
 
-            $barsPrev.each(function(){
+            $barsPrev.each(function(i){
                 var barDistance = $(this).contents().find('.distance').text();
                 barDistance = barDistance.replace ( /[^\d.]/g, '' );
                 barDistance = parseInt(barDistance);
                 distanceT.push(Array(barDistance, $(this)) );
 
             })
+
             distanceT.sort(sortNumber);
-                function sortNumber(a,b) {
-                    return a - b;
-                }
             console.log(distanceT);
+
+            function sortNumber(a,b) {
+                return a[0] - b[0];
+            }
+
             for(i = 0; i < distanceT.length-1; i++){
                 var j = i+1
                 distanceT[i][1].after(distanceT[j][1]);
