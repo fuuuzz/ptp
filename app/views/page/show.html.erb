@@ -1,23 +1,18 @@
 <div class="fiche-bar">
   <p>
-    <b>Name:</b>
-    <%= @bar.name %>
-    <small> <%= @bar.id %></small>
+    <h3><%= @bar.name %></h3>
   </p>
 
-  <p>
-    <b>Price:</b>
-    <%= @bar.price %>
+  <p class="price">
+    <%= @bar.price %>€
   </p>
 
-  <p>
-    <b>Address:</b>
+  <p class="address">
     <%= @bar.address %>
   </p>
 
-  <p>
-    <b>Rate Global:</b>
-    <%= give_bar_rate(@bar) %>
+  <p class="global-rate">
+    <%= give_bar_rate(@bar) %>/5
   </p>
   <div class="close">[x]</div>
 </div>

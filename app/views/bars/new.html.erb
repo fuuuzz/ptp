@@ -1,5 +1,9 @@
-<h1>New bar</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', bars_path %>
+<div id="new-bar">
+    <h2>Ajoutez un bar !</h2>
+    <% if member_signed_in? %>
+         <%= render 'form' %>
+    <% else %>
+         <%= link_to 'Connectez vous !', new_member_session_path %>
+    <% end %>
+    <div id="close-new">[x]</div>
+</div>

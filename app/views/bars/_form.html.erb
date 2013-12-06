@@ -1,4 +1,4 @@
-<div class="bar-form">
+<div class="bar-form" onload="initialize()">
     <%= form_for(@bar) do |f| %>
       <% if @bar.errors.any? %>
         <div id="error_explanation">
@@ -13,16 +13,13 @@
       <% end %>
 
       <div class="field">
-        <%= f.label :name %><br />
-        <%= f.text_field :name %>
+        <%= f.text_field :name, placeholder: 'Nom du bar...' %>
       </div>
       <div class="field">
-        <%= f.label :price %><br />
-        <%= f.text_field :price %>
+        <%= f.text_field :price, placeholder: 'Prix de la pinte...' %>
       </div>
-      <div class="field">
-        <%= f.label :address %><br />
-        <%= f.text_field :address, onFocus: 'geolocate()', autocomplete: 'off' %>
+      <div class="field" id="locationField">
+        <%= f.text_field :address, placeholder: 'Adresse...', autocomplete: 'off', onFocus: 'geolocate()' %>
       </div>
       <%= hidden_field(:bar, :member_id, :value=> current_member.id) %>
       <div class="actions">
