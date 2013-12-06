@@ -57,7 +57,7 @@ function init(){
             var aroundBars = getBarsAround(bars);
             CreateOrDeleteBar(markers, aroundBars);
 
-
+            searchPlace();
             setupPanelOthers();
 
             //when user drag map
@@ -278,6 +278,39 @@ function init(){
                 distanceT[i][1].after(distanceT[j][1]);
             }
 
+        }
+
+        function searchPlace() {
+
+
+            // Create the search box and link it to the UI element.
+            var input = (document.getElementById('pac-input'));
+
+//            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+
+            var searchBox = new google.maps.places.SearchBox((input));
+
+            // Listen for the event fired when the user selects an item from the
+            // pick list. Retrieve the matching places for that item.
+            google.maps.event.addListener(searchBox, 'places_changed', function() {
+                var places = searchBox.getPlaces();
+                var bounds = new google.maps.LatLngBounds();
+
+                for (var i = 0, place; place = places[i]; i++) {
+                    bounds.extend(place.geometry.location);
+                }
+                map.fitBounds(bounds);
+                map.setZoom(15);
+            });
+
+            // Bias the SearchBox results towards places that are within the bounds of the
+            // current map's viewport.
+            google.maps.event.addListener(map, 'bounds_changed', function() {
+                var bounds = map.getBounds();
+                searchBox.setBounds(bounds);
+            });
         }
     }
 }
