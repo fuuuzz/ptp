@@ -154,6 +154,7 @@ function init(){
                 markerMoveMap(bar);
                 showBarPage(bar);
                 reorganizeBarsList();
+                showComments();
             });
         }
 
@@ -189,14 +190,20 @@ function init(){
         function showComments(){
             var $commentsBtn = $('.comments-btn');
                 $commentsContainer = $ ('.comments-container');
-            console.log($commentsContainer.height);
-        
+                $commentsContainerHeight = $('#bar-page').height();
+            console.log(-$commentsContainerHeight);
+
+            $commentsContainer.css('top', $commentsContainerHeight + 'px'); 
+
+            
+            $commentsContainer.hide();
             $commentsBtn.on('click', function(){
-                $commentsContainer.animate({left: -($commentsContainer.width()/2)}, 300);
+                $('#bar-page').css('top', '-300px');
+                $commentsContainer.show();
+                $commentsContainer.animate({top: 0}, 300);
 
                 $commentsBtn.on('click', function(){
                     $commentsContainer.hide();
-                    $('#bar-page').show();
                 })
             })
         }
