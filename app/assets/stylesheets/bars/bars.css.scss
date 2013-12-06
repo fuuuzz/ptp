@@ -6,9 +6,19 @@
 #bars{
   width: 200%;
   position: absolute;
-  height: 180px;
+  height: 170px;
   bottom: 0;
   z-index: 100;
+  #cache-container{
+    height: 170px;
+    z-index: 100;
+    bottom: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    overflow-y: auto;
+  }
   #bars-container{
     width: 50%;
     height: 180px;

@@ -5,6 +5,8 @@
   position: relative;
   margin: 0 auto;
   overflow: hidden;
+  border: solid 1px #DDD;
+  margin-top: -100px;
   #header{
     height: 60px;
     z-index: 100;
@@ -22,20 +24,13 @@
     left: 0;
     z-index: 10;
   }
-  #cache-container{
-    height: 170px;
-    z-index: 100;
-    bottom: 0;
-    position: absolute;
-    left: 0;
+  #others{
+    background-color: rgba(255, 255, 255, 0.8);
     width: 100%;
-    background-color: #fff;
-    overflow-y: auto;
-    #bars-container{
-      position: relative;
-      background-color: #fff;
-
-    }
+    bottom: 170px;
+    position: absolute;
+    z-index: 200;
+    left: 100%;
   }
 
 }
