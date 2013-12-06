@@ -25,8 +25,8 @@ function init(){
     // Generate map and marker :
     function setup_map(position){
 
-        var user = [44.8356423, -0.5729913];
-//        var user = [position.coords.latitude, position.coords.longitude];
+//        var user = [44.8356423, -0.5729913];
+        var user = [position.coords.latitude, position.coords.longitude];
 
         var options = {
             zoom: 15,
