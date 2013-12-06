@@ -40,7 +40,7 @@ function autocompleteNew() {
     // Create the search box and link it to the UI element.
     var input = (document.getElementById('bar_address'));
 
-    var searchBox = new google.maps.places.SearchBox((input,options));
+    var searchBox = new google.maps.places.SearchBox((input));
 
     // Bias the SearchBox results towards places that are within the bounds of the
     // current map's viewport.
