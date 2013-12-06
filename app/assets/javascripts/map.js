@@ -138,7 +138,6 @@ function init(){
 
             markers.push(marker);
             centerMarker(marker, bar);
-
         }
 
         //Screen the bar preview
@@ -172,10 +171,8 @@ function init(){
                 .done(function( page ) {
                     $( "#bar-page" ).append( page );
                     $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
-                    map.setZoom(16);
 
                     $('.close').on('click', function(){
-                        map.setZoom(15);
                         $barsContainer.animate({left:0}, 300, function(){
                             $('.fiche-bar').remove();
                         });
@@ -183,7 +180,6 @@ function init(){
                 });
             })
         }
-
 
         //Calcul the distance between user and bars
         function distanceUserBar(bars){
