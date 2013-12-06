@@ -1,5 +1,6 @@
 class BarsController < ApplicationController
-  layout "ajax"
+  layout "ajax", :only =>  [:new]
+  #layout "admin", :except =>  [:new]
 
   before_filter :authenticate_member!, :except => [:index, :new]
 
@@ -49,7 +50,7 @@ class BarsController < ApplicationController
 
     respond_to do |format|
       if @bar.save
-        format.html { redirect_to @bar, notice: 'Bar was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Bar was successfully created.' }
         format.json { render json: @bar, status: :created, location: @bar }
       else
         format.html { render action: "new" }

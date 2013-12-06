@@ -8,11 +8,6 @@ function setupPanelOthers(){
     showAddBarInterface();
 
 
-
-
-
-
-
     //Add a bar
     function showAddBarInterface(){
         var $addBar = $('#add-bar');
