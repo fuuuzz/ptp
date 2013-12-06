@@ -131,7 +131,6 @@ function init(){
 
             markers.push(marker);
             centerMarker(marker, bar);
-
         }
 
         //Screen the bar preview
@@ -152,7 +151,7 @@ function init(){
         }
 
         //Screen the bar page
-        function showBarPage(bar){
+        function showBarPage(bar, markers){
             var $pageBtn = $('div').find("[data-id-bar="+ bar[0] +"]").find('.more-btn');
             var $barsContainer = $('#bars');
 
@@ -166,6 +165,7 @@ function init(){
                     .done(function( page ) {
                         $( "#bar-page" ).append( page );
                         $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
+                        hideMarkers(markers);
 
                         $('.close').on('click', function(){
                             $barsContainer.animate({left:0}, 300, function(){
@@ -176,6 +176,12 @@ function init(){
             })
         }
 
+        // hide unselected bars's markers
+        // function hideMarkers(markers){
+        //     for(var i = 0; i < markers.length; i++){
+
+        //     }
+        // }
 
         //Calcul the distance between user and bars
         function distanceUserBar(bars){
