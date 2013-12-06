@@ -8,6 +8,7 @@ function init(){
     var bars = getBarsLocation(),
         $bars = $(".bar"),
         $dContainer = '',
+        i,
         distance = '';
 
     // Geolocation from user :
@@ -55,11 +56,16 @@ function init(){
             var aroundBars = getBarsAround(bars);
             CreateOrDeleteBar(markers, aroundBars);
 
+            setupPanelOthers();
+
+
             //when user drag map
             google.maps.event.addListener(map, 'dragend', function() {
 
                 aroundBars = getBarsAround(bars);
                 CreateOrDeleteBar(markers, aroundBars);
+                reorganizeBarsList(aroundBars);
+
             }),
 
             //when user zoom map
@@ -148,31 +154,32 @@ function init(){
                 markerMoveMap(bar);
                 showBarPage(bar);
 
-                });
+            });
         }
 
         //Screen the bar page
         function showBarPage(bar){
-            var $pageBtn = $('div').find("[data-id-bar="+ bar[0] +"]").find('.more-btn');
+            var $pageBtn = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").find('.more-btn');
             var $barsContainer = $('#bars');
 
             $pageBtn.on('click', function(){
                 var previewUrl = window.location.origin + '/page/' + bar[0];
-                console.log(bar[1]);
                 $.ajax({
                     url: previewUrl,
                     cache: true
                 })
-                    .done(function( page ) {
-                        $( "#bar-page" ).append( page );
-                        $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
+                .done(function( page ) {
+                    $( "#bar-page" ).append( page );
+                    $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
+                    map.setZoom(16);
 
-                        $('.close').on('click', function(){
-                            $barsContainer.animate({left:0}, 300, function(){
-                                $('.fiche-bar').remove();
-                            });
-                        })
-                    });
+                    $('.close').on('click', function(){
+                        map.setZoom(15);
+                        $barsContainer.animate({left:0}, 300, function(){
+                            $('.fiche-bar').remove();
+                        });
+                    })
+                });
             })
         }
 
@@ -202,13 +209,13 @@ function init(){
 
         //Screen the distance between user and the bar
         function showDistance(bar){
-            $dContainer = $("div").find("[data-id-bar="+ bar[0] +"]").contents().find('.distance');
+            $dContainer = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").contents().find('.distance');
             $dContainer.text(+bar[4]+"m");
         }
 
         //Move the center of the map to bar location
         function markerMoveMap(bar){
-            var $bar = $('div').find("[data-id-bar="+ bar[0] +"]");
+            var $bar = $('.preview-container').find("[data-id-bar="+ bar[0] +"]");
 
             $bar.click(function(){
                 var Latlng = new google.maps.LatLng(bar[2], bar[3]);
@@ -225,6 +232,8 @@ function init(){
                 scrollBarsList(marker);
             });
         }
+
+        //Scroll the bars list on click on marker
         function scrollBarsList(marker){
             var barId = marker[0],
                 posVSid = [],
@@ -233,8 +242,6 @@ function init(){
                 $innerContainer = $('#bars-container'),
                 barHeight = $barsPrev.height(),
                 barPos;
-
-            console.log(barHeight);
 
             $barsPrev.each(function(index){
                 posVSid[index] = $(this).children('.preview').data('id-bar');
@@ -246,6 +253,29 @@ function init(){
             $innerContainer.height(barHeight*(posVSid.length+2));
             var time = Math.abs($container.scrollTop() -  (barHeight*barPos))*2;
             $container.animate({scrollTop: barHeight*barPos}, time);
+        }
+
+        //Reorganize bars list by distance (or price?)
+        function reorganizeBarsList(){
+            var $barsPrev = $('.preview-container'), distanceT = [];
+
+            $barsPrev.each(function(){
+                var barDistance = $(this).contents().find('.distance').text();
+                barDistance = barDistance.replace ( /[^\d.]/g, '' );
+                barDistance = parseInt(barDistance);
+                distanceT.push(Array(barDistance, $(this)) );
+
+            })
+            distanceT.sort(sortNumber);
+                function sortNumber(a,b) {
+                    return a - b;
+                }
+            console.log(distanceT);
+            for(i = 0; i < distanceT.length-1; i++){
+                var j = i+1
+                distanceT[i][1].after(distanceT[j][1]);
+            }
+
         }
     }
 }
@@ -280,3 +310,5 @@ function calculHaversine(barLat, barLnt, userLat, userLnt) {
     var d = R * c;
     return d.toFixed(3);
 }
+
+
