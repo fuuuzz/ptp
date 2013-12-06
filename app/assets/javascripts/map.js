@@ -152,7 +152,6 @@ function init(){
                 showDistance(bar);
                 markerMoveMap(bar);
                 showBarPage(bar);
-
             });
         }
 
@@ -171,12 +170,30 @@ function init(){
                     $( "#bar-page" ).append( page );
                     $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
 
+                    showComments();
+
                     $('.close').on('click', function(){
                         $barsContainer.animate({left:0}, 300, function(){
                             $('.fiche-bar').remove();
                         });
                     })
                 });
+            })
+        }
+
+        //Show bars comments
+        function showComments(){
+            var $commentsBtn = $('.comments-btn');
+                $commentsContainer = $ ('.comments-container');
+            console.log($commentsContainer.height);
+        
+            $commentsBtn.on('click', function(){
+                $commentsContainer.animate({left: -($commentsContainer.width()/2)}, 300);
+
+                $commentsBtn.on('click', function(){
+                    $commentsContainer.hide();
+                    $('#bar-page').show();
+                })
             })
         }
 

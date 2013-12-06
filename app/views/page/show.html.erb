@@ -14,5 +14,13 @@
   <p class="global-rate">
     <%= give_bar_rate(@bar) %>/5
   </p>
+  <p class="comments-btn" data-id-bar="<%= @bar.id %>">
+    See comments
+  </p>
   <div class="close">[x]</div>
+  
+  <div class="comments-container">
+    <%= render 'comments/bar_comments' %>
+  </div>
+
 </div>
