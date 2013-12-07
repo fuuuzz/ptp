@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   layout "admin"
 
-  before_filter :authenticate_member!
-
+  before_filter :authenticate_member
+  
   def create
     @bar = Bar.find(params[:bar_id])
     @comment = @bar.comments.create(params[:comment])

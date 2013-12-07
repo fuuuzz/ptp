@@ -140,6 +140,8 @@ function init(){
             centerMarker(marker, bar);
         }
 
+        var commentBox;
+
         //Screen the bar preview
         function showBarsPreview(bar){
             var previewUrl = window.location.origin + '/preview/' + bar[0];
@@ -173,15 +175,122 @@ function init(){
                     $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
                     map.setZoom(16);
 
+                    commentBox = new CommentBox();
+
                     $('.close').on('click', function(){
                         map.setZoom(15);
                         $barsContainer.animate({left:0}, 300, function(){
-                            $('.fiche-bar').remove();
+                            $('#fiche-bar').remove();
                         });
                     })
                 });
             })
         }
+
+        // //Show bars comments
+        // function showComments(){
+        //     var isOpen = false,
+        //         $commentsBtn = $(''),
+        //         $commentsContainer = $ ('.comments-container'),
+        //         $commentsContainerHeight = $('#fiche-bar').height(),
+        //         $screenHeight = ($('#mobile-container').height()-$commentsContainerHeight),
+        //         $entirePage = $('#bars');
+            
+        //     $commentsContainer.css('top', $commentsContainerHeight+'px');
+
+        //     $commentsBtn.on('click', function(){
+        //         if(isOpen){
+        //             downComments();
+        //         }
+        //         else{
+        //             upComments();
+        //         }
+        //     })
+
+
+        //     // $commentsBtn.on('click', function(){
+        //     //     $('#cache-container').css('background-color', 'rgba(255,255,255, 0.8)');
+                
+        //     //     $entirePage.animate({bottom:$screenHeight-60}, 300);
+
+        //     //     $commentsBtn.on('click', function(){
+        //     //         $entirePage.animate({top:$screenHeight}, 300);
+        //     //     })
+        //     // })
+        // }
+
+        // function upComments() {
+        //         $('#cache-container').css('background-color', 'rgba(255,255,255, 0.8)');
+        //         $entirePage.animate({bottom:$screenHeight-60}, 300);
+        //         isOpen = true;
+        //     }
+
+        // function downComments() {
+        //         $entirePage.animate({bottom: 0}, 300);
+        //         $('#cache-container').css('background-color', 'rgba(255,255,255,1)');
+        //         isOpen = false;
+        //     }
+
+        CommentBox = function ($el) {
+            this.isOpen = false;
+
+            this.init();
+
+        };
+        CommentBox.prototype = {
+            init: function () {
+                this.$container = $('#fiche-bar'),
+                this.$upHeight = $('#mobile-container').height() - this.$container.height() - 60;
+                this.$openButton = $('.comments-btn');
+                this.$commentsContainer = this.$container.find('.comments-container');
+                this.$closeButton = $('.close');
+                console.log(this.$closeButton);
+
+                this.$commentsContainer.css('top', this.$container.height() + 'px');
+
+                this.positions = {
+                    'opened': {
+                        'y': this.$upHeight
+                    },
+                    'closed': {
+                        'y': 0
+                    }
+                };
+                this.transitionProperties = {
+                    'duration': 400
+                }
+                this.events();
+            },
+            open: function () {
+                this.$container.addClass('open');
+                this.$container.css('background-color', 'rgba(255,255,255, 0.8)');
+                this.$container.animate({'bottom': this.positions.opened.y}, 400);
+                this.$openButton.text('Hide comments');
+            },
+            close: function () {
+                this.$container.removeClass('open');
+                this.$container.animate({'bottom': this.positions.closed.y}, 400);
+                this.$openButton.text('Show comments');
+            },
+            events: function () {
+                var that = this;
+                this.$openButton.on('click', function (e) {
+                    if(that.isOpen){
+                        that.close();
+                        that.isOpen = false;
+                    }
+                    else{
+                        that.open();
+                        that.isOpen = true;
+                    }
+                });
+
+                this.$closeButton.on('click', function (e) {
+                    that.close();
+                });
+
+            }
+        };
 
         //Calcul the distance between user and bars
         function distanceUserBar(bars){
