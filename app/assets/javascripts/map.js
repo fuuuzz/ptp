@@ -281,6 +281,9 @@ function init(){
         }
 
         function searchPlace() {
+            var options = {
+                componentRestrictions: { country: 'fr'}
+            }
 
             // Create the search box and link it to the UI element.
             var input = (document.getElementById('pac-input'));

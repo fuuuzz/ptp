@@ -2,8 +2,11 @@
     <h2>Ajoutez un bar !</h2>
     <% if member_signed_in? %>
          <%= render 'form' %>
+         <%= javascript_tag "autocompleteNew()" %>
     <% else %>
-         <%= link_to 'Connectez vous !', new_member_session_path %>
+      <div id="signIn">
+        <%= javascript_tag "showSignIn()" %>
+      </div>
     <% end %>
     <div id="close-new">[x]</div>
 </div>

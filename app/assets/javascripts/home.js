@@ -20,11 +20,12 @@ function setupPanelOthers(){
             .done(function( newbar ) {
                 $pannelOthers.append( newbar );
                 $pannelOthers.animate({left: 0}, 300);
-                autocompleteNew();
 
                 $('#close-new').on('click', function(){
+
                     $pannelOthers.animate({left:'100%'}, 300, function(){
-                        $('#new-bar').remove();
+                    $('#new-bar').remove();
+
                     });
                 })
             });
@@ -37,16 +38,18 @@ function autocompleteNew() {
     var options = {
         componentRestrictions: { country: 'fr'}
     }
-    // Create the search box and link it to the UI element.
     var input = (document.getElementById('bar_address'));
-
-    var searchBox = new google.maps.places.SearchBox((input));
-
-    // Bias the SearchBox results towards places that are within the bounds of the
-    // current map's viewport.
-    google.maps.event.addListener(map, 'bounds_changed', function() {
-        var bounds = map.getBounds();
-        searchBox.setBounds(bounds);
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+}
+//Show the sign in menu
+function showSignIn(){
+    var $signIn = $('#signIn');
+    $.ajax({
+        url:  window.location.origin + '/members/sign_in',
+        cache: true
+    })
+    .done(function( signin ) {
+        $signIn.append( signin );
     });
 }
 
