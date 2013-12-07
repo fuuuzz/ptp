@@ -1,13 +1,11 @@
 class CommentsController < ApplicationController
-  layout "admin"
+  layout "ajax"
 
-  before_filter :authenticate_member
-  
   def create
     @bar = Bar.find(params[:bar_id])
     @comment = @bar.comments.create(params[:comment])
 
-    redirect_to bar_path(@bar)
+    redirect_to root_path
   end
 
   def update

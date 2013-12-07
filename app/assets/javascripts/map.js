@@ -7,7 +7,6 @@ function init(){
 
     var bars = getBarsLocation(),
         $bars = $(".bar"),
-        $dContainer = '',
         i,
         distance = '',
         dfd = $.Deferred;
@@ -152,10 +151,11 @@ function init(){
             })
             .done(function( data ) {
                 $( "#bars-container" ).append( data );
-                showDistance(bar);
+                showDistanceRate(bar);
                 markerMoveMap(bar);
                 showBarPage(bar);
                 reorganizeBarsList();
+
             });
         }
 
@@ -187,50 +187,6 @@ function init(){
             })
         }
 
-        // //Show bars comments
-        // function showComments(){
-        //     var isOpen = false,
-        //         $commentsBtn = $(''),
-        //         $commentsContainer = $ ('.comments-container'),
-        //         $commentsContainerHeight = $('#fiche-bar').height(),
-        //         $screenHeight = ($('#mobile-container').height()-$commentsContainerHeight),
-        //         $entirePage = $('#bars');
-            
-        //     $commentsContainer.css('top', $commentsContainerHeight+'px');
-
-        //     $commentsBtn.on('click', function(){
-        //         if(isOpen){
-        //             downComments();
-        //         }
-        //         else{
-        //             upComments();
-        //         }
-        //     })
-
-
-        //     // $commentsBtn.on('click', function(){
-        //     //     $('#cache-container').css('background-color', 'rgba(255,255,255, 0.8)');
-                
-        //     //     $entirePage.animate({bottom:$screenHeight-60}, 300);
-
-        //     //     $commentsBtn.on('click', function(){
-        //     //         $entirePage.animate({top:$screenHeight}, 300);
-        //     //     })
-        //     // })
-        // }
-
-        // function upComments() {
-        //         $('#cache-container').css('background-color', 'rgba(255,255,255, 0.8)');
-        //         $entirePage.animate({bottom:$screenHeight-60}, 300);
-        //         isOpen = true;
-        //     }
-
-        // function downComments() {
-        //         $entirePage.animate({bottom: 0}, 300);
-        //         $('#cache-container').css('background-color', 'rgba(255,255,255,1)');
-        //         isOpen = false;
-        //     }
-
         CommentBox = function ($el) {
             this.isOpen = false;
 
@@ -244,7 +200,6 @@ function init(){
                 this.$openButton = $('.comments-btn');
                 this.$commentsContainer = this.$container.find('.comments-container');
                 this.$closeButton = $('.close');
-                console.log(this.$closeButton);
 
                 this.$commentsContainer.css('top', this.$container.height() + 'px');
 
@@ -263,7 +218,6 @@ function init(){
             },
             open: function () {
                 this.$container.addClass('open');
-                this.$container.css('background-color', 'rgba(255,255,255, 0.8)');
                 this.$container.animate({'bottom': this.positions.opened.y}, 400);
                 this.$openButton.text('Hide comments');
             },
@@ -299,6 +253,7 @@ function init(){
 
             for (var i = 0; i < bars.length; i++) {
                 distance = calculHaversine(bars[i][2], bars[i][3], user[0], user[1])*1000;
+                distance = Math.round(distance/10)*10 //arrondir au dixième;
                 bars[i][4] = distance;
             }
 
@@ -316,9 +271,14 @@ function init(){
         }
 
         //Screen the distance between user and the bar
-        function showDistance(bar){
-            $dContainer = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").contents().find('.distance');
+        function showDistanceRate(bar){
+            var $bar =  $('.preview-container').find("[data-id-bar="+ bar[0] +"]"),
+                $dContainer = $bar.contents().find('.distance'),
+                $jauge = $bar.contents().find('.jauge'),
+                globalRate = $bar.data('rate');
+
             $dContainer.text(+bar[4]+"m");
+            $jauge.width((globalRate/5*100)+'%');
         }
 
         //Move the center of the map to bar location
@@ -376,7 +336,6 @@ function init(){
             })
 
             distanceT.sort(sortNumber);
-            console.log(distanceT);
 
             function sortNumber(a,b) {
                 return a[0] - b[0];

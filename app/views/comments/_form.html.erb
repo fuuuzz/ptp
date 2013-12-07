@@ -1,7 +1,7 @@
 <%= form_for([@bar, @bar.comments.build]) do |f| %>
     <p>
       <%= f.label :commenter %><br />
-      <%= f.text_area :commenter %>
+      <%= f.text_field :commenter %>
     </p>
     <p>
       <%= f.label :rate %><br />

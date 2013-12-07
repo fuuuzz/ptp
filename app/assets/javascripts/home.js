@@ -1,9 +1,9 @@
 function setupPanelOthers(){
-    var $pannelOthers = $('#others'),
+    var $panelOthers = $('#others'),
         phoneHeight = $('#mobile-container').height(),
         barsHeight = $('#bars').height();
 
-    $pannelOthers.height(phoneHeight-barsHeight-60);
+    $panelOthers.height(phoneHeight-barsHeight-60);
 
     showAddBarInterface();
 
@@ -18,18 +18,25 @@ function setupPanelOthers(){
                 cache: true
             })
             .done(function( newbar ) {
-                $pannelOthers.append( newbar );
-                $pannelOthers.animate({left: 0}, 300);
 
+                openPanelOthers(newbar);
+                $addBar.hide();
                 $('#close-new').on('click', function(){
-
-                    $pannelOthers.animate({left:'100%'}, 300, function(){
-                    $('#new-bar').remove();
-
-                    });
+                    closePanelOthers();
+                    $addBar.show();
                 })
             });
         })
+    }
+
+    function closePanelOthers(){
+        $panelOthers.animate({left:'100%'}, 300, function(){
+            $panelOthers.contents().remove();
+        });
+    }
+    function openPanelOthers(within){
+        $panelOthers.append( within );
+        $panelOthers.animate({left: 0}, 300);
     }
 }
 
@@ -41,6 +48,9 @@ function autocompleteNew() {
     var input = (document.getElementById('bar_address'));
     var autocomplete = new google.maps.places.Autocomplete(input, options);
 }
+
+
+
 //Show the sign in menu
 function showSignIn(){
     var $signIn = $('#signIn');
@@ -52,4 +62,17 @@ function showSignIn(){
         $signIn.append( signin );
     });
 }
-
+//Show the Sign Up menu
+function showSignUp(){
+    var $signIn = $('#signIn');
+    $.ajax({
+        url:  window.location.origin + '/members/sign_up',
+        cache: true
+    })
+        .done(function( signup ) {
+            $signIn.contents().remove();
+            $signIn.append(
+                "<div id='SignUp>'" + signup + "</div>"
+            )
+        });
+}
