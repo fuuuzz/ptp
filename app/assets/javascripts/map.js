@@ -281,17 +281,9 @@ function init(){
         }
 
         function searchPlace() {
-            var options = {
-                componentRestrictions: { country: 'fr'}
-            }
-
-            // Create the search box and link it to the UI element.
             var input = (document.getElementById('pac-input'));
-
             var searchBox = new google.maps.places.SearchBox((input));
 
-            // Listen for the event fired when the user selects an item from the
-            // pick list. Retrieve the matching places for that item.
             google.maps.event.addListener(searchBox, 'places_changed', function() {
                 var places = searchBox.getPlaces();
                 var bounds = new google.maps.LatLngBounds();
