@@ -22,11 +22,34 @@ function setupPanelOthers(){
                 $pannelOthers.animate({left: 0}, 300);
 
                 $('#close-new').on('click', function(){
+
                     $pannelOthers.animate({left:'100%'}, 300, function(){
-                        $('#new-bar').remove();
+                    $('#new-bar').remove();
+
                     });
                 })
             });
         })
     }
 }
+
+//autocomplete for new bar form
+function autocompleteNew() {
+    var options = {
+        componentRestrictions: { country: 'fr'}
+    }
+    var input = (document.getElementById('bar_address'));
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+}
+//Show the sign in menu
+function showSignIn(){
+    var $signIn = $('#signIn');
+    $.ajax({
+        url:  window.location.origin + '/members/sign_in',
+        cache: true
+    })
+    .done(function( signin ) {
+        $signIn.append( signin );
+    });
+}
+

@@ -2,7 +2,7 @@ class BarsController < ApplicationController
   layout "ajax", :only =>  [:new]
   #layout "admin", :except =>  [:new]
 
-  before_filter :authenticate_member!, :except => [:index, :new]
+  #before_filter :authenticate_member!, :except => [:index, :new]
 
   # GET /bars
   # GET /bars.json
