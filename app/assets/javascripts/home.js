@@ -77,6 +77,32 @@ function showSignUp(){
         });
 }
 
+//Show/Hide options panel
+function showHideOptions(){
+    var $optionsBox = $('#options'),
+        $btnOptions = $('#btn-opt'),
+        isOpened = false;
+
+    $optionsBox.hide();
+
+    $btnOptions.on('click', function(){
+        if (isOpened){
+            $optionsBox.animate({top: -10}, 300, function(){
+                $(this).hide()
+            });
+            isOpened=false;
+            $btnOptions.text('+');
+        }else{
+            $optionsBox.show();
+            $optionsBox.animate({top: 60}, 300);
+            isOpened=true;
+            $btnOptions.text('-');
+        }
+    })
+
+
+}
 $(window).load(function(){
    map();
+   showHideOptions();
 });

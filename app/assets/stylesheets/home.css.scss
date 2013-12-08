@@ -18,17 +18,26 @@
     img{
       width: 160px;
       height: auto;
-      margin: 10px auto;
+      margin: 7px auto;
       display: block;
     }
+  }
+  #btn-opt{
+    font-size: 40px;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
   }
   #options{
     height: 40px;
     width: 100%;
     background-color: #fff;
-    position: relative;
+    position: absolute;
     z-index: 90;
-    top: 60px;
+    top: -10px;
   }
   #map{
     width: 100%;
