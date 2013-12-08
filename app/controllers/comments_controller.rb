@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @bar.update_attributes(params[:bar])
-        format.html { redirect_to @bar, notice: 'Bar was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Bar was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -26,6 +26,6 @@ class CommentsController < ApplicationController
     @bar = Bar.find(params[:bar_id])
     @comment = @bar.comments.find(params[:id])
     @comment.destroy
-    redirect_to bar_path(@bar)
+    redirect_to root_path
   end
 end

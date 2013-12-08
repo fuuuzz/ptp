@@ -5,9 +5,39 @@ function map(){
 
     var bars = getBarsLocation(),
         i,
-        distance = '',
-        markerIcon = "http://payetapinte.fr/assets/img/icons/marker.png",
-        markerBigIcon = "http://imageshack.com/a/img51/5516/xljz.png";
+        distance = '';
+
+    var iconUrl = 'http://payetapinte.fr/assets/img/icons/marker.png',
+        iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerKing.png';
+
+    var markerIcon = new google.maps.MarkerImage(
+        iconUrl,
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(34, 44)
+        ),
+        markerBigIcon = new google.maps.MarkerImage(
+        iconUrl,
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(51, 66)
+        ),
+        markerKing = new google.maps.MarkerImage(
+        iconKingUrl,
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(34, 58)
+        ),
+        markerKingBig = new google.maps.MarkerImage(
+        iconKingUrl,
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(51, 87)
+        );
 
     // Geolocation from user :
     function getLocation()
@@ -179,20 +209,29 @@ function map(){
 
                     //set the map and marker action
                     map.setZoom(16);
-                    var barMarker = '';
-                    for(i = 0; i < markers.length; i++){
+                    for (i = 0; i < markers.length; i++) {
                         if(markers[i][0] == bar[0]){
-                            barMarker = markers[i][1];
+                            var barMarker = markers[i][1];
+                            if (barMarker.icon.url == iconUrl)
+                                barMarker.setIcon(markerBigIcon);
+                            if (barMarker.icon.url == iconKingUrl)
+                                barMarker.setIcon(markerKingBig);
+                        }else{
+                            if (markers[i][1].icon.url == iconUrl)
+                                markers[i][1].setIcon(markerIcon);
+                            if (markers[i][1].icon.url == iconKingUrl)
+                                markers[i][1].setIcon(markerKing);
                         }
                     }
-                    barMarker.setIcon(markerBigIcon);
-
-
                     commentBox = new CommentBox();
 
                     $('.close').on('click', function(){
+                        if (barMarker.icon.url == iconUrl)
+                            barMarker.setIcon(markerIcon);
+                        if (barMarker.icon.url == iconKingUrl)
+                            barMarker.setIcon(markerKing);
+
                         map.setZoom(15);
-                        barMarker.setIcon(markerIcon);
                         $barsContainer.animate({left:0}, 300, function(){
                             $('#fiche-bar').remove();
                         });
@@ -313,9 +352,17 @@ function map(){
                 map.panTo(Latlng);
 
                 for (i = 0; i < markers.length; i++) {
-                    markers[i][1].setIcon(markerIcon);
+                    if (markers[i][1].icon.url == iconUrl)
+                        markers[i][1].setIcon(markerIcon);
+                    if (markers[i][1].icon.url == iconKingUrl)
+                        markers[i][1].setIcon(markerKing);
                 }
-                marker[1].setIcon(markerBigIcon);
+
+                if (marker[1].icon.url == iconUrl)
+                    marker[1].setIcon(markerBigIcon);
+                if (marker[1].icon.url == iconKingUrl)
+                    marker[1].setIcon(markerKingBig);
+
                 scrollBarsList(marker);
             });
         }
@@ -344,7 +391,7 @@ function map(){
 
         //Reorganize bars list by distance (or price?)
         function reorganizeBarsList(){
-            var $barsPrev = $('.preview-container'), distanceT = [];
+            var $barsPrev = $('.preview-container'), distanceT = [], priceT = [];
 
             $barsPrev.each(function(i){
                 var barDistance = $(this).contents().find('.distance').text();
@@ -352,9 +399,24 @@ function map(){
                 barDistance = parseInt(barDistance);
                 distanceT.push(Array(barDistance, $(this)) );
 
+                var barPrice = $(this).contents().find('.beer-price').text();
+                barPrice = barPrice.replace ( /[^\d.]/g, '' );
+                barPrice = parseInt(barPrice);
+                priceT.push(Array(barPrice, $(this)) );
             })
 
             distanceT.sort(sortNumber);
+            priceT.sort(sortNumber);
+
+            var bestPriceId = (priceT[0][1]).find('.preview').data('id-bar');
+
+            for(i = 0; i < markers.length; i++){
+                markers[i][1].setIcon(markerIcon);
+                if(markers[i][0] == bestPriceId){
+                    markers[i][1].setIcon(markerKing);
+                }
+            }
+
 
             function sortNumber(a,b) {
                 return a[0] - b[0];
@@ -364,6 +426,11 @@ function map(){
                 var j = i+1
                 distanceT[i][1].after(distanceT[j][1]);
             }
+
+        }
+
+        //Fin less cost pint
+        function getLessCost(){
 
         }
 
