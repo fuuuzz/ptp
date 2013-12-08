@@ -1,15 +1,13 @@
-init();
-
-function init(){
+function map(){
 
     getLocation();
 
 
     var bars = getBarsLocation(),
-        $bars = $(".bar"),
         i,
         distance = '',
-        dfd = $.Deferred;
+        markerIcon = "http://payetapinte.fr/assets/img/icons/marker.png",
+        markerBigIcon = "http://imageshack.com/a/img51/5516/xljz.png";
 
     // Geolocation from user :
     function getLocation()
@@ -51,6 +49,9 @@ function init(){
 
         // When the map is loaded !
         google.maps.event.addListenerOnce(map, 'idle', function(){
+
+
+            $('#loader').hide();
 
             var userMarker = addUserMarker(user);
             var aroundBars = getBarsAround(bars);
@@ -132,7 +133,7 @@ function init(){
                 position: new google.maps.LatLng(bar[2], bar[3]),
                 map: map,
                 animation: google.maps.Animation.DROP,
-                icon: "http://imageshack.com/a/img51/5516/xljz.png"
+                icon: markerIcon
             });
 
             markers.push(marker);
@@ -164,7 +165,9 @@ function init(){
             var $pageBtn = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").find('.more-btn');
             var $barsContainer = $('#bars');
 
+
             $pageBtn.on('click', function(){
+
                 var previewUrl = window.location.origin + '/page/' + bar[0];
                 $.ajax({
                     url: previewUrl,
@@ -173,12 +176,23 @@ function init(){
                 .done(function( page ) {
                     $( "#bar-page" ).append( page );
                     $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
+
+                    //set the map and marker action
                     map.setZoom(16);
+                    var barMarker = '';
+                    for(i = 0; i < markers.length; i++){
+                        if(markers[i][0] == bar[0]){
+                            barMarker = markers[i][1];
+                        }
+                    }
+                    barMarker.setIcon(markerBigIcon);
+
 
                     commentBox = new CommentBox();
 
                     $('.close').on('click', function(){
                         map.setZoom(15);
+                        barMarker.setIcon(markerIcon);
                         $barsContainer.animate({left:0}, 300, function(){
                             $('#fiche-bar').remove();
                         });
@@ -297,6 +311,11 @@ function init(){
                 //Moving map center to a marker when clicking on it
                 var Latlng = new google.maps.LatLng(bar[2], bar[3]);
                 map.panTo(Latlng);
+
+                for (i = 0; i < markers.length; i++) {
+                    markers[i][1].setIcon(markerIcon);
+                }
+                marker[1].setIcon(markerBigIcon);
                 scrollBarsList(marker);
             });
         }

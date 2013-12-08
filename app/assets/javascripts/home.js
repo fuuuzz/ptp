@@ -76,3 +76,7 @@ function showSignUp(){
             )
         });
 }
+
+$(window).load(function(){
+   map();
+});

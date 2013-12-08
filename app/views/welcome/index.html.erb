@@ -2,14 +2,16 @@
 <p class="alert"><%= alert %></p>
 
 <div id="header">
-  <h1>Paye ta pinte</h1>
-  <br>
-  <div class="option">
-    <small id="add-bar">Add a Bar</small>
-    <input id="pac-input" class="controls" type="text" placeholder="Rechercher un lieu...">
-  </div>
+  <%= image_tag "Logo.png" %>
+</div>
+<div id="options">
+  <small id="add-bar">Add a Bar</small>
+  <input id="pac-input" class="controls" type="text" placeholder="Rechercher un lieu...">
 </div>
 
+<div id="loader">
+  <%= image_tag "icons/loader.gif" %>
+</div>
 <div id="map"></div>
 
 <div id="others"></div>
@@ -23,5 +25,4 @@
     <div id="bar-page"></div>
   </div>
 </div>
-
 
