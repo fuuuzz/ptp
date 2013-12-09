@@ -69,12 +69,12 @@ function showSignUp(){
         url:  window.location.origin + '/members/sign_up',
         cache: true
     })
-        .done(function( signup ) {
-            $signIn.contents().remove();
-            $signIn.append(
-                "<div id='SignUp>'" + signup + "</div>"
-            )
-        });
+    .done(function( signup ) {
+        $signIn.contents().remove();
+        $signIn.append(
+            "<div id='SignUp>'" + signup + "</div>"
+        )
+    });
 }
 
 //Show/Hide options panel
@@ -102,7 +102,15 @@ function showHideOptions(){
 
 
 }
-$(window).load(function(){
-   map();
-   showHideOptions();
-});
+function loadApp(){
+    $(window).ready(function(){
+        console.log("GO");
+        init();
+    })
+}
+
+
+function init(){
+    map();
+    showHideOptions();
+}
