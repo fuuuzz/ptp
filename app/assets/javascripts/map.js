@@ -5,7 +5,10 @@ function map(){
 
     var bars = getBarsLocation(),
         i,
-        distance = '';
+        distance = '',
+        date = new Date(),
+        currentHour = date.getHours(),
+        nightHours  = [18, 8];
 
     var iconUrl = 'http://payetapinte.fr/assets/img/icons/marker.png',
         iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerKing.png';
@@ -55,23 +58,87 @@ function map(){
 //        var user = [44.8356423, -0.5729913];
         var user = [position.coords.latitude, position.coords.longitude];
 
-        var options = {
-            zoom: 15,
-            center: new google.maps.LatLng(user[0], user[1]),
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            styles: [{
-                "stylers": [{
-                    "hue": "#f6ff00"
-                }]
-            }],
-            panControl: false,
-            zoomControl: true,
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            overviewMapControl: false,
-            rotateControl: false
-        };
+
+
+        if (currentHour > nightHours[0] || currentHour < nightHours[1]){
+
+            var options = {
+                zoom: 15,
+                center: new google.maps.LatLng(user[0], user[1]),
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                panControl: false,
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                overviewMapControl: false,
+                rotateControl: false,
+                styles: [
+                    {
+                        "featureType": "water",
+                        "stylers": [
+                            { "lightness": 23 },
+                            { "color": "#43668a" }
+                        ]
+                    },{
+                        "featureType": "poi",
+                        "stylers": [
+                            { "visibility": "off" }
+                        ]
+                    },{
+                        "elementType": "labels.text.fill",
+                        "stylers": [
+                            { "color": "#000000" }
+                        ]
+                    },{
+                        "featureType": "landscape",
+                        "elementType": "geometry.fill",
+                        "stylers": [
+                            { "color": "#184a76" },
+                            { "saturation": -40 }
+                        ]
+                    },{
+                        "featureType": "road",
+                        "elementType": "geometry.stroke",
+                        "stylers": [
+                            { "color": "#273b57" },
+                            { "weight": 1.5 }
+                        ]
+                    },{
+                        "elementType": "labels.text.stroke",
+                        "stylers": [
+                            { "color": "#ffffff" },
+                            { "weight": 2 }
+                        ]
+                    },{
+                    }
+                ]
+            };
+
+
+        }else{
+
+            var options = {
+                zoom: 15,
+                center: new google.maps.LatLng(user[0], user[1]),
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                panControl: false,
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                overviewMapControl: false,
+                rotateControl: false,
+                styles: [
+                    {
+                        "featureType": "poi",
+                        "stylers": [
+                            { "visibility": "off" }
+                        ]
+                    }
+                ]
+            };
+        }
 
         var map = new google.maps.Map(document.getElementById('map'),options);
 
