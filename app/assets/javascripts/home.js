@@ -114,3 +114,11 @@ function init(){
     map();
     showHideOptions();
 }
+
+function transformPrice(a){
+    var price = ('"'+a+'"')
+    var newPrice = price.replace('.', ',');
+    console.log(newPrice);
+
+    return(newPrice);
+}

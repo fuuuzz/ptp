@@ -1,7 +1,7 @@
 <div class="preview-container">
   <div class="preview" data-id-bar="<%= @bar.id %>"  data-rate="<%= give_bar_rate(@bar) %>">
     <div class="price prev-bloc">
-      <p class="beer-price"><%= @bar.price %>€</p>
+      <p class="beer-price"><%= transform_price(@bar.price) %>€</p>
     </div>
     <div class="main prev-bloc">
       <h2><%= @bar.name %></h2>

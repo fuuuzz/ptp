@@ -1,12 +1,12 @@
 #mobile-container{
-  width: 320px;
-  height: 568px;
+  width: 100%;
+  height: 100%;
   display: block;
   position: relative;
   margin: 0 auto;
   overflow: hidden;
   border: solid 1px #DDD;
-  margin-top: -100px;
+  font-family:$oxygen;
   #header{
     height: 60px;
     z-index: 100;

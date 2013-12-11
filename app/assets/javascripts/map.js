@@ -8,7 +8,7 @@ function map(){
         distance = '',
         date = new Date(),
         currentHour = date.getHours(),
-        nightHours  = [18, 8];
+        nightHours  = [20, 8];
 
     var iconUrl = 'http://payetapinte.fr/assets/img/icons/marker.png',
         iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerKing.png';
@@ -275,30 +275,30 @@ function map(){
                     $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
 
                     //set the map and marker action
-                    map.setZoom(16);
-                    for (i = 0; i < markers.length; i++) {
-                        if(markers[i][0] == bar[0]){
-                            var barMarker = markers[i][1];
-                            if (barMarker.icon.url == iconUrl)
-                                barMarker.setIcon(markerBigIcon);
-                            if (barMarker.icon.url == iconKingUrl)
-                                barMarker.setIcon(markerKingBig);
-                        }else{
-                            if (markers[i][1].icon.url == iconUrl)
-                                markers[i][1].setIcon(markerIcon);
-                            if (markers[i][1].icon.url == iconKingUrl)
-                                markers[i][1].setIcon(markerKing);
-                        }
-                    }
+//                    map.setZoom(16);
+//                    for (i = 0; i < markers.length; i++) {
+//                        if(markers[i][0] == bar[0]){
+//                            var barMarker = markers[i][1];
+//                            if (barMarker.icon.url == iconUrl)
+//                                barMarker.setIcon(markerBigIcon);
+//                            if (barMarker.icon.url == iconKingUrl)
+//                                barMarker.setIcon(markerKingBig);
+//                        }else{
+//                            if (markers[i][1].icon.url == iconUrl)
+//                                markers[i][1].setIcon(markerIcon);
+//                            if (markers[i][1].icon.url == iconKingUrl)
+//                                markers[i][1].setIcon(markerKing);
+//                        }
+//                    }
                     commentBox = new CommentBox();
 
                     $('.close').on('click', function(){
-                        if (barMarker.icon.url == iconUrl)
-                            barMarker.setIcon(markerIcon);
-                        if (barMarker.icon.url == iconKingUrl)
-                            barMarker.setIcon(markerKing);
-
-                        map.setZoom(15);
+//                        if (barMarker.icon.url == iconUrl)
+//                            barMarker.setIcon(markerIcon);
+//                        if (barMarker.icon.url == iconKingUrl)
+//                            barMarker.setIcon(markerKing);
+//
+//                        map.setZoom(15);
                         $barsContainer.animate({left:0}, 300, function(){
                             $('#fiche-bar').remove();
                         });
@@ -418,17 +418,17 @@ function map(){
                 var Latlng = new google.maps.LatLng(bar[2], bar[3]);
                 map.panTo(Latlng);
 
-                for (i = 0; i < markers.length; i++) {
-                    if (markers[i][1].icon.url == iconUrl)
-                        markers[i][1].setIcon(markerIcon);
-                    if (markers[i][1].icon.url == iconKingUrl)
-                        markers[i][1].setIcon(markerKing);
-                }
-
-                if (marker[1].icon.url == iconUrl)
-                    marker[1].setIcon(markerBigIcon);
-                if (marker[1].icon.url == iconKingUrl)
-                    marker[1].setIcon(markerKingBig);
+//                for (i = 0; i < markers.length; i++) {
+//                    if (markers[i][1].icon.url == iconUrl)
+//                        markers[i][1].setIcon(markerIcon);
+//                    if (markers[i][1].icon.url == iconKingUrl)
+//                        markers[i][1].setIcon(markerKing);
+//                }
+//
+//                if (marker[1].icon.url == iconUrl)
+//                    marker[1].setIcon(markerBigIcon);
+//                if (marker[1].icon.url == iconKingUrl)
+//                    marker[1].setIcon(markerKingBig);
 
                 scrollBarsList(marker);
             });

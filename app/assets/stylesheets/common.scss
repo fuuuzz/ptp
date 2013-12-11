@@ -1,9 +1,10 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700);
+@import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700);
+
 $yellow : #ffdf20;
 $yellow-light: #ecff91;
-
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700);
-
 $roboto : 'Roboto Slab', serif;
+$oxygen : 'Oxygen', sans-serif;
 
 html, body{
   -webkit-font-smoothing: antialiased;
