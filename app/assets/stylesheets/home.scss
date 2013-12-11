@@ -25,7 +25,7 @@
   #btn-opt{
     font-size: 40px;
     position: absolute;
-    top: 18px;
+    top: 8px;
     right: 18px;
     width: 20px;
     height: 20px;
@@ -38,6 +38,10 @@
     position: absolute;
     z-index: 90;
     top: -10px;
+    input{
+      width: 60%;
+      display: inline-block;
+    }
   }
   #map{
     width: 100%;
@@ -50,7 +54,7 @@
   #others{
     background-color: rgba(255, 255, 255, 0.8);
     width: 100%;
-    bottom: 170px;
+    bottom: 0;
     position: absolute;
     z-index: 200;
     left: 100%;

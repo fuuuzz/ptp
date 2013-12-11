@@ -1,18 +1,22 @@
-<p>
-  <strong>Commenter written by <%= comment.author %> :</strong>
-  <%= comment.commenter %>
-</p>
+<div class="comment">
+  <p class="author"><%= comment.author %></p>
 
-<p>
-  <strong>Rate:</strong>
-  <%= comment.rate %>
-</p>
+  <div class="avis-comment" data-rate="<%= comment.rate %>">
+    <%= image_tag "bars/stars_cache.png", class: 'stars-cache' %>
+    <div class="jauge"></div>
+    <div class="bg-jauge"></div>
+  </div>
+  <p class="commenter"><%= comment.commenter %></p>
 
-<p>
-  <% if comment.author == current_member.name %>
 
-     <%= link_to 'Destroy Comment', [comment.bar, comment],
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %>
-  <% end %>
-</p>
+  <div class="delete-comment">
+    <% if comment.author == current_member.name %>
+
+        <%= link_to '[x]', [comment.bar, comment],
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </div>
+  <hr>
+</div>
+

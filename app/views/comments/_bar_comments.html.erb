@@ -1,13 +1,10 @@
 <% if member_already_comment(@bar, current_member) %>
-    <h2>You'd already comment this bar</h2>
+    <small>You'd already comment this bar</small>
 <% else %>
-    <h2>Add a comment:</h2>
     <%= render "comments/form" %>
 <% end %>
-<hr>
 <% if  @bar.comments.count > 0 %>
-    <h2>Comments</h2>
     <%= render @bar.comments %>
 <% else %>
-    <h2>There's no comments yet for this bar !</h2>
+    <h2>There's no comments yet for this bar ! Add one</h2>
 <% end %>

@@ -1,9 +1,10 @@
 function setupPanelOthers(){
     var $panelOthers = $('#others'),
         phoneHeight = $('#mobile-container').height(),
-        barsHeight = $('#bars').height();
+        barsHeight = $('#bars').height(),
+        headerHeight = $('#header').height();
 
-    $panelOthers.height(phoneHeight-barsHeight-60);
+    $panelOthers.height(phoneHeight-headerHeight);
 
     showAddBarInterface();
 
@@ -102,12 +103,10 @@ function showHideOptions(){
 
 
 }
-function loadApp(){
-    $(window).ready(function(){
-        console.log("GO");
-        init();
-    })
-}
+$(window).ready(function(){
+    console.log("GO");
+    init();
+})
 
 
 function init(){
@@ -121,4 +120,8 @@ function transformPrice(a){
     console.log(newPrice);
 
     return(newPrice);
+}
+
+function createStars(jauge, rate){
+    jauge.width((rate/5*100)+'%');
 }

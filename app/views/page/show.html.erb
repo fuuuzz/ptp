@@ -1,33 +1,26 @@
-<% if member_signed_in? %>
-  <div id="fiche-bar">
-    <p>
-      <h3><%= @bar.name %></h3>
-    </p>
+<div id="fiche-bar">
+  <h3><%= @bar.name %></h3>
 
-    <p class="price">
-      <%= @bar.price %>€
-    </p>
+  <p class="price">
+    <%= transform_price(@bar.price) %>€
+  </p>
 
-    <p class="address">
-      <%= @bar.address %>
-    </p>
+  <p class="address">
+    <%= @bar.address %>
+  </p>
 
-    <p class="global-rate">
-      <%= give_bar_rate(@bar) %>/5
-    </p>
-    <p class="comments-btn" data-id-bar="<%= @bar.id %>">
-      See comments
-    </p>
-    <div class="close">[x]</div>
-
-    <div class="comments-container">
-      <%= render 'comments/bar_comments' %>
-    </div>
-
+  <div class="avis-page" data-rate="<%= give_bar_rate(@bar) %>">
+    <%= image_tag "bars/stars_cache.png", class: 'stars-cache' %>
+    <div class="jauge"></div>
+    <div class="bg-jauge"></div>
   </div>
-<% else %>
+  <p class="comments-btn" data-id-bar="<%= @bar.id %>">
+    See comments
+  </p>
+  <div class="close">[x]</div>
 
-    <div id="signIn">
-      <%= javascript_tag "showSignIn()" %>
-     </div>
-<% end %>
+  <div class="comments-container">
+    <%= render 'comments/bar_comments' %>
+  </div>
+
+</div>

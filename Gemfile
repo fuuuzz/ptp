@@ -25,7 +25,6 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'jquery_mobile_rails'
 
 group :development do
   gem 'annotate', ">=2.5.0"

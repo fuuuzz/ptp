@@ -67,12 +67,14 @@ function map(){
                 center: new google.maps.LatLng(user[0], user[1]),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 panControl: false,
-                zoomControl: true,
+                zoomControl: false,
                 mapTypeControl: false,
                 scaleControl: false,
                 streetViewControl: false,
                 overviewMapControl: false,
                 rotateControl: false,
+                zoomControlOptions: false,
+                scaleControlOptions: false,
                 styles: [
                     {
                         "featureType": "water",
@@ -123,12 +125,14 @@ function map(){
                 center: new google.maps.LatLng(user[0], user[1]),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 panControl: false,
-                zoomControl: true,
+                zoomControl: false,
                 mapTypeControl: false,
                 scaleControl: false,
                 streetViewControl: false,
                 overviewMapControl: false,
                 rotateControl: false,
+                zoomControlOptions: false,
+                scaleControlOptions: false,
                 styles: [
                     {
                         "featureType": "poi",
@@ -274,6 +278,23 @@ function map(){
                     $( "#bar-page" ).append( page );
                     $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
 
+                    //Ajout des étoiles pour les fiches bars
+                    var $avis = $('.avis-page'),
+                        $jauge = $avis.children('.jauge'),
+                        globalRate = $avis.data('rate');
+
+                    createStars($jauge, globalRate);
+
+                    //Ajout des étoiles pour les commentaires
+                    var $comments = $('.comment');
+                        $comments.each(function(){
+                            var $avisC = $(this).children('.avis-comment'),
+                                $jaugeC = $avisC.children('.jauge'),
+                                globalRateC = $avisC.data('rate');
+
+                            createStars($jaugeC, globalRateC);
+                        })
+
                     //set the map and marker action
 //                    map.setZoom(16);
 //                    for (i = 0; i < markers.length; i++) {
@@ -398,7 +419,7 @@ function map(){
                 globalRate = $bar.data('rate');
 
             $dContainer.text(+bar[4]+"m");
-            $jauge.width((globalRate/5*100)+'%');
+            createStars($jauge, globalRate);
         }
 
         //Move the center of the map to bar location
@@ -467,8 +488,9 @@ function map(){
                 distanceT.push(Array(barDistance, $(this)) );
 
                 var barPrice = $(this).contents().find('.beer-price').text();
-                barPrice = barPrice.replace ( /[^\d.]/g, '' );
-                barPrice = parseInt(barPrice);
+                barPrice = barPrice.replace(',', '.').replace( /[^\d.]/g, '');
+                console.log(barPrice);
+                barPrice = parseFloat(barPrice);
                 priceT.push(Array(barPrice, $(this)) );
             })
 
@@ -496,10 +518,6 @@ function map(){
 
         }
 
-        //Fin less cost pint
-        function getLessCost(){
-
-        }
 
         function searchPlace() {
             var input = (document.getElementById('pac-input'));
