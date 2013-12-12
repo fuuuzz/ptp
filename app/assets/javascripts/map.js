@@ -265,28 +265,30 @@ function map(){
         function showBarPage(bar){
             var $pageBtn = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").find('.more-btn');
             var $barsContainer = $('#bars');
+            var isLoaded = false;
 
 
             $pageBtn.on('click', function(){
+                if (!isLoaded){
+                    isLoaded = true;
+                    var previewUrl = window.location.origin + '/page/' + bar[0];
+                    $.ajax({
+                        url: previewUrl,
+                        cache: true
+                    })
+                    .done(function( page ) {
+                        $( "#bar-page" ).append( page );
+                        $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
 
-                var previewUrl = window.location.origin + '/page/' + bar[0];
-                $.ajax({
-                    url: previewUrl,
-                    cache: true
-                })
-                .done(function( page ) {
-                    $( "#bar-page" ).append( page );
-                    $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
+                        //Ajout des étoiles pour les fiches bars
+                        var $avis = $('.avis-page'),
+                            $jauge = $avis.children('.jauge'),
+                            globalRate = $avis.data('rate');
 
-                    //Ajout des étoiles pour les fiches bars
-                    var $avis = $('.avis-page'),
-                        $jauge = $avis.children('.jauge'),
-                        globalRate = $avis.data('rate');
+                        createStars($jauge, globalRate);
 
-                    createStars($jauge, globalRate);
-
-                    //Ajout des étoiles pour les commentaires
-                    var $comments = $('.comment');
+                        //Ajout des étoiles pour les commentaires
+                        var $comments = $('.comment');
                         $comments.each(function(){
                             var $avisC = $(this).children('.avis-comment'),
                                 $jaugeC = $avisC.children('.jauge'),
@@ -295,7 +297,7 @@ function map(){
                             createStars($jaugeC, globalRateC);
                         })
 
-                    //set the map and marker action
+                            //set the map and marker action
 //                    map.setZoom(16);
 //                    for (i = 0; i < markers.length; i++) {
 //                        if(markers[i][0] == bar[0]){
@@ -311,20 +313,23 @@ function map(){
 //                                markers[i][1].setIcon(markerKing);
 //                        }
 //                    }
-                    commentBox = new CommentBox();
+                            commentBox = new CommentBox();
 
-                    $('.close').on('click', function(){
+                            $('.close').on('click', function(){
 //                        if (barMarker.icon.url == iconUrl)
 //                            barMarker.setIcon(markerIcon);
 //                        if (barMarker.icon.url == iconKingUrl)
 //                            barMarker.setIcon(markerKing);
 //
 //                        map.setZoom(15);
-                        $barsContainer.animate({left:0}, 300, function(){
-                            $('#fiche-bar').remove();
+                                $barsContainer.animate({left:0}, 300, function(){
+                                    $('#fiche-bar').remove();
+                                });
+                                isLoaded = false;
+                            })
                         });
-                    })
-                });
+                }
+
             })
         }
 

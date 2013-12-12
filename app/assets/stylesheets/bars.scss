@@ -5,11 +5,11 @@
 #bars{
   width: 200%;
   position: absolute;
-  height: 60px;
+  height: 100px;
   bottom: 0;
   z-index: 100;
   #cache-container{
-    height: 60px;
+    height: 100px;
     z-index: 100;
     bottom: 0;
     position: absolute;
@@ -20,7 +20,7 @@
   }
   #bars-container{
     width: 50%;
-    height: 60px;
+    height: 100px;
     overflow-y: auto;
     position: relative;
     margin: 0;
@@ -61,11 +61,6 @@
               font-size: 13px;
             }
             .avis, .avis-comment{
-              width: 50px;
-              height: 12px;
-              overflow: hidden;
-              position: relative;
-              display: inline-block;
               float: right;
               margin: 0;
             }
@@ -137,7 +132,7 @@
         }
         .bg-jauge{
           background-color: #908e91;
-          width: 100%;
+          width: 99%;
           height: 20px;
           position: absolute;
           top: 4px;
@@ -166,7 +161,7 @@
 
 .avis, .avis-comment{
   width: 50px;
-  height: 12px;
+  height: 13px;
   overflow: hidden;
   position: relative;
   img{
@@ -186,7 +181,7 @@
   }
   .bg-jauge{
     background-color: #908e91;
-    width: 100%;
+    width: 99%;
     height: 10px;
     position: absolute;
     top: 2px;
