@@ -2,9 +2,26 @@
 <html>
 <head>
   <title>Payetapinte</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <!-- ios standalone web app -->
   <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- ios status bar appearance, options: black, black-translucent -->
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- ios icon, just one size because ios will scale it, remove "-precomposed" if you want ios to add effects -->
+  <link href="http://payetapinte.fr/assets/img/icons/icon75x75.png" sizes="75x75" rel="apple-touch-icon-precomposed">
+
+  <!-- ios startup images -->
+  <!-- iPhone --><link href="http://payetapinte.fr/assets/img/startup_img/start320x460.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
+  <!-- iPhone (Retina) --><link href="http://payetapinte.fr/assets/img/startup_img/start640x920.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+  <!-- iPhone 5 --><link href="http://payetapinte.fr/assets/img/startup_img/start640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+  <!-- iPad Portrait --><link href="http://payetapinte.fr/assets/img/startup_img/start768x1004.png" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
+  <!-- iPad Landscape --><link href="http://payetapinte.fr/assets/img/startup_img/start748x1024.png" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
+  <!-- iPad (Retina) Portrait --><link href="http://payetapinte.fr/assets/img/startup_img/start1536x2008.png" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+  <!-- iPad (Retina) Landscape --><link href="http://payetapinte.fr/assets/img/startup_img/start1496x2048.png" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
+
 
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" %>
@@ -23,8 +40,4 @@
       <%= image_tag "icons/loading.gif" %>
     </div>
 </body>
-<script type="text/javascript">
-    var see = window.navigator.standalone;
-        alert(see);
-</script>
 </html>
