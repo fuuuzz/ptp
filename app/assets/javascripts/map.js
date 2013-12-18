@@ -263,9 +263,11 @@ function map(){
 
         //Screen the bar page
         function showBarPage(bar){
-            var $pageBtn = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").find('.more-btn');
-            var $barsContainer = $('#bars');
-            var isLoaded = false;
+            var $pageBtn = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").find('.more-btn'),
+                $barsContainer = $('#bars'),
+                containerHeight = $('#page-container').height(),
+                previewHeight = 100,
+                isLoaded = false;
 
 
             $pageBtn.on('click', function(){
@@ -278,7 +280,11 @@ function map(){
                     })
                     .done(function( page ) {
                         $( "#bar-page" ).append( page );
-                        $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
+
+                        $barsContainer
+                        .animate({height: containerHeight}, 200)
+                        .delay(300)
+                        .animate({left: -($barsContainer.width()/2)}, 300);
 
                         //Ajout des étoiles pour les fiches bars
                         var $avis = $('.avis-page'),
@@ -295,6 +301,7 @@ function map(){
                                 globalRateC = $avisC.data('rate');
 
                             createStars($jaugeC, globalRateC);
+
                         })
 
                             //set the map and marker action
@@ -322,10 +329,14 @@ function map(){
 //                            barMarker.setIcon(markerKing);
 //
 //                        map.setZoom(15);
-                                $barsContainer.animate({left:0}, 300, function(){
+                            $barsContainer
+                                .animate({left: 0}, 300, function(){
                                     $('#fiche-bar').remove();
-                                });
-                                isLoaded = false;
+                                })
+                                .delay(300)
+                                .animate({height: previewHeight}, 200);
+
+                            isLoaded = false;
                             })
                         });
                 }
@@ -476,15 +487,24 @@ function map(){
                 if (posVSid[index]==barId)
                      barPos = index;
             })
-
-            $innerContainer.height(barHeight*(posVSid.length+2));
+//            $innerContainer.height(barHeight*(posVSid.length)+140);
             var time = Math.abs($container.scrollTop() -  (barHeight*barPos))*2;
             $container.animate({scrollTop: barHeight*barPos}, time);
+
+//            $container.scroll(function(){
+//                if($container.scrollTop() >= (barHeight*(posVSid.length-1) ))
+//                {
+//                    $container.scrollTop(barHeight*(posVSid.length-1));
+//                }
+//            })
+
         }
 
         //Reorganize bars list by distance (or price?)
         function reorganizeBarsList(){
-            var $barsPrev = $('.preview-container'), distanceT = [], priceT = [];
+            var $barsPrev = $('.preview-container'), distanceT = [], priceT = [],
+                $innerContainer = $('#bars-container'),
+                barHeight = $barsPrev.height();
 
             $barsPrev.each(function(i){
                 var barDistance = $(this).contents().find('.distance').text();
@@ -494,7 +514,6 @@ function map(){
 
                 var barPrice = $(this).contents().find('.beer-price').text();
                 barPrice = barPrice.replace(',', '.').replace( /[^\d.]/g, '');
-                console.log(barPrice);
                 barPrice = parseFloat(barPrice);
                 priceT.push(Array(barPrice, $(this)) );
             })
@@ -520,6 +539,8 @@ function map(){
                 var j = i+1
                 distanceT[i][1].after(distanceT[j][1]);
             }
+
+            $innerContainer.height(barHeight*($barsPrev.length)+140);
 
         }
 
