@@ -1,7 +1,6 @@
-function map(){
+function mapV2(){
 
     getLocation();
-
 
     var bars = getBarsLocation(),
         i,
