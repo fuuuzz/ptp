@@ -45,18 +45,39 @@ function map(){
     // Geolocation from user :
     function getLocation()
     {
+
         if (navigator.geolocation)
         {
-            navigator.geolocation.getCurrentPosition(setup_map);
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+            function success(position) {
+                setup_map(position);
+            };
+
+            function error(err) {
+                alert('Nous ne sommes pas parvenu à vous Géolocaliser :( !');
+                setup_map(null);
+            };
+
+            navigator.geolocation.getCurrentPosition(success, error, options);
         }
-        else{alert("Geolocation is not supported by this browser.");}
+        else{
+            alert("Geolocation is not supported by this browser.");
+        }
     }
 
     // Generate map and marker :
     function setup_map(position){
 
-//        var user = [44.8356423, -0.5729913];
-        var user = [position.coords.latitude, position.coords.longitude];
+        if (position == null){
+            var user = [44.8356423, -0.5729913];
+        }else{
+            var user = [position.coords.latitude, position.coords.longitude];
+        }
+
 
 
 
@@ -305,28 +326,28 @@ function map(){
 
                             //set the map and marker action
                     map.setZoom(16);
-//                    for (i = 0; i < markers.length; i++) {
-//                        if(markers[i][0] == bar[0]){
-//                            var barMarker = markers[i][1];
-//                            if (barMarker.icon.url == iconUrl)
-//                                barMarker.setIcon(markerBigIcon);
-//                            if (barMarker.icon.url == iconKingUrl)
-//                                barMarker.setIcon(markerKingBig);
-//                        }else{
-//                            if (markers[i][1].icon.url == iconUrl)
-//                                markers[i][1].setIcon(markerIcon);
-//                            if (markers[i][1].icon.url == iconKingUrl)
-//                                markers[i][1].setIcon(markerKing);
-//                        }
-//                    }
+                    for (i = 0; i < markers.length; i++) {
+                        if(markers[i][0] == bar[0]){
+                            var barMarker = markers[i][1];
+                            if (barMarker.icon.url == iconUrl)
+                                barMarker.setIcon(markerBigIcon);
+                            if (barMarker.icon.url == iconKingUrl)
+                                barMarker.setIcon(markerKingBig);
+                        }else{
+                            if (markers[i][1].icon.url == iconUrl)
+                                markers[i][1].setIcon(markerIcon);
+                            if (markers[i][1].icon.url == iconKingUrl)
+                                markers[i][1].setIcon(markerKing);
+                        }
+                    }
                             commentBox = new CommentBox();
 
                             $('.close').on('click', function(){
-//                        if (barMarker.icon.url == iconUrl)
-//                            barMarker.setIcon(markerIcon);
-//                        if (barMarker.icon.url == iconKingUrl)
-//                            barMarker.setIcon(markerKing);
-//
+                        if (barMarker.icon.url == iconUrl)
+                            barMarker.setIcon(markerIcon);
+                        if (barMarker.icon.url == iconKingUrl)
+                            barMarker.setIcon(markerKing);
+
                             map.setZoom(15);
                             $barsContainer
                                 .animate({left: 0}, 300, function(){

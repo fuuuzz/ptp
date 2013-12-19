@@ -6,21 +6,13 @@
   <div id="btn-opt">+</div>
 </div>
 <div id="options">
-  <button id="add-bar">Add a Bar</button>
-  <input id="pac-input" class="controls" type="search" placeholder="Rechercher un lieu..." >
-  <% if member_signed_in? %>
-      <p>Connected as <%= current_member.name %> | <%= link_to 'Logout', destroy_member_session_path, :method=>'delete' %>
-      </p>
-  <% else %>
-      <button class="login-btn">Login</button>
-  <% end %>
+  <input id="pac-input" class="controls" type="search" placeholder="Voir les bars à..." >
 </div>
 
 <div id="loader">
   <%= image_tag "icons/loader.gif" %>
 </div>
 <div id="map"></div>
-
 <div id="others"></div>
 
 <div id="bars">
