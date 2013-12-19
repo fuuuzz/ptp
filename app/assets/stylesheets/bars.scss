@@ -20,7 +20,7 @@
     position: absolute;
     left: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: $grey;
     overflow-y: auto;
   }
   #bars-container{
@@ -30,6 +30,7 @@
     margin: 0;
     padding: 0;
     z-index: 100;
+    color: white;
     .preview-container{
       height: 60px;
       width: 100%;
@@ -43,52 +44,44 @@
           position: relative;
         }
         .main{
-          width: 60%;
+          width: 70%;
           margin-top: 2px;
-          border-right: 1px #ddd solid;
-          border-left: 1px #ddd solid;
+          
           h2{
-            height: 32px;
-            text-align: center;
+            margin-top: 13px;
+            max-width: 80%;
             font-size: 16px;
             text-transform: uppercase;
+            color: $yellow;
+            text-align: center;
           }
-          .distavis{
-            width: 100px;
-            margin: 0 auto;
-            display: block;
-            position: relative;
-            .distance{
-              display: inline-block;
-              text-align: right;
-              float: left;
-              font-size: 13px;
-            }
-            .avis, .avis-comment{
-              float: right;
-              margin: 0;
-            }
+          .distance{
+            font-size: 14px;
+            position: absolute;
+            right: 2px;
+            top: 13px;
+            font-weight: lighter;
+            float:right;
           }
         }
+
         .price{
           width: 19%;
           .beer-price{
             margin-top: 13px;
             font-size: 20px;
-            font-family: $oxygen;
             text-align: center;
             font-weight: 700;
           }
         }
         .more-btn{
-          width: 19%;
-          height: 50px;
-          z-index: 2000;
-          cursor: pointer;
-          font-size: 40px;
-          text-align: center;
-          font-weight: lighter;
-          color: #aaa;
+          width: 9%;
+          img{
+            margin-top: 8px;
+            margin-left: 8px;
+            height: 27px;
+            width: auto;
+          }
         }
       }
     }
