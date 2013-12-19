@@ -281,8 +281,8 @@ function map(){
                         $( "#bar-page" ).append( page );
 
                         $barsContainer
-                        .animate({height: containerHeight}, 200)
-                        .delay(300)
+//                        .animate({height: containerHeight}, 200)
+//                        .delay(300)
                         .animate({left: -($barsContainer.width()/2)}, 300);
 
                         //Ajout des étoiles pour les fiches bars
@@ -304,7 +304,7 @@ function map(){
                         })
 
                             //set the map and marker action
-//                    map.setZoom(16);
+                    map.setZoom(16);
 //                    for (i = 0; i < markers.length; i++) {
 //                        if(markers[i][0] == bar[0]){
 //                            var barMarker = markers[i][1];
@@ -327,13 +327,13 @@ function map(){
 //                        if (barMarker.icon.url == iconKingUrl)
 //                            barMarker.setIcon(markerKing);
 //
-//                        map.setZoom(15);
+                            map.setZoom(15);
                             $barsContainer
                                 .animate({left: 0}, 300, function(){
                                     $('#fiche-bar').remove();
-                                })
-                                .delay(300)
-                                .animate({height: previewHeight}, 200);
+                                });
+//                                .delay(300)
+//                                .animate({height: previewHeight}, 200);
 
                             isLoaded = false;
                             })

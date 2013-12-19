@@ -31,4 +31,15 @@ module BarsHelper
     return member_already_comment
 
   end
+
+  def member_author(bar)
+
+    member_id = bar.member_id
+    members = Member.all(:conditions => { :id => member_id })
+
+    member = members.first()
+
+    return member.name
+  end
+
 end

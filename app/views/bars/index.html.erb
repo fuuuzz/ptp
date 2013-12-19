@@ -5,8 +5,6 @@
     <th>Name</th>
     <th>Price</th>
     <th>Address</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
     <th>Member</th>
     <th></th>
     <th></th>
@@ -18,8 +16,7 @@
     <td><%= bar.name %></td>
     <td><%= bar.price %></td>
     <td><%= bar.address %></td>
-    <td><%= bar.latitude %></td>
-    <td><%= bar.longitude %></td>
+    <td><%= member_author(bar) %></td>
     <td><%= link_to 'Show', bar %></td>
     <td><%= link_to 'Edit', edit_bar_path(bar) %></td>
     <td><%= link_to 'Destroy', bar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
