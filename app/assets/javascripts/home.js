@@ -1,5 +1,7 @@
 $(window).ready(function(){
     init();
+
+
 })
 
 
@@ -19,28 +21,30 @@ function setupPanelOthers(){
 
     $panelOthers.height(phoneHeight-headerHeight);
 
-    showAddBarInterface();
-
-
     //Add a bar
+    var $addBar = $('#add-bar'),
+        $loginBtn = $('.login-btn');
+
+    $addBar.on('click', function(){
+       showAddBarInterface();
+    });
+    $loginBtn.on('click', function(){
+        showAddBarInterface();
+    });
     function showAddBarInterface(){
-        var $addBar = $('#add-bar');
-
-        $addBar.on('click', function(){
-            $.ajax({
-                url:  window.location.origin + '/bars/new',
-                cache: true
-            })
-            .done(function( newbar ) {
-
-                openPanelOthers(newbar);
-                $addBar.hide();
-                $('#close-new').on('click', function(){
-                    closePanelOthers();
-                    $addBar.show();
-                })
-            });
+        $.ajax({
+            url:  window.location.origin + '/bars/new',
+            cache: true
         })
+        .done(function( newbar ) {
+
+            openPanelOthers(newbar);
+            $addBar.hide();
+            $('#close-new').on('click', function(){
+                closePanelOthers();
+                $addBar.show();
+            })
+        });
     }
 
     function closePanelOthers(){

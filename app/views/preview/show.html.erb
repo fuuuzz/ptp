@@ -15,9 +15,14 @@
         </div>
       </div>
     </div>
-    <div class="more-btn prev-bloc">
-      >
-    </div>
+    <% if member_signed_in? %>
+        <div class="more-btn prev-bloc">
+          >
+        </div>
+    <% else %>
+        Login ↑
+    <% end %>
+
   </div>
 </div>
 

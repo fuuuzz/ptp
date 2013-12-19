@@ -257,7 +257,6 @@ function map(){
                 markerMoveMap(bar);
                 showBarPage(bar);
                 reorganizeBarsList();
-
             });
         }
 
