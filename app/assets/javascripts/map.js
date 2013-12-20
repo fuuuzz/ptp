@@ -457,7 +457,7 @@ function map(){
                      barPos = index;
             })
 //            $innerContainer.height(barHeight*(posVSid.length)+140);
-            var time = Math.abs($container.scrollTop() -  (barHeight*barPos))*2;
+            var time = Math.abs($container.scrollTop() -  (barHeight*barPos))*200;
             $container.animate({scrollTop: barHeight*barPos}, time);
 
 //            $container.scroll(function(){
