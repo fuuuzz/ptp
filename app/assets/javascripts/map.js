@@ -419,7 +419,7 @@ function map(){
                     })
                     .done(function( page ) {
                         $( "#bar-page" ).append( page );
-                        $('#bars').animate({left: -($barsContainer.width()/2)}, 300);
+                        $('#bars').animate({left: -($('#bars').width()/2)}, 300);
                     })
 
                for (i = 0; i < markers.length; i++) {
