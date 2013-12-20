@@ -1,13 +1,11 @@
 $(window).ready(function(){
     init();
-
-
 })
 
 
 function init(){
     map();
-//    showHideOptions();
+    showHideOptions();
 //    hidePhoneBar();
     setupLoader();
 }
