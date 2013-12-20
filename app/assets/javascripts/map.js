@@ -57,7 +57,7 @@ function map(){
             };
 
             function error(err) {
-                alert('Nous ne sommes pas parvenu à vous Géolocaliser :( !');
+                alert('Nous ne sommes pas parvenu à vous Géolocaliser ! :-(');
                 setup_map(null);
             };
 
@@ -179,7 +179,7 @@ function map(){
             CreateOrDeleteBar(markers, aroundBars);
 
             searchPlace();
-            setupPanelOthers();
+            /*** setupPanelOthers(); */
 
             //when user drag map
             google.maps.event.addListener(map, 'dragend', function() {
@@ -303,6 +303,7 @@ function map(){
 //                        .delay(300)
                         .animate({left: -($barsContainer.width()/2)}, 300);
 
+                        /***
                         //Ajout des étoiles pour les fiches bars
                         var $avis = $('.avis-page'),
                             $jauge = $avis.children('.jauge'),
@@ -320,6 +321,8 @@ function map(){
                             createStars($jaugeC, globalRateC);
 
                         })
+
+                        */  
 
                             //set the map and marker action
                     map.setZoom(16);
@@ -392,7 +395,7 @@ function map(){
                 globalRate = $bar.data('rate');
 
             $dContainer.text(+bar[4]+"m");
-            createStars($jauge, globalRate);
+            /*** createStars($jauge, globalRate); */
         }
 
         //Move the center of the map to bar location
@@ -560,5 +563,3 @@ function calculHaversine(barLat, barLnt, userLat, userLnt) {
     var d = R * c;
     return d.toFixed(3);
 }
-
-
