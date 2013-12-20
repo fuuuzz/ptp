@@ -6,7 +6,7 @@ var addToHomeConfig = {
     animationIn: 'bubble',
     animationOut: 'drop',
     lifespan:10000,
-    expire:2,
+    expire:0,
     touchIcon:true,
     message:'Ajoutez gratuitement l\'application Paye ta Pinte à votre <strong>%device</strong>, en cliquant sur "Ajouter à l\'écran d\'accueil" !'
 };
