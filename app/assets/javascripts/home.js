@@ -2,23 +2,16 @@ $(window).ready(function(){
     init();
 })
 
-function setupLoader(){
-    $('#loading').hide()
-        .ajaxStart(function() {
-            $(this).show();
-        })
-        .ajaxStop(function() {
-            $(this).hide();
-        });
-}
 
 function init(){
-    map();
     showHideOptions();
-/***    hidePhoneBar(); */
-    setupLoader();
+    map();
+    /***    
+    hidePhoneBar(); 
+    setupLoader()
+    */
+    
 }
-
 
 // Show or Hide option panel (search bar)
 function showHideOptions(){
@@ -45,6 +38,15 @@ function showHideOptions(){
 }
 
 /***
+function setupLoader(){
+    $('#loading').hide()
+        .ajaxStart(function() {
+            $(this).show();
+        })
+        .ajaxStop(function() {
+            $(this).hide();
+        });
+}
 
 //Autocomplete for new bar form
 function autocompleteNew() {

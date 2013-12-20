@@ -3,14 +3,12 @@ function map(){
     getLocation();
 
     var bars = getBarsLocation(),
-        i,
-        distance = '',
-        date = new Date(),
-        currentHour = date.getHours(),
-        nightHours  = [20, 8];
+    i,
+    distance = '',
+    date = new Date();
 
     var iconUrl = 'http://payetapinte.fr/assets/img/icons/marker.png',
-        iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerKing.png';
+    iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerKing.png';
 
     var markerIcon = new google.maps.MarkerImage(
         iconUrl,
@@ -19,21 +17,21 @@ function map(){
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(34, 44)
         ),
-        markerBigIcon = new google.maps.MarkerImage(
+    markerBigIcon = new google.maps.MarkerImage(
         iconUrl,
         null, /* size is determined at runtime */
         null, /* origin is 0,0 */
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(51, 66)
         ),
-        markerKing = new google.maps.MarkerImage(
+    markerKing = new google.maps.MarkerImage(
         iconKingUrl,
         null, /* size is determined at runtime */
         null, /* origin is 0,0 */
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(34, 58)
         ),
-        markerKingBig = new google.maps.MarkerImage(
+    markerKingBig = new google.maps.MarkerImage(
         iconKingUrl,
         null, /* size is determined at runtime */
         null, /* origin is 0,0 */
@@ -41,44 +39,9 @@ function map(){
         new google.maps.Size(51, 87)
         );
 
-    // Geolocation from user :
-    function getLocation()
-    {
-
-        if (navigator.geolocation)
-        {
-            var options = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            };
-            function success(position) {
-                setup_map(position);
-            };
-
-            function error(err) {
-                alert('Nous ne sommes pas parvenu à vous Géolocaliser ! :-(');
-                setup_map(null);
-            };
-
-            navigator.geolocation.getCurrentPosition(success, error, options);
-        }
-        else{
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-
-    // Generate map and marker :
-    function setup_map(position){
-
-        if (position == null){
-            var user = [44.8356423, -0.5729913];
-        }else{
-            var user = [position.coords.latitude, position.coords.longitude];
-        }
-
-
-
+    function ajustOptionsMap(user) {
+        var currentHour = date.getHours(),
+        nightHours  = [20, 8] ;
 
         if (currentHour > nightHours[0] || currentHour < nightHours[1]){
 
@@ -96,44 +59,44 @@ function map(){
                 zoomControlOptions: false,
                 scaleControlOptions: false,
                 styles: [
-                    {
-                        "featureType": "water",
-                        "stylers": [
-                            { "lightness": 23 },
-                            { "color": "#43668a" }
-                        ]
-                    },{
-                        "featureType": "poi",
-                        "stylers": [
-                            { "visibility": "off" }
-                        ]
-                    },{
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                            { "color": "#000000" }
-                        ]
-                    },{
-                        "featureType": "landscape",
-                        "elementType": "geometry.fill",
-                        "stylers": [
-                            { "color": "#184a76" },
-                            { "saturation": -40 }
-                        ]
-                    },{
-                        "featureType": "road",
-                        "elementType": "geometry.stroke",
-                        "stylers": [
-                            { "color": "#273b57" },
-                            { "weight": 1.5 }
-                        ]
-                    },{
-                        "elementType": "labels.text.stroke",
-                        "stylers": [
-                            { "color": "#ffffff" },
-                            { "weight": 2 }
-                        ]
-                    },{
-                    }
+                {
+                    "featureType": "water",
+                    "stylers": [
+                    { "lightness": 23 },
+                    { "color": "#43668a" }
+                    ]
+                },{
+                    "featureType": "poi",
+                    "stylers": [
+                    { "visibility": "off" }
+                    ]
+                },{
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                    { "color": "#000000" }
+                    ]
+                },{
+                    "featureType": "landscape",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                    { "color": "#184a76" },
+                    { "saturation": -40 }
+                    ]
+                },{
+                    "featureType": "road",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                    { "color": "#273b57" },
+                    { "weight": 1.5 }
+                    ]
+                },{
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                    { "color": "#ffffff" },
+                    { "weight": 2 }
+                    ]
+                },{
+                }
                 ]
             };
 
@@ -154,15 +117,56 @@ function map(){
                 zoomControlOptions: false,
                 scaleControlOptions: false,
                 styles: [
-                    {
-                        "featureType": "poi",
-                        "stylers": [
-                            { "visibility": "off" }
-                        ]
-                    }
+                {
+                    "featureType": "poi",
+                    "stylers": [
+                    { "visibility": "off" }
+                    ]
+                }
                 ]
             };
         }
+
+        return options;
+    }
+
+
+    // Geolocation from user :
+    function getLocation()
+    {
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 3000,
+            maximumAge: 0
+        };
+
+        function success(position) {
+            setup_map(position);
+        };
+
+        function error(err) {
+            alert('Nous ne sommes pas parvenu à vous Géolocaliser ! :-(');
+                setup_map(null);
+            };
+
+            navigator.geolocation.getCurrentPosition(success, error, options);
+        }
+
+
+    // Generate map and markers :
+    function setup_map(position){
+
+        // Map is gonna be loaded, we can safely remove the loader 
+        $('#loading').hide() ;
+
+        if (position == null){
+            var user = [44.8356423, -0.5729913]; // Actual default : Bordeaux
+        }else{
+            var user = [position.coords.latitude, position.coords.longitude];
+        }
+
+        // Ajust the Theme and center of map
+        options = ajustOptionsMap(user);
 
         var map = new google.maps.Map(document.getElementById('map'),options);
 
@@ -171,19 +175,17 @@ function map(){
         // When the map is loaded !
         google.maps.event.addListenerOnce(map, 'idle', function(){
 
-
-            $('#loader').hide();
-
             var userMarker = addUserMarker(user);
             var aroundBars = getBarsAround(bars);
             CreateOrDeleteBar(markers, aroundBars);
 
+            // Search Bar completion
             searchPlace();
+
             /*** setupPanelOthers(); */
 
             //when user drag map
             google.maps.event.addListener(map, 'dragend', function() {
-
                 aroundBars = getBarsAround(bars);
                 CreateOrDeleteBar(markers, aroundBars);
 
@@ -191,12 +193,12 @@ function map(){
 
             //when user zoom map
             google.maps.event.addListener(map, 'zoom_changed', function() {
-
                 aroundBars = getBarsAround(bars);
                 CreateOrDeleteBar(markers, aroundBars);
-
             });
+
         });
+
 
         //Add the user marker on the map
         function addUserMarker(user){
@@ -231,7 +233,7 @@ function map(){
             return aroundBars;
         }
 
-        //Big function to create or delete bar
+        // Create or delete bar on the viewport
         function CreateOrDeleteBar(markers, aroundBars){
             var currentMarkersId = [];
             for (var i = 0; i < markers.length; i++){
@@ -281,10 +283,10 @@ function map(){
         //Screen the bar page
         function showBarPage(bar){
             var $pageBtn = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").find('.more-btn'),
-                $barsContainer = $('#bars'),
-                containerHeight = $('#page-container').height(),
-                previewHeight = 100,
-                isLoaded = false;
+            $barsContainer = $('#bars'),
+            containerHeight = $('#page-container').height(),
+            previewHeight = 100,
+            isLoaded = false;
 
 
             $pageBtn.on('click', function(){
@@ -299,8 +301,8 @@ function map(){
                         $( "#bar-page" ).append( page );
 
                         $barsContainer
-//                        .animate({height: containerHeight}, 200)
-//                        .delay(300)
+                        //.animate({height: containerHeight}, 200)
+                        //.delay(300)
                         .animate({left: -($barsContainer.width()/2)}, 300);
 
                         /***
@@ -324,40 +326,40 @@ function map(){
 
                         */  
 
-                            //set the map and marker action
-                    map.setZoom(16);
-                    for (i = 0; i < markers.length; i++) {
-                        if(markers[i][0] == bar[0]){
-                            var barMarker = markers[i][1];
-                            if (barMarker.icon.url == iconUrl)
-                                barMarker.setIcon(markerBigIcon);
-                            if (barMarker.icon.url == iconKingUrl)
-                                barMarker.setIcon(markerKingBig);
-                        }else{
-                            if (markers[i][1].icon.url == iconUrl)
-                                markers[i][1].setIcon(markerIcon);
-                            if (markers[i][1].icon.url == iconKingUrl)
-                                markers[i][1].setIcon(markerKing);
+                        //set the map and marker action
+                        map.setZoom(16);
+                        for (i = 0; i < markers.length; i++) {
+                            if(markers[i][0] == bar[0]){
+                                var barMarker = markers[i][1];
+                                if (barMarker.icon.url == iconUrl)
+                                    barMarker.setIcon(markerBigIcon);
+                                if (barMarker.icon.url == iconKingUrl)
+                                    barMarker.setIcon(markerKingBig);
+                            }else{
+                                if (markers[i][1].icon.url == iconUrl)
+                                    markers[i][1].setIcon(markerIcon);
+                                if (markers[i][1].icon.url == iconKingUrl)
+                                    markers[i][1].setIcon(markerKing);
+                            }
                         }
-                    }
 
-                            $('.close').on('click', function(){
-                        if (barMarker.icon.url == iconUrl)
-                            barMarker.setIcon(markerIcon);
-                        if (barMarker.icon.url == iconKingUrl)
-                            barMarker.setIcon(markerKing);
+                        $('.close').on('click', function(){
+                            if (barMarker.icon.url == iconUrl)
+                                barMarker.setIcon(markerIcon);
+                            if (barMarker.icon.url == iconKingUrl)
+                                barMarker.setIcon(markerKing);
 
                             map.setZoom(15);
                             $barsContainer
-                                .animate({left: 0}, 300, function(){
-                                    $('#fiche-bar').remove();
-                                });
-//                                .delay(300)
-//                                .animate({height: previewHeight}, 200);
+                            .animate({left: 0}, 300, function(){
+                                $('#fiche-bar').remove();
+                            });
+                            //.delay(300)
+                            //.animate({height: previewHeight}, 200);
 
                             isLoaded = false;
-                            })
-                        });
+                        })
+                    });
                 }
 
             })
@@ -390,9 +392,9 @@ function map(){
         //Screen the distance between user and the bar
         function showDistanceRate(bar){
             var $bar =  $('.preview-container').find("[data-id-bar="+ bar[0] +"]"),
-                $dContainer = $bar.contents().find('.distance'),
-                $jauge = $bar.contents().find('.jauge'),
-                globalRate = $bar.data('rate');
+            $dContainer = $bar.contents().find('.distance'),
+            $jauge = $bar.contents().find('.jauge'),
+            globalRate = $bar.data('rate');
 
             $dContainer.text(+bar[4]+"m");
             /*** createStars($jauge, globalRate); */
@@ -414,51 +416,51 @@ function map(){
                 //Moving map center to a marker when clicking on it
                 var Latlng = new google.maps.LatLng(bar[2], bar[3]);
                 map.panTo(Latlng); 
-                    
+
                 var previewUrl = window.location.origin + '/page/' + bar[0];
-                    $.ajax({
-                        url: previewUrl,
-                        cache: true
-                    })
-                    .done(function( page ) {
-                        $( "#bar-page" ).append( page );
-                        $('#bars').animate({left: -($('#bars').width()/2)}, 300);
-                    })
+                $.ajax({
+                    url: previewUrl,
+                    cache: true
+                })
+                .done(function( page ) {
+                    $( "#bar-page" ).append( page );
+                    $('#bars').animate({left: -($('#bars').width()/2)}, 300);
+                })
 
-               for (i = 0; i < markers.length; i++) {
-                   if (markers[i][1].icon.url == iconUrl)
-                       markers[i][1].setIcon(markerIcon);
-                   if (markers[i][1].icon.url == iconKingUrl)
-                       markers[i][1].setIcon(markerKing);
-               }
+                for (i = 0; i < markers.length; i++) {
+                 if (markers[i][1].icon.url == iconUrl)
+                     markers[i][1].setIcon(markerIcon);
+                 if (markers[i][1].icon.url == iconKingUrl)
+                     markers[i][1].setIcon(markerKing);
+             }
 
-               if (marker[1].icon.url == iconUrl)
-                   marker[1].setIcon(markerBigIcon);
-               if (marker[1].icon.url == iconKingUrl)
-                   marker[1].setIcon(markerKingBig);
+             if (marker[1].icon.url == iconUrl)
+                 marker[1].setIcon(markerBigIcon);
+             if (marker[1].icon.url == iconKingUrl)
+                 marker[1].setIcon(markerKingBig);
 
-               map.setZoom(17);
+             map.setZoom(17);
 
-                scrollBarsList(marker);
-            });
-        }
+             scrollBarsList(marker);
+         });
+}
 
         //Scroll the bars list on click on marker
         function scrollBarsList(marker){
             var barId = marker[0],
-                posVSid = [],
-                $barsPrev = $('.preview-container'),
-                $container = $('#cache-container'),
-                $innerContainer = $('#bars-container'),
-                barHeight = $barsPrev.height(),
-                barPos;
+            posVSid = [],
+            $barsPrev = $('.preview-container'),
+            $container = $('#cache-container'),
+            $innerContainer = $('#bars-container'),
+            barHeight = $barsPrev.height(),
+            barPos;
 
             $barsPrev.each(function(index){
                 posVSid[index] = $(this).children('.preview').data('id-bar');
 
                 if (posVSid[index]==barId)
-                     barPos = index;
-            })
+                   barPos = index;
+           })
             var time = 500+(Math.abs( ($container.scrollTop()-(barHeight*barPos))));
             $container.animate({scrollTop: barHeight*barPos}, time);
         }
@@ -466,8 +468,8 @@ function map(){
         //Reorganize bars list by distance (or price?)
         function reorganizeBarsList(){
             var $barsPrev = $('.preview-container'), distanceT = [], priceT = [],
-                $innerContainer = $('#bars-container'),
-                barHeight = $barsPrev.height();
+            $innerContainer = $('#bars-container'),
+            barHeight = $barsPrev.height();
 
             $barsPrev.each(function(i){
                 var barDistance = $(this).contents().find('.distance').text();
@@ -511,6 +513,7 @@ function map(){
         function searchPlace() {
             var input = (document.getElementById('pac-input'));
             var searchBox = new google.maps.places.SearchBox((input));
+            // It would be cool to autofocus this.
 
             google.maps.event.addListener(searchBox, 'places_changed', function() {
                 var places = searchBox.getPlaces();
@@ -558,7 +561,7 @@ function calculHaversine(barLat, barLnt, userLat, userLnt) {
     var distLong = rad(barLnt - userLnt);
 
     var a = Math.sin(distLat/2) * Math.sin(distLat/2) +
-        Math.cos(rad(barLat)) * Math.cos(rad(userLat)) * Math.sin(distLong/2) * Math.sin(distLong/2);
+    Math.cos(rad(barLat)) * Math.cos(rad(userLat)) * Math.sin(distLong/2) * Math.sin(distLong/2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c;
     return d.toFixed(3);
