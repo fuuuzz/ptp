@@ -1,4 +1,4 @@
-function mapV2(){
+function map(){
 
     getLocation();
 
