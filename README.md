@@ -1,6 +1,6 @@
-# Paye ta pinte
+# Paye Ta Pinte!
 
-'Paye ta pinte' is a ruby on rails developped app. This is based on a collaborative and participative system.
+'Paye Ta Pinte' is a ruby on rails developped app. This is based on a collaborative and participative system.
 
 ## Looking for the best and cheapest pint ?
 
