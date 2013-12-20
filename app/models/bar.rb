@@ -1,5 +1,5 @@
 class Bar < ActiveRecord::Base
-  attr_accessible :address, :latitude, :longitude, :location, :name, :price, :member_id
+  attr_accessible :address, :latitude, :longitude, :location, :name, :price, :member_id, :start_happy, :end_happy, :price_happy
 
   belongs_to :member
   has_many :comments, dependent: :destroy

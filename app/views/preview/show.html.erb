@@ -5,24 +5,15 @@
       <p class="beer-price"><%= transform_price(@bar.price) %>€</p>
     </div>
     <div class="main prev-bloc">
-      <h2><%= @bar.name %></h2>
-      <div class="distavis">
-        <p class="distance"></p>
-        <div class="avis">
-          <%= image_tag "bars/stars_cache.png", class: 'stars-cache' %>
-          <div class="jauge"></div>
-          <div class="bg-jauge"></div>
-        </div>
+      <div class="name-container">
+        <h2><%= @bar.name %></h2>
       </div>
-    </div>
-    <% if member_signed_in? %>
-        <div class="more-btn prev-bloc">
-          >
-        </div>
-    <% else %>
-        Login ↑
-    <% end %>
+      <p class="distance"></p>
 
+    </div>
+    <div class="more-btn prev-bloc">
+        <%= image_tag "icons/more.png" %>
+    </div>
   </div>
 </div>
 

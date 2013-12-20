@@ -7,7 +7,7 @@ $(window).ready(function(){
 
 function init(){
     map();
-    showHideOptions();
+//    showHideOptions();
 //    hidePhoneBar();
     setupLoader();
 }

@@ -1,26 +1,33 @@
 <div id="fiche-bar">
+
   <h3><%= @bar.name %></h3>
-
-  <p class="price">
-    <%= transform_price(@bar.price) %>€
-  </p>
-
   <p class="address">
     <%= @bar.address %>
   </p>
 
-  <div class="avis-page" data-rate="<%= give_bar_rate(@bar) %>">
-    <%= image_tag "bars/stars_cache.png", class: 'stars-cache' %>
-    <div class="jauge"></div>
-    <div class="bg-jauge"></div>
-  </div>
-  <p class="comments-btn" data-id-bar="<%= @bar.id %>">
-    Show comments
-  </p>
-  <div class="close">[x]</div>
+  <div class="under">
 
-  <div class="comments-container">
-    <%= render 'comments/bar_comments' %>
+      <% if !@bar.start_happy.nil? && !@bar.end_happy.nil? && !@bar.price_happy.nil?%>
+        <div class="left">
+          <p class="price">
+            <%= transform_price(@bar.price) %>€
+          </p>
+        </div>
+        <div class="right">
+          <div class="happy-hours">
+            <p class="happy-title">HAPPY <span class="bold">HOURS</span></p>
+            <p class="hours"><%= @bar.start_happy.hour %>H<%= (@bar.start_happy.min > 0) ? @bar.start_happy.min : nil %> - <%= @bar.end_happy.hour %>H<%= (@bar.end_happy.min > 0) ? @bar.end_happy.min : nil %></p>
+            <p class="happy-price"><%= transform_price(@bar.price_happy) %>€</p>
+          </div>
+        </div>
+      <% else %>
+        <p class="price">
+          <%= transform_price(@bar.price) %>€
+        </p>
+      <% end %>
+
   </div>
+
+  <div class="close"><%= image_tag "icons/less.png" %></div>
 
 </div>

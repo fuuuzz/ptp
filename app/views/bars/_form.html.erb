@@ -16,16 +16,24 @@
         <%= f.text_field :name, placeholder: 'Nom du bar...' %>
       </div>
       <div class="field">
-        <%= f.number_field :price, placeholder: 'Prix de la pinte...' %>
+        <%= f.text_field :price, placeholder: 'Prix de la pinte...' %>
+      </div>
+
+      <div class="field">
+        <h3>Happy Hours ! </h3>
+
+        <span>Début happy</span>
+        <%= f.time_select :start_happy%>
+        <br>
+        <span>Fin happy</span>
+        <%= f.time_select :end_happy%>
+        <br>
+        <%= f.text_field :price_happy, placeholder: 'Prix en Happy Hours...' %>
       </div>
       <h3>Emplacement du bar</h3>
-      <div class="here-c">
-        <div id="here" onclick="checkPosition()">J'y suis là !</div>
-      </div>
       <div class="field" id="locationField">
         <%= f.text_field :address, placeholder: 'Adresse...', autocomplete: 'off' %>
       </div>
-      <%= hidden_field(:bar, :member_id, :value=> current_member.id) %>
       <div class="actions">
         <%= f.submit %>
       </div>

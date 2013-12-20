@@ -44,18 +44,39 @@ function map(){
     // Geolocation from user :
     function getLocation()
     {
+
         if (navigator.geolocation)
         {
-            navigator.geolocation.getCurrentPosition(setup_map);
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+            function success(position) {
+                setup_map(position);
+            };
+
+            function error(err) {
+                alert('Nous ne sommes pas parvenu à vous Géolocaliser :( !');
+                setup_map(null);
+            };
+
+            navigator.geolocation.getCurrentPosition(success, error, options);
         }
-        else{alert("Geolocation is not supported by this browser.");}
+        else{
+            alert("Geolocation is not supported by this browser.");
+        }
     }
 
     // Generate map and marker :
     function setup_map(position){
 
-//        var user = [44.8356423, -0.5729913];
-        var user = [position.coords.latitude, position.coords.longitude];
+        if (position == null){
+            var user = [44.8356423, -0.5729913];
+        }else{
+            var user = [position.coords.latitude, position.coords.longitude];
+        }
+
 
 
 
@@ -240,8 +261,6 @@ function map(){
             centerMarker(marker, bar);
         }
 
-        var commentBox;
-
         //Screen the bar preview
         function showBarsPreview(bar){
             var previewUrl = window.location.origin + '/preview/' + bar[0];
@@ -280,8 +299,8 @@ function map(){
                         $( "#bar-page" ).append( page );
 
                         $barsContainer
-                        .animate({height: containerHeight}, 200)
-                        .delay(300)
+//                        .animate({height: containerHeight}, 200)
+//                        .delay(300)
                         .animate({left: -($barsContainer.width()/2)}, 300);
 
                         //Ajout des étoiles pour les fiches bars
@@ -303,36 +322,35 @@ function map(){
                         })
 
                             //set the map and marker action
-//                    map.setZoom(16);
-//                    for (i = 0; i < markers.length; i++) {
-//                        if(markers[i][0] == bar[0]){
-//                            var barMarker = markers[i][1];
-//                            if (barMarker.icon.url == iconUrl)
-//                                barMarker.setIcon(markerBigIcon);
-//                            if (barMarker.icon.url == iconKingUrl)
-//                                barMarker.setIcon(markerKingBig);
-//                        }else{
-//                            if (markers[i][1].icon.url == iconUrl)
-//                                markers[i][1].setIcon(markerIcon);
-//                            if (markers[i][1].icon.url == iconKingUrl)
-//                                markers[i][1].setIcon(markerKing);
-//                        }
-//                    }
-                            commentBox = new CommentBox();
+                    map.setZoom(16);
+                    for (i = 0; i < markers.length; i++) {
+                        if(markers[i][0] == bar[0]){
+                            var barMarker = markers[i][1];
+                            if (barMarker.icon.url == iconUrl)
+                                barMarker.setIcon(markerBigIcon);
+                            if (barMarker.icon.url == iconKingUrl)
+                                barMarker.setIcon(markerKingBig);
+                        }else{
+                            if (markers[i][1].icon.url == iconUrl)
+                                markers[i][1].setIcon(markerIcon);
+                            if (markers[i][1].icon.url == iconKingUrl)
+                                markers[i][1].setIcon(markerKing);
+                        }
+                    }
 
                             $('.close').on('click', function(){
-//                        if (barMarker.icon.url == iconUrl)
-//                            barMarker.setIcon(markerIcon);
-//                        if (barMarker.icon.url == iconKingUrl)
-//                            barMarker.setIcon(markerKing);
-//
-//                        map.setZoom(15);
+                        if (barMarker.icon.url == iconUrl)
+                            barMarker.setIcon(markerIcon);
+                        if (barMarker.icon.url == iconKingUrl)
+                            barMarker.setIcon(markerKing);
+
+                            map.setZoom(15);
                             $barsContainer
                                 .animate({left: 0}, 300, function(){
                                     $('#fiche-bar').remove();
-                                })
-                                .delay(300)
-                                .animate({height: previewHeight}, 200);
+                                });
+//                                .delay(300)
+//                                .animate({height: previewHeight}, 200);
 
                             isLoaded = false;
                             })
@@ -341,65 +359,6 @@ function map(){
 
             })
         }
-
-        CommentBox = function ($el) {
-            this.isOpen = false;
-
-            this.init();
-
-        };
-        CommentBox.prototype = {
-            init: function () {
-                this.$container = $('#fiche-bar'),
-                this.$upHeight = $('#mobile-container').height() - this.$container.height() - 60;
-                this.$openButton = $('.comments-btn');
-                this.$commentsContainer = this.$container.find('.comments-container');
-                this.$closeButton = $('.close');
-
-                this.$commentsContainer.css('top', this.$container.height() + 'px');
-
-                this.positions = {
-                    'opened': {
-                        'y': this.$upHeight
-                    },
-                    'closed': {
-                        'y': 0
-                    }
-                };
-                this.transitionProperties = {
-                    'duration': 400
-                }
-                this.events();
-            },
-            open: function () {
-                this.$container.addClass('open');
-                this.$container.animate({'bottom': this.positions.opened.y}, 400);
-                this.$openButton.text('Hide comments');
-            },
-            close: function () {
-                this.$container.removeClass('open');
-                this.$container.animate({'bottom': this.positions.closed.y}, 400);
-                this.$openButton.text('Show comments');
-            },
-            events: function () {
-                var that = this;
-                this.$openButton.on('click', function (e) {
-                    if(that.isOpen){
-                        that.close();
-                        that.isOpen = false;
-                    }
-                    else{
-                        that.open();
-                        that.isOpen = true;
-                    }
-                });
-
-                this.$closeButton.on('click', function (e) {
-                    that.close();
-                });
-
-            }
-        };
 
         //Calcul the distance between user and bars
         function distanceUserBar(bars){
@@ -451,19 +410,31 @@ function map(){
             google.maps.event.addListener(marker[1], 'click', function() {
                 //Moving map center to a marker when clicking on it
                 var Latlng = new google.maps.LatLng(bar[2], bar[3]);
-                map.panTo(Latlng);
+                map.panTo(Latlng); 
+                    
+                var previewUrl = window.location.origin + '/page/' + bar[0];
+                    $.ajax({
+                        url: previewUrl,
+                        cache: true
+                    })
+                    .done(function( page ) {
+                        $( "#bar-page" ).append( page );
+                        $('#bars').animate({left: -($barsContainer.width()/2)}, 300);
+                    })
 
-//                for (i = 0; i < markers.length; i++) {
-//                    if (markers[i][1].icon.url == iconUrl)
-//                        markers[i][1].setIcon(markerIcon);
-//                    if (markers[i][1].icon.url == iconKingUrl)
-//                        markers[i][1].setIcon(markerKing);
-//                }
-//
-//                if (marker[1].icon.url == iconUrl)
-//                    marker[1].setIcon(markerBigIcon);
-//                if (marker[1].icon.url == iconKingUrl)
-//                    marker[1].setIcon(markerKingBig);
+               for (i = 0; i < markers.length; i++) {
+                   if (markers[i][1].icon.url == iconUrl)
+                       markers[i][1].setIcon(markerIcon);
+                   if (markers[i][1].icon.url == iconKingUrl)
+                       markers[i][1].setIcon(markerKing);
+               }
+
+               if (marker[1].icon.url == iconUrl)
+                   marker[1].setIcon(markerBigIcon);
+               if (marker[1].icon.url == iconKingUrl)
+                   marker[1].setIcon(markerKingBig);
+
+               map.setZoom(17);
 
                 scrollBarsList(marker);
             });

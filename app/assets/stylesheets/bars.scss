@@ -5,9 +5,9 @@
 #bars{
   width: 200%;
   position: absolute;
-  height: 100px;
+  height: 200px;
   bottom: 0;
-  z-index: 100;
+  z-index: 10;
   -moz-box-shadow: 0px 0px 22px 0px #656565;
   -webkit-box-shadow: 0px 0px 22px 0px #656565;
   -o-box-shadow: 0px 0px 22px 0px #656565;
@@ -15,12 +15,12 @@
   filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=90, Strength=22);
   #cache-container{
     height: 100%;
-    z-index: 100;
+    z-index: 10;
     bottom: 0;
     position: absolute;
     left: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: $grey;
     overflow-y: auto;
   }
   #bars-container{
@@ -30,6 +30,7 @@
     margin: 0;
     padding: 0;
     z-index: 100;
+    color: white;
     .preview-container{
       height: 60px;
       width: 100%;
@@ -43,52 +44,51 @@
           position: relative;
         }
         .main{
-          width: 60%;
+          width: 70%;
           margin-top: 2px;
-          border-right: 1px #ddd solid;
-          border-left: 1px #ddd solid;
-          h2{
-            height: 32px;
+          
+          .name-container{
+            height: 40px;
+            display: table;
             text-align: center;
+            width: 82%;
+          }
+          h2{
+            margin: 2px auto 0;
             font-size: 16px;
             text-transform: uppercase;
+            color: $yellow;
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
           }
-          .distavis{
-            width: 100px;
-            margin: 0 auto;
-            display: block;
-            position: relative;
-            .distance{
-              display: inline-block;
-              text-align: right;
-              float: left;
-              font-size: 13px;
-            }
-            .avis, .avis-comment{
-              float: right;
-              margin: 0;
-            }
+          .distance{
+            font-size: 14px;
+            position: absolute;
+            right: 2px;
+            top: 13px;
+            font-weight: lighter;
+            float:right;
           }
         }
+
         .price{
           width: 19%;
           .beer-price{
             margin-top: 13px;
             font-size: 20px;
-            font-family: $oxygen;
             text-align: center;
             font-weight: 700;
           }
         }
         .more-btn{
-          width: 19%;
-          height: 50px;
-          z-index: 2000;
-          cursor: pointer;
-          font-size: 40px;
-          text-align: center;
-          font-weight: lighter;
-          color: #aaa;
+          width: 9%;
+          img{
+            margin-top: 8px;
+            margin-left: 8px;
+            height: 27px;
+            width: auto;
+          }
         }
       }
     }
@@ -100,6 +100,7 @@
     right: 0;
     height: 200px;
     width: 50%;
+    color: white;
     .open {
       bottom: 0px;
     }
@@ -107,42 +108,72 @@
       width: 100%;
       height: 100%;
       position: absolute;
-      background-color: #fff;
+      background-color: $grey;
+      h3{
+        text-align: center;
+        font-size: 26px;
+        color: $yellow;
+        max-width: 80%;
+        margin: 20px auto 5px;
+        font-family: $mtserra;
+        font-weight: bolder;
+        text-transform: uppercase;
+      }
+      .address{
+        font-size: 12px;
+        font-family: $mtserra;
+        font-weight: lighter;
+        max-width: 80%;
+        text-align: center;
+        margin: 0 auto;
+      }
+      .under{
+        width: 100%;
+        height: 80px;
+        position: absolute;
+        bottom: 10px;
+        .left, .right{
+          width: 50%;
+          float: left;
+          height: 80px;
+        }
+        .left{
+          margin-right: -1px;
+          border-right: 1px solid #ffffff;
+        }
+        .price{
+          font-size: 40px;
+          text-align: center;
+          margin-top: 20px;
+        }
+        .right{
+          text-align: center;
+        }
+        .bold{
+          font-weight: bold;
+          color: $yellow;
+        }
+        .happy-title {
+          margin-top: 10px;
+          font-size: 18px;
+        }
+        .hours{
+          font-size: 20px;
+
+        }
+        .happy-price {
+          font-size: 25px;
+          margin-top: 3px;
+          color: $yellow;
+        }
+        
+      }
+
       .close {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 23px;
+        left: 10px;
         cursor: pointer;
-      }
-      .avis-page{
-        width: 100px;
-        height: 24px;
-        overflow: hidden;
-        position: relative;
-        img{
-          width: 100%;
-          height: 100%;
-          z-index: 200;
-          position: relative;
-        }
-        .jauge{
-          background-color: #ffe73e;
-          width: 100%;
-          height: 20px;
-          position: absolute;
-          top: 4px;
-          left: 0;
-          z-index: 100;
-        }
-        .bg-jauge{
-          background-color: #908e91;
-          width: 99%;
-          height: 20px;
-          position: absolute;
-          top: 4px;
-          left: 0;
-          z-index: 90;
-        }
       }
     }
   }

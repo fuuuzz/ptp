@@ -5,7 +5,7 @@
   position: relative;
   margin: 0 auto;
   overflow: hidden;
-  font-family:$oxygen;
+  font-family:$mtserra;
   #header{
     height: 60px;
     z-index: 100;
@@ -13,11 +13,11 @@
     position: absolute;
     left: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: $grey;
     img{
-      width: 160px;
+      width: 230px;
       height: auto;
-      margin: 7px auto;
+      margin: 22px auto 0;
       display: block;
     }
   }
@@ -33,13 +33,14 @@
   #options{
     height: 40px;
     width: 100%;
-    background-color: #fff;
+    background-color: $grey;
     position: absolute;
     z-index: 90;
     top: -10px;
     input{
-      width: 60%;
-      display: inline-block;
+      width: 80%;
+      margin:0 auto;
+      display: block;
     }
   }
   #map{
@@ -50,14 +51,6 @@
     left: 0;
     z-index: 10;
   }
-  #others{
-    background-color: rgba(255, 255, 255, 0.8);
-    width: 100%;
-    top: 60px;
-    position: absolute;
-    z-index: 200;
-    left: 100%;
-  }
 
   #loader{
     z-index: 20;
@@ -66,7 +59,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #fff;
+    background-color: $grey;
     img{
       width: 48px;
       height: 48px;

@@ -20,9 +20,6 @@ Payetapinte::Application.routes.draw do
   get "members/index"
   get "members/show"
 
-  authenticated :members do
-    root :to => 'welcome#index'
-  end
   root :to => "welcome#index"
 
 

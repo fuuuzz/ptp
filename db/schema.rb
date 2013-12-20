@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131128230029) do
+ActiveRecord::Schema.define(:version => 20131219153118) do
 
   create_table "bars", :force => true do |t|
     t.string   "name"
@@ -20,9 +20,12 @@ ActiveRecord::Schema.define(:version => 20131128230029) do
     t.float    "longitude"
     t.string   "address"
     t.integer  "member_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "location"
+    t.time     "start_happy"
+    t.time     "end_happy"
+    t.float    "price_happy"
   end
 
   create_table "comments", :force => true do |t|

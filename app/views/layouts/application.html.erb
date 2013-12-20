@@ -9,10 +9,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
 
   <!-- ios status bar appearance, options: black, black-translucent -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- ios icon, just one size because ios will scale it, remove "-precomposed" if you want ios to add effects -->
-  <link href="http://payetapinte.fr/assets/img/icons/icon75x75.png" sizes="75x75" rel="apple-touch-icon-precomposed">
+  <link href="http://payetapinte.fr/assets/img/icons/icon.png" sizes="75x75" rel="apple-touch-icon-precomposed">
 
   <!-- ios startup images -->
   <!-- iPhone --><link href="http://payetapinte.fr/assets/img/startup_img/start320x460.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
@@ -32,13 +32,11 @@
 </head>
 <body>
 
-    <!--<%= render 'layouts/header' %>-->
-
     <div id="mobile-container">
       <%= yield %>
     </div>
-    <!-- <div id="loading">
-      <%= image_tag "icons/loading.gif" %>
-    </div> -->
+    <div id="loading">
+      <%= image_tag "icons/loader.gif" %>
+    </div>
 </body>
 </html>

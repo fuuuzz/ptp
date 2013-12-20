@@ -1,12 +1,6 @@
 <div id="new-bar">
     <h2>Ajoutez un bar !</h2>
-    <% if member_signed_in? %>
-         <%= render 'form' %>
-         <%= javascript_tag "autocompleteNew()" %>
-    <% else %>
-      <div id="signIn">
-        <%= javascript_tag "showSignIn()" %>
-      </div>
-    <% end %>
+    <%= render 'form' %>
+    <%= javascript_tag "autocompleteNew()" %>
     <div id="close-new">[x]</div>
 </div>
