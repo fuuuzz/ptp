@@ -48,14 +48,7 @@ function setupLoader(){
         });
 }
 
-//Autocomplete for new bar form
-function autocompleteNew() {
-    var options = {
-        componentRestrictions: { country: 'fr'}
-    }
-    var input = (document.getElementById('bar_address'));
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
-}
+
 
 function setupPanelOthers(){
     var $panelOthers = $('#others'),
@@ -180,3 +173,12 @@ function hidePhoneBar(){
 
 }
 */
+
+//Autocomplete for new bar form
+function autocompleteNew() {
+    var options = {
+        componentRestrictions: { country: 'fr'}
+    }
+    var input = (document.getElementById('bar_address'));
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+}

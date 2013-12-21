@@ -1,3 +1,32 @@
+#admin-container{
+  font-family: $oxygen;
+  h1{
+    font-size: 30px;
+    padding: 20px 0;
+
+  }
+  h2{
+    font-size: 25px;
+    padding: 10px 0;
+
+  }
+  h3{
+    font-size: 20px;
+    padding: 10px 0 5px;
+  }
+  h4{
+    font-size: 17px;
+    padding: 5px 0;
+  }
+  small{
+    font-size: 12px;
+    color: #333;
+  }
+  .admin-map{
+    height: 100px;
+    width: 100%;
+  }
+}
 #admin-menu{
   position: absolute;
   top: 0;
@@ -6,7 +35,57 @@
 }
 #admin-table-bars{
   margin: 30px;
-  td{
-    padding: 5px;
+  tr{
+    border: 1px solid #ddd;
   }
+
+  th{
+    text-align: left;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #eee;
+    font-size: 20px;
+  }
+  td{
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  th .current {
+    font-weight: bolder;
+    padding-right: 22px;
+    background-repeat: no-repeat;
+    background-position: right center;
+  }
+  th .asc {
+    background-image: image-url("icons/up-arrow.png");
+  }
+
+  th .desc {
+    background-image: image-url("icons/dwn-arrow.png");
+  }
+  a{
+    color: #525d77;
+    text-decoration: none;
+  }
+}
+
+.bar-form{
+    .basic{
+      padding: 10px;
+    }
+    .happy{
+      padding: 10px;
+      margin-top: 20px;
+    }
+    .actions input{
+      border: none;
+      background-color: $yellow;
+      cursor: pointer;
+      height: 50px;
+      font-size: 20px;
+      padding: 10px;
+      margin-left: 10px;
+    }
+
 }

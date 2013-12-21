@@ -2,12 +2,13 @@
 
 <table id="admin-table-bars">
   <tr>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Address</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th><%= sortable "name", "Nom" %></th>
+    <th><%= sortable "price", "Prix" %></th>
+    <th>Adresse</th>
+    <th>HappyHours</th>
+    <th><%= sortable "price_happy", "Happy Prix !" %></th>
+    <th><%= sortable "created_at", "Création" %></th>
+
   </tr>
 
 <% @bars.each do |bar| %>
@@ -15,6 +16,23 @@
     <td><%= bar.name %></td>
     <td><%= bar.price %></td>
     <td><%= bar.address %></td>
+    <td>
+      <% if !bar.start_happy.nil? && !bar.end_happy.nil? && bar.start_happy != bar.end_happy %>
+        <%= bar.start_happy.hour %>H<%= bar.start_happy.min %> - <%= bar.end_happy.hour %>H<%= bar.end_happy.min %>
+      <% else %>
+        no
+      <% end %>
+    </td>
+    <td>
+      <% if !bar.price_happy.nil? %>
+        <%= bar.price_happy %>
+      <% else %>
+          no
+      <% end %>
+    </td>
+    <td>
+      <%= "#{bar.created_at.day }/#{bar.created_at.month}/#{bar.created_at.year} à #{bar.created_at.hour}h#{bar.created_at.min}" %>
+    </td>
     <td><%= link_to 'Show', bar %></td>
     <td><%= link_to 'Edit', edit_bar_path(bar) %></td>
     <td><%= link_to 'Destroy', bar, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -8,7 +8,8 @@ function map(){
     date = new Date();
 
     var iconUrl = 'http://payetapinte.fr/assets/img/icons/marker.png',
-    iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerKing.png';
+    iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerKing.png',
+    iconUserUrl = 'http://payetapinte.fr/assets/img/icons/userMarker.png';
 
     var markerIcon = new google.maps.MarkerImage(
         iconUrl,
@@ -37,7 +38,14 @@ function map(){
         null, /* origin is 0,0 */
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(51, 87)
-        );
+        ),
+    markerUser = new google.maps.MarkerImage(
+        iconUserUrl,
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(30, 30)
+    );
 
     function ajustOptionsMap(user) {
         var currentHour = date.getHours(),
@@ -126,7 +134,6 @@ function map(){
                 ]
             };
         }
-
         return options;
     }
 
@@ -147,9 +154,9 @@ function map(){
         function error(err) {
             alert('Nous ne sommes pas parvenu à vous Géolocaliser ! :-(');
                 setup_map(null);
-            };
+        };
 
-            navigator.geolocation.getCurrentPosition(success, error, options);
+        navigator.geolocation.getCurrentPosition(success, error, options);
         }
 
 
@@ -205,7 +212,8 @@ function map(){
             var UserMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(user[0], user[1]),
                 map: map,
-                animation: google.maps.Animation.DROP
+                animation: google.maps.Animation.DROP,
+                icon: markerUser
             });
             return UserMarker;
         }

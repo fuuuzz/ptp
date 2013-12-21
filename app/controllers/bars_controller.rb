@@ -1,12 +1,12 @@
 class BarsController < ApplicationController
-  layout "ajax" #,:only =>  [:new]
+  layout "admin" #,:only =>  [:new]
   http_basic_authenticate_with name: "lepetitchat", password: "ilestmignon", except: [:show, :index]
-
+  helper_method :sort_column, :sort_direction
 
   # GET /bars
   # GET /bars.json
   def index
-    @bars = Bar.all
+    @bars = Bar.order(sort_column+" "+sort_direction)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -85,4 +85,15 @@ class BarsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def sort_column
+    Bar.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
 end
