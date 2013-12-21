@@ -1,6 +1,6 @@
 class BarsController < ApplicationController
   layout "ajax" #,:only =>  [:new]
-  http_basic_authenticate_with name: "admin", password: "admin", except: [:show, :index]
+  http_basic_authenticate_with name: "lepetitchat", password: "ilestmignon", except: [:show, :index]
 
 
   # GET /bars
