@@ -412,6 +412,7 @@ function map(){
 
         //Move map to marker bar and scroll bar list
         function centerMarker(marker, bar){
+            var $barsContainer = $('#bars');
             google.maps.event.addListener(marker[1], 'click', function() {
                 //Moving map center to a marker when clicking on it
                 var Latlng = new google.maps.LatLng(bar[2], bar[3]);
@@ -424,7 +425,22 @@ function map(){
                 })
                 .done(function( page ) {
                     $( "#bar-page" ).append( page );
-                    $('#bars').animate({left: -($('#bars').width()/2)}, 300);
+                    $barsContainer.animate({left: -($('#bars').width()/2)}, 300);
+
+                    $('.close').on('click', function(){
+                        if (marker[1].icon.url == iconUrl)
+                            marker[1].setIcon(markerIcon);
+                        if (marker[1].icon.url == iconKingUrl)
+                            marker[1].setIcon(markerKing);
+
+                        map.setZoom(15);
+                        $barsContainer
+                            .animate({left: 0}, 300, function(){
+                                $('#fiche-bar').remove();
+                            });
+
+                        isLoaded = false;
+                    })
                 })
 
                 for (i = 0; i < markers.length; i++) {
