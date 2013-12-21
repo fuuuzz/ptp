@@ -212,8 +212,8 @@ function map(){
             var UserMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(user[0], user[1]),
                 map: map,
-                animation: google.maps.Animation.DROP,
-                icon: markerUser
+                animation: google.maps.Animation.DROP
+//                icon: markerUser
             });
             return UserMarker;
         }
@@ -495,15 +495,13 @@ function map(){
             $innerContainer = $('#bars-container'),
             barHeight = $barsPrev.height();
 
-            $barsPrev.each(function(i){
+            $barsPrev.each(function(){
                 var barDistance = $(this).contents().find('.distance').text();
                 barDistance = barDistance.replace ( /[^\d.]/g, '' );
                 barDistance = parseInt(barDistance);
                 distanceT.push(Array(barDistance, $(this)) );
 
-                var barPrice = $(this).contents().find('.beer-price').text();
-                barPrice = barPrice.replace(',', '.').replace( /[^\d.]/g, '');
-                barPrice = parseFloat(barPrice);
+                var barPrice = $(this).children().data('price');
                 priceT.push(Array(barPrice, $(this)) );
             })
 
