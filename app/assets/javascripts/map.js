@@ -282,7 +282,6 @@ function map(){
             .done(function( data ) {
                 $( "#bars-container" ).append( data );
                 showDistanceRate(bar);
-                markerMoveMap(bar);
                 showBarPage(bar);
                 reorganizeBarsList();
             });
@@ -290,14 +289,12 @@ function map(){
 
         //Screen the bar page
         function showBarPage(bar){
-            var $pageBtn = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").find('.more-btn'),
+            var $bar = $('.preview-container').find("[data-id-bar="+ bar[0] +"]"),
             $barsContainer = $('#bars'),
-            containerHeight = $('#page-container').height(),
-            previewHeight = 100,
+            Latlng,
             isLoaded = false;
 
-
-            $pageBtn.on('click', function(){
+            $bar.on('click', function(){
                 if (!isLoaded){
                     isLoaded = true;
                     var previewUrl = window.location.origin + '/page/' + bar[0];
@@ -305,37 +302,19 @@ function map(){
                         url: previewUrl,
                         cache: true
                     })
-                    .done(function( page ) {
+                    .done(function( page ){
                         $( "#bar-page" ).append( page );
+                        $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
 
-                        $barsContainer
-                        //.animate({height: containerHeight}, 200)
-                        //.delay(300)
-                        .animate({left: -($barsContainer.width()/2)}, 300);
+                        //Set the map
+                        Latlng = new google.maps.LatLng(bar[2], bar[3]);
+                        map.panTo(Latlng);
+                        setTimeout(function(){
+                            map.setZoom(16);
+                        }, 200);
 
-                        /***
-                        //Ajout des étoiles pour les fiches bars
-                        var $avis = $('.avis-page'),
-                            $jauge = $avis.children('.jauge'),
-                            globalRate = $avis.data('rate');
 
-                        createStars($jauge, globalRate);
-
-                        //Ajout des étoiles pour les commentaires
-                        var $comments = $('.comment');
-                        $comments.each(function(){
-                            var $avisC = $(this).children('.avis-comment'),
-                                $jaugeC = $avisC.children('.jauge'),
-                                globalRateC = $avisC.data('rate');
-
-                            createStars($jaugeC, globalRateC);
-
-                        })
-
-                        */  
-
-                        //set the map and marker action
-                        map.setZoom(16);
+                        //Set the marker
                         for (i = 0; i < markers.length; i++) {
                             if(markers[i][0] == bar[0]){
                                 var barMarker = markers[i][1];
@@ -362,8 +341,6 @@ function map(){
                             .animate({left: 0}, 300, function(){
                                 $('#fiche-bar').remove();
                             });
-                            //.delay(300)
-                            //.animate({height: previewHeight}, 200);
 
                             isLoaded = false;
                         })
@@ -452,18 +429,18 @@ function map(){
                 })
 
                 for (i = 0; i < markers.length; i++) {
-                 if (markers[i][1].icon.url == iconUrl)
-                     markers[i][1].setIcon(markerIcon);
-                 if (markers[i][1].icon.url == iconKingUrl)
-                     markers[i][1].setIcon(markerKing);
-             }
+                     if (markers[i][1].icon.url == iconUrl)
+                         markers[i][1].setIcon(markerIcon);
+                     if (markers[i][1].icon.url == iconKingUrl)
+                         markers[i][1].setIcon(markerKing);
+                }
 
              if (marker[1].icon.url == iconUrl)
                  marker[1].setIcon(markerBigIcon);
              if (marker[1].icon.url == iconKingUrl)
                  marker[1].setIcon(markerKingBig);
 
-             map.setZoom(17);
+             map.setZoom(16);
 
              scrollBarsList(marker);
          });
