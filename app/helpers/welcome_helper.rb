@@ -21,4 +21,10 @@ module WelcomeHelper
 
     return newPrice
   end
+
+  def dont_show_country(address)
+    country = ", France"
+    cp = /[0-9]{5}/
+    return address.gsub(country, '').gsub(cp,'')
+  end
 end

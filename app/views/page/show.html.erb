@@ -2,8 +2,9 @@
 
   <h3><%= @bar.name %></h3>
   <p class="address">
-    <%= @bar.address %>
+    <%= dont_show_country(@bar.address) %>
   </p>
+  <p class="page-distance"></p>
 
   <div class="under">
 

@@ -309,10 +309,7 @@ function map(){
                         //Set the map
                         Latlng = new google.maps.LatLng(bar[2], bar[3]);
                         map.panTo(Latlng);
-                        setTimeout(function(){
-                            map.setZoom(16);
-                        }, 200);
-
+                        map.setZoom(16);
 
                         //Set the marker
                         for (i = 0; i < markers.length; i++) {
@@ -330,6 +327,14 @@ function map(){
                             }
                         }
 
+                        //Set the distance
+                        var $distanceC = $('#fiche-bar').find('.page-distance'),
+                            distance = bar[4];
+                            $distanceC.append("à "+transformDistance(bar[4]));
+
+
+
+
                         $('.close').on('click', function(){
                             if (barMarker.icon.url == iconUrl)
                                 barMarker.setIcon(markerIcon);
@@ -341,12 +346,10 @@ function map(){
                             .animate({left: 0}, 300, function(){
                                 $('#fiche-bar').remove();
                             });
-
                             isLoaded = false;
                         })
                     });
                 }
-
             })
         }
 
@@ -370,29 +373,20 @@ function map(){
                     return 1;
                 return 0;
             }
-
             return bars;
         }
 
         //Screen the distance between user and the bar
         function showDistanceRate(bar){
             var $bar =  $('.preview-container').find("[data-id-bar="+ bar[0] +"]"),
-            $dContainer = $bar.contents().find('.distance'),
-            $jauge = $bar.contents().find('.jauge'),
-            globalRate = $bar.data('rate');
+            $dContainer = $bar.contents().find('.distance');
+//            dec = Math.round(((bar[4]/1000)%1) * 100);
+//            if (bar[4]<1000)
+//                $dContainer.text(bar[4]+"m");
+//            else
+//                $dContainer.text(Math.round(bar[4]/1000)+","+dec+"km");
+            $dContainer.append(transformDistance(bar[4]) );
 
-            $dContainer.text(+bar[4]+"m");
-            /*** createStars($jauge, globalRate); */
-        }
-
-        //Move the center of the map to bar location
-        function markerMoveMap(bar){
-            var $bar = $('.preview-container').find("[data-id-bar="+ bar[0] +"]");
-
-            $bar.click(function(){
-                var Latlng = new google.maps.LatLng(bar[2], bar[3]);
-                map.panTo(Latlng);
-            })
         }
 
         //Move map to marker bar and scroll bar list
@@ -469,12 +463,18 @@ function map(){
         //Reorganize bars list by distance (or price?)
         function reorganizeBarsList(){
             var $barsPrev = $('.preview-container'), distanceT = [], priceT = [],
-            $innerContainer = $('#bars-container'),
-            barHeight = $barsPrev.height();
+                $innerContainer = $('#bars-container'),
+                barDistance,
+                barHeight = $barsPrev.height();
 
             $barsPrev.each(function(){
-                var barDistance = $(this).contents().find('.distance').text();
-                barDistance = barDistance.replace ( /[^\d.]/g, '' );
+                var barId = $(this).children().data('id-bar');
+                for(i = 0; i < bars.length; i++){
+                    if(bars[i][0] == barId){
+                        barDistance = bars[i][4];
+                    }
+                }
+
                 barDistance = parseInt(barDistance);
                 distanceT.push(Array(barDistance, $(this)) );
 
@@ -494,7 +494,6 @@ function map(){
                 }
             }
 
-
             function sortNumber(a,b) {
                 return a[0] - b[0];
             }
@@ -503,11 +502,8 @@ function map(){
                 var j = i+1
                 distanceT[i][1].after(distanceT[j][1]);
             }
-
             $innerContainer.height(barHeight*($barsPrev.length)+140);
-
         }
-
 
         function searchPlace() {
             var input = (document.getElementById('pac-input'));
@@ -564,4 +560,17 @@ function calculHaversine(barLat, barLnt, userLat, userLnt) {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c;
     return d.toFixed(3);
+}
+
+function transformDistance(distance){
+    var dec = Math.round(((distance/1000)%1) * 10);
+
+    if (distance<1000)
+        return "<span>"+distance+"</span>"+"m";
+    else {
+        if (dec != 0)
+            return "<span>"+Math.round(distance/1000)+","+dec+"</span>"+"km"
+        else
+            return "<span>"+Math.round(distance/1000)+"</span>"+"km"
+    }
 }
