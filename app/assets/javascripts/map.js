@@ -398,15 +398,7 @@
                 map.panTo(Latlng); 
 
                 var previewUrl = window.location.origin + '/page/' + bar[0];
-<<<<<<< HEAD
-                    $.ajax({
-                        url: previewUrl,
-                        cache: true
-                    })
-                    .done(function( page ) {
-                        $( "#bar-page" ).append( page );
-                        $('#bars').animate({left: -($barsContainer.width()/2)}, 300);
-=======
+
                 $.ajax({
                     url: previewUrl,
                     cache: true
@@ -428,7 +420,6 @@
                             });
 
                         isLoaded = false;
->>>>>>> 022d41ac1f715755ed6d08b2e04dd07b97bead7e
                     })
                 })
 
