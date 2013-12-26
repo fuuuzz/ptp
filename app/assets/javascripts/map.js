@@ -296,6 +296,7 @@
 
             $bar.on('click', function(){
                 if (!isLoaded){
+                    $(this).parent().addClass('prev-opened');
                     isLoaded = true;
                     var previewUrl = window.location.origin + '/page/' + bar[0];
                     $.ajax({
@@ -333,9 +334,8 @@
                             $distanceC.append("à "+transformDistance(bar[4]));
 
 
-
-
                         $('.close').on('click', function(){
+                            $bar.parent().removeClass('prev-opened');
                             if (barMarker.icon.url == iconUrl)
                                 barMarker.setIcon(markerIcon);
                             if (barMarker.icon.url == iconKingUrl)
