@@ -1,16 +1,15 @@
-function map(){
+  function map(){
 
     getLocation();
 
     var bars = getBarsLocation(),
-        i,
-        distance = '',
-        date = new Date(),
-        currentHour = date.getHours(),
-        nightHours  = [20, 8];
+    i,
+    distance = '',
+    date = new Date();
 
     var iconUrl = 'http://payetapinte.fr/assets/img/icons/marker.png',
-        iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerKing.png';
+    iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerKing.png',
+    iconUserUrl = 'http://payetapinte.fr/assets/img/icons/userMarker.png';
 
     var markerIcon = new google.maps.MarkerImage(
         iconUrl,
@@ -19,66 +18,38 @@ function map(){
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(34, 44)
         ),
-        markerBigIcon = new google.maps.MarkerImage(
+    markerBigIcon = new google.maps.MarkerImage(
         iconUrl,
         null, /* size is determined at runtime */
         null, /* origin is 0,0 */
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(51, 66)
         ),
-        markerKing = new google.maps.MarkerImage(
+    markerKing = new google.maps.MarkerImage(
         iconKingUrl,
         null, /* size is determined at runtime */
         null, /* origin is 0,0 */
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(34, 58)
         ),
-        markerKingBig = new google.maps.MarkerImage(
+    markerKingBig = new google.maps.MarkerImage(
         iconKingUrl,
         null, /* size is determined at runtime */
         null, /* origin is 0,0 */
         null, /* anchor is bottom center of the scaled image */
         new google.maps.Size(51, 87)
-        );
+        ),
+    markerUser = new google.maps.MarkerImage(
+        iconUserUrl,
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(30, 30)
+    );
 
-    // Geolocation from user :
-    function getLocation()
-    {
-
-        if (navigator.geolocation)
-        {
-            var options = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            };
-            function success(position) {
-                setup_map(position);
-            };
-
-            function error(err) {
-                alert('Nous ne sommes pas parvenu à vous Géolocaliser :( !');
-                setup_map(null);
-            };
-
-            navigator.geolocation.getCurrentPosition(success, error, options);
-        }
-        else{
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-
-    // Generate map and marker :
-    function setup_map(position){
-
-        if (position == null){
-            var user = [44.8356423, -0.5729913];
-        }else{
-            var user = [position.coords.latitude, position.coords.longitude];
-        }
-
-
-
+    function ajustOptionsMap(user) {
+        var currentHour = date.getHours(),
+        nightHours  = [20, 8] ;
 
         if (currentHour > nightHours[0] || currentHour < nightHours[1]){
 
@@ -96,44 +67,44 @@ function map(){
                 zoomControlOptions: false,
                 scaleControlOptions: false,
                 styles: [
-                    {
-                        "featureType": "water",
-                        "stylers": [
-                            { "lightness": 23 },
-                            { "color": "#43668a" }
-                        ]
-                    },{
-                        "featureType": "poi",
-                        "stylers": [
-                            { "visibility": "off" }
-                        ]
-                    },{
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                            { "color": "#000000" }
-                        ]
-                    },{
-                        "featureType": "landscape",
-                        "elementType": "geometry.fill",
-                        "stylers": [
-                            { "color": "#184a76" },
-                            { "saturation": -40 }
-                        ]
-                    },{
-                        "featureType": "road",
-                        "elementType": "geometry.stroke",
-                        "stylers": [
-                            { "color": "#273b57" },
-                            { "weight": 1.5 }
-                        ]
-                    },{
-                        "elementType": "labels.text.stroke",
-                        "stylers": [
-                            { "color": "#ffffff" },
-                            { "weight": 2 }
-                        ]
-                    },{
-                    }
+                {
+                    "featureType": "water",
+                    "stylers": [
+                    { "lightness": 23 },
+                    { "color": "#43668a" }
+                    ]
+                },{
+                    "featureType": "poi",
+                    "stylers": [
+                    { "visibility": "off" }
+                    ]
+                },{
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                    { "color": "#000000" }
+                    ]
+                },{
+                    "featureType": "landscape",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                    { "color": "#184a76" },
+                    { "saturation": -40 }
+                    ]
+                },{
+                    "featureType": "road",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                    { "color": "#273b57" },
+                    { "weight": 1.5 }
+                    ]
+                },{
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                    { "color": "#ffffff" },
+                    { "weight": 2 }
+                    ]
+                },{
+                }
                 ]
             };
 
@@ -154,15 +125,55 @@ function map(){
                 zoomControlOptions: false,
                 scaleControlOptions: false,
                 styles: [
-                    {
-                        "featureType": "poi",
-                        "stylers": [
-                            { "visibility": "off" }
-                        ]
-                    }
+                {
+                    "featureType": "poi",
+                    "stylers": [
+                    { "visibility": "off" }
+                    ]
+                }
                 ]
             };
         }
+        return options;
+    }
+
+
+    // Geolocation from user :
+    function getLocation()
+    {
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 3000,
+            maximumAge: 0
+        };
+
+        function success(position) {
+            setup_map(position);
+        };
+
+        function error(err) {
+            alert('Nous ne sommes pas parvenu à vous Géolocaliser ! :-(');
+                setup_map(null);
+        };
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        }
+
+
+    // Generate map and markers :
+    function setup_map(position){
+
+        // Map is gonna be loaded, we can safely remove the loader 
+        $('#loading').hide() ;
+
+        if (position == null){
+            var user = [44.8356423, -0.5729913]; // Actual default : Bordeaux
+        }else{
+            var user = [position.coords.latitude, position.coords.longitude];
+        }
+
+        // Ajust the Theme and center of map
+        options = ajustOptionsMap(user);
 
         var map = new google.maps.Map(document.getElementById('map'),options);
 
@@ -171,19 +182,17 @@ function map(){
         // When the map is loaded !
         google.maps.event.addListenerOnce(map, 'idle', function(){
 
-
-            $('#loader').hide();
-
             var userMarker = addUserMarker(user);
             var aroundBars = getBarsAround(bars);
             CreateOrDeleteBar(markers, aroundBars);
 
+            // Search Bar completion
             searchPlace();
-            setupPanelOthers();
+
+            /*** setupPanelOthers(); */
 
             //when user drag map
             google.maps.event.addListener(map, 'dragend', function() {
-
                 aroundBars = getBarsAround(bars);
                 CreateOrDeleteBar(markers, aroundBars);
 
@@ -191,12 +200,12 @@ function map(){
 
             //when user zoom map
             google.maps.event.addListener(map, 'zoom_changed', function() {
-
                 aroundBars = getBarsAround(bars);
                 CreateOrDeleteBar(markers, aroundBars);
-
             });
+
         });
+
 
         //Add the user marker on the map
         function addUserMarker(user){
@@ -204,6 +213,7 @@ function map(){
                 position: new google.maps.LatLng(user[0], user[1]),
                 map: map,
                 animation: google.maps.Animation.DROP
+//                icon: markerUser
             });
             return UserMarker;
         }
@@ -231,7 +241,7 @@ function map(){
             return aroundBars;
         }
 
-        //Big function to create or delete bar
+        // Create or delete bar on the viewport
         function CreateOrDeleteBar(markers, aroundBars){
             var currentMarkersId = [];
             for (var i = 0; i < markers.length; i++){
@@ -272,7 +282,6 @@ function map(){
             .done(function( data ) {
                 $( "#bars-container" ).append( data );
                 showDistanceRate(bar);
-                markerMoveMap(bar);
                 showBarPage(bar);
                 reorganizeBarsList();
             });
@@ -280,14 +289,12 @@ function map(){
 
         //Screen the bar page
         function showBarPage(bar){
-            var $pageBtn = $('.preview-container').find("[data-id-bar="+ bar[0] +"]").find('.more-btn'),
-                $barsContainer = $('#bars'),
-                containerHeight = $('#page-container').height(),
-                previewHeight = 100,
-                isLoaded = false;
+            var $bar = $('.preview-container').find("[data-id-bar="+ bar[0] +"]"),
+            $barsContainer = $('#bars'),
+            Latlng,
+            isLoaded = false;
 
-
-            $pageBtn.on('click', function(){
+            $bar.on('click', function(){
                 if (!isLoaded){
                     isLoaded = true;
                     var previewUrl = window.location.origin + '/page/' + bar[0];
@@ -295,68 +302,54 @@ function map(){
                         url: previewUrl,
                         cache: true
                     })
-                    .done(function( page ) {
+                    .done(function( page ){
                         $( "#bar-page" ).append( page );
+                        $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
 
-                        $barsContainer
-//                        .animate({height: containerHeight}, 200)
-//                        .delay(300)
-                        .animate({left: -($barsContainer.width()/2)}, 300);
+                        //Set the map
+                        Latlng = new google.maps.LatLng(bar[2], bar[3]);
+                        map.panTo(Latlng);
+                        map.setZoom(16);
 
-                        //Ajout des étoiles pour les fiches bars
-                        var $avis = $('.avis-page'),
-                            $jauge = $avis.children('.jauge'),
-                            globalRate = $avis.data('rate');
-
-                        createStars($jauge, globalRate);
-
-                        //Ajout des étoiles pour les commentaires
-                        var $comments = $('.comment');
-                        $comments.each(function(){
-                            var $avisC = $(this).children('.avis-comment'),
-                                $jaugeC = $avisC.children('.jauge'),
-                                globalRateC = $avisC.data('rate');
-
-                            createStars($jaugeC, globalRateC);
-
-                        })
-
-                            //set the map and marker action
-                    map.setZoom(16);
-                    for (i = 0; i < markers.length; i++) {
-                        if(markers[i][0] == bar[0]){
-                            var barMarker = markers[i][1];
-                            if (barMarker.icon.url == iconUrl)
-                                barMarker.setIcon(markerBigIcon);
-                            if (barMarker.icon.url == iconKingUrl)
-                                barMarker.setIcon(markerKingBig);
-                        }else{
-                            if (markers[i][1].icon.url == iconUrl)
-                                markers[i][1].setIcon(markerIcon);
-                            if (markers[i][1].icon.url == iconKingUrl)
-                                markers[i][1].setIcon(markerKing);
+                        //Set the marker
+                        for (i = 0; i < markers.length; i++) {
+                            if(markers[i][0] == bar[0]){
+                                var barMarker = markers[i][1];
+                                if (barMarker.icon.url == iconUrl)
+                                    barMarker.setIcon(markerBigIcon);
+                                if (barMarker.icon.url == iconKingUrl)
+                                    barMarker.setIcon(markerKingBig);
+                            }else{
+                                if (markers[i][1].icon.url == iconUrl)
+                                    markers[i][1].setIcon(markerIcon);
+                                if (markers[i][1].icon.url == iconKingUrl)
+                                    markers[i][1].setIcon(markerKing);
+                            }
                         }
-                    }
 
-                            $('.close').on('click', function(){
-                        if (barMarker.icon.url == iconUrl)
-                            barMarker.setIcon(markerIcon);
-                        if (barMarker.icon.url == iconKingUrl)
-                            barMarker.setIcon(markerKing);
+                        //Set the distance
+                        var $distanceC = $('#fiche-bar').find('.page-distance'),
+                            distance = bar[4];
+                            $distanceC.append("à "+transformDistance(bar[4]));
+
+
+
+
+                        $('.close').on('click', function(){
+                            if (barMarker.icon.url == iconUrl)
+                                barMarker.setIcon(markerIcon);
+                            if (barMarker.icon.url == iconKingUrl)
+                                barMarker.setIcon(markerKing);
 
                             map.setZoom(15);
                             $barsContainer
-                                .animate({left: 0}, 300, function(){
-                                    $('#fiche-bar').remove();
-                                });
-//                                .delay(300)
-//                                .animate({height: previewHeight}, 200);
-
+                            .animate({left: 0}, 300, function(){
+                                $('#fiche-bar').remove();
+                            });
                             isLoaded = false;
-                            })
-                        });
+                        })
+                    });
                 }
-
             })
         }
 
@@ -380,39 +373,32 @@ function map(){
                     return 1;
                 return 0;
             }
-
             return bars;
         }
 
         //Screen the distance between user and the bar
         function showDistanceRate(bar){
             var $bar =  $('.preview-container').find("[data-id-bar="+ bar[0] +"]"),
-                $dContainer = $bar.contents().find('.distance'),
-                $jauge = $bar.contents().find('.jauge'),
-                globalRate = $bar.data('rate');
+            $dContainer = $bar.contents().find('.distance');
+//            dec = Math.round(((bar[4]/1000)%1) * 100);
+//            if (bar[4]<1000)
+//                $dContainer.text(bar[4]+"m");
+//            else
+//                $dContainer.text(Math.round(bar[4]/1000)+","+dec+"km");
+            $dContainer.append(transformDistance(bar[4]) );
 
-            $dContainer.text(+bar[4]+"m");
-            createStars($jauge, globalRate);
-        }
-
-        //Move the center of the map to bar location
-        function markerMoveMap(bar){
-            var $bar = $('.preview-container').find("[data-id-bar="+ bar[0] +"]");
-
-            $bar.click(function(){
-                var Latlng = new google.maps.LatLng(bar[2], bar[3]);
-                map.panTo(Latlng);
-            })
         }
 
         //Move map to marker bar and scroll bar list
         function centerMarker(marker, bar){
+            var $barsContainer = $('#bars');
             google.maps.event.addListener(marker[1], 'click', function() {
                 //Moving map center to a marker when clicking on it
                 var Latlng = new google.maps.LatLng(bar[2], bar[3]);
                 map.panTo(Latlng); 
-                    
+
                 var previewUrl = window.location.origin + '/page/' + bar[0];
+<<<<<<< HEAD
                     $.ajax({
                         url: previewUrl,
                         cache: true
@@ -420,42 +406,66 @@ function map(){
                     .done(function( page ) {
                         $( "#bar-page" ).append( page );
                         $('#bars').animate({left: -($barsContainer.width()/2)}, 300);
+=======
+                $.ajax({
+                    url: previewUrl,
+                    cache: true
+                })
+                .done(function( page ) {
+                    $( "#bar-page" ).append( page );
+                    $barsContainer.animate({left: -($('#bars').width()/2)}, 300);
+
+                    $('.close').on('click', function(){
+                        if (marker[1].icon.url == iconUrl)
+                            marker[1].setIcon(markerIcon);
+                        if (marker[1].icon.url == iconKingUrl)
+                            marker[1].setIcon(markerKing);
+
+                        map.setZoom(15);
+                        $barsContainer
+                            .animate({left: 0}, 300, function(){
+                                $('#fiche-bar').remove();
+                            });
+
+                        isLoaded = false;
+>>>>>>> 022d41ac1f715755ed6d08b2e04dd07b97bead7e
                     })
+                })
 
-               for (i = 0; i < markers.length; i++) {
-                   if (markers[i][1].icon.url == iconUrl)
-                       markers[i][1].setIcon(markerIcon);
-                   if (markers[i][1].icon.url == iconKingUrl)
-                       markers[i][1].setIcon(markerKing);
-               }
+                for (i = 0; i < markers.length; i++) {
+                     if (markers[i][1].icon.url == iconUrl)
+                         markers[i][1].setIcon(markerIcon);
+                     if (markers[i][1].icon.url == iconKingUrl)
+                         markers[i][1].setIcon(markerKing);
+                }
 
-               if (marker[1].icon.url == iconUrl)
-                   marker[1].setIcon(markerBigIcon);
-               if (marker[1].icon.url == iconKingUrl)
-                   marker[1].setIcon(markerKingBig);
+             if (marker[1].icon.url == iconUrl)
+                 marker[1].setIcon(markerBigIcon);
+             if (marker[1].icon.url == iconKingUrl)
+                 marker[1].setIcon(markerKingBig);
 
-               map.setZoom(17);
+             map.setZoom(16);
 
-                scrollBarsList(marker);
-            });
-        }
+             scrollBarsList(marker);
+         });
+}
 
         //Scroll the bars list on click on marker
         function scrollBarsList(marker){
             var barId = marker[0],
-                posVSid = [],
-                $barsPrev = $('.preview-container'),
-                $container = $('#cache-container'),
-                $innerContainer = $('#bars-container'),
-                barHeight = $barsPrev.height(),
-                barPos;
+            posVSid = [],
+            $barsPrev = $('.preview-container'),
+            $container = $('#cache-container'),
+            $innerContainer = $('#bars-container'),
+            barHeight = $barsPrev.height(),
+            barPos;
 
             $barsPrev.each(function(index){
                 posVSid[index] = $(this).children('.preview').data('id-bar');
 
                 if (posVSid[index]==barId)
-                     barPos = index;
-            })
+                   barPos = index;
+           })
             var time = 500+(Math.abs( ($container.scrollTop()-(barHeight*barPos))));
             $container.animate({scrollTop: barHeight*barPos}, time);
         }
@@ -464,17 +474,21 @@ function map(){
         function reorganizeBarsList(){
             var $barsPrev = $('.preview-container'), distanceT = [], priceT = [],
                 $innerContainer = $('#bars-container'),
+                barDistance,
                 barHeight = $barsPrev.height();
 
-            $barsPrev.each(function(i){
-                var barDistance = $(this).contents().find('.distance').text();
-                barDistance = barDistance.replace ( /[^\d.]/g, '' );
+            $barsPrev.each(function(){
+                var barId = $(this).children().data('id-bar');
+                for(i = 0; i < bars.length; i++){
+                    if(bars[i][0] == barId){
+                        barDistance = bars[i][4];
+                    }
+                }
+
                 barDistance = parseInt(barDistance);
                 distanceT.push(Array(barDistance, $(this)) );
 
-                var barPrice = $(this).contents().find('.beer-price').text();
-                barPrice = barPrice.replace(',', '.').replace( /[^\d.]/g, '');
-                barPrice = parseFloat(barPrice);
+                var barPrice = $(this).children().data('price');
                 priceT.push(Array(barPrice, $(this)) );
             })
 
@@ -490,7 +504,6 @@ function map(){
                 }
             }
 
-
             function sortNumber(a,b) {
                 return a[0] - b[0];
             }
@@ -499,15 +512,13 @@ function map(){
                 var j = i+1
                 distanceT[i][1].after(distanceT[j][1]);
             }
-
             $innerContainer.height(barHeight*($barsPrev.length)+140);
-
         }
-
 
         function searchPlace() {
             var input = (document.getElementById('pac-input'));
             var searchBox = new google.maps.places.SearchBox((input));
+            // It would be cool to autofocus this.
 
             google.maps.event.addListener(searchBox, 'places_changed', function() {
                 var places = searchBox.getPlaces();
@@ -555,10 +566,21 @@ function calculHaversine(barLat, barLnt, userLat, userLnt) {
     var distLong = rad(barLnt - userLnt);
 
     var a = Math.sin(distLat/2) * Math.sin(distLat/2) +
-        Math.cos(rad(barLat)) * Math.cos(rad(userLat)) * Math.sin(distLong/2) * Math.sin(distLong/2);
+    Math.cos(rad(barLat)) * Math.cos(rad(userLat)) * Math.sin(distLong/2) * Math.sin(distLong/2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c;
     return d.toFixed(3);
 }
 
+function transformDistance(distance){
+    var dec = Math.round(((distance/1000)%1) * 10);
 
+    if (distance<1000)
+        return "<span>"+distance+"</span>"+"m";
+    else {
+        if (dec != 0)
+            return "<span>"+Math.round(distance/1000)+","+dec+"</span>"+"km"
+        else
+            return "<span>"+Math.round(distance/1000)+"</span>"+"km"
+    }
+}

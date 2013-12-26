@@ -1,16 +1,53 @@
 $(window).ready(function(){
     init();
-
-
 })
 
 
 function init(){
+    showHideOptions();
     map();
-//    showHideOptions();
-//    hidePhoneBar();
-    setupLoader();
+    /***    
+    hidePhoneBar(); 
+    setupLoader()
+    */
+    
 }
+
+// Show or Hide option panel (search bar)
+function showHideOptions(){
+    var $optionsBox = $('#options'),
+        $btnOptions = $('#btn-opt'),
+        isOpened = false;
+
+    $optionsBox.hide();
+
+    $btnOptions.on('click', function(){
+        if (isOpened){
+            $optionsBox.animate({top: -10}, 300, function(){
+                $(this).hide()
+            });
+            isOpened=false;
+            $btnOptions.text('+');
+        }else{
+            $optionsBox.show();
+            $optionsBox.animate({top: 60}, 300);
+            isOpened=true;
+            $btnOptions.text('-');
+        }
+    })
+}
+
+/***
+function setupLoader(){
+    $('#loading').hide()
+        .ajaxStart(function() {
+            $(this).show();
+        })
+        .ajaxStop(function() {
+            $(this).hide();
+        });
+}
+
 
 
 function setupPanelOthers(){
@@ -19,8 +56,10 @@ function setupPanelOthers(){
         barsHeight = $('#bars').height(),
         headerHeight = $('#header').height();
 
+
     $panelOthers.height(phoneHeight-headerHeight);
 
+   
     //Add a bar
     var $addBar = $('#add-bar'),
         $loginBtn = $('.login-btn');
@@ -31,6 +70,7 @@ function setupPanelOthers(){
     $loginBtn.on('click', function(){
         showAddBarInterface();
     });
+
     function showAddBarInterface(){
         $.ajax({
             url:  window.location.origin + '/bars/new',
@@ -58,17 +98,6 @@ function setupPanelOthers(){
     }
 }
 
-//autocomplete for new bar form
-function autocompleteNew() {
-    var options = {
-        componentRestrictions: { country: 'fr'}
-    }
-    var input = (document.getElementById('bar_address'));
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
-}
-
-
-
 //Show the sign in menu
 function showSignIn(){
     var $signIn = $('#signIn');
@@ -95,31 +124,6 @@ function showSignUp(){
     });
 }
 
-//Show/Hide options panel
-function showHideOptions(){
-    var $optionsBox = $('#options'),
-        $btnOptions = $('#btn-opt'),
-        isOpened = false;
-
-    $optionsBox.hide();
-
-    $btnOptions.on('click', function(){
-        if (isOpened){
-            $optionsBox.animate({top: -10}, 300, function(){
-                $(this).hide()
-            });
-            isOpened=false;
-            $btnOptions.text('+');
-        }else{
-            $optionsBox.show();
-            $optionsBox.animate({top: 60}, 300);
-            isOpened=true;
-            $btnOptions.text('-');
-        }
-    })
-
-
-}
 
 function transformPrice(a){
     var price = ('"'+a+'"')
@@ -128,6 +132,7 @@ function transformPrice(a){
 
     return(newPrice);
 }
+
 
 function createStars(jauge, rate){
     jauge.width((rate/5*100)+'%');
@@ -167,13 +172,13 @@ function hidePhoneBar(){
     })();
 
 }
+*/
 
-function setupLoader(){
-    $('#loading').hide()
-        .ajaxStart(function() {
-            $(this).show();
-        })
-        .ajaxStop(function() {
-            $(this).hide();
-        });
+//Autocomplete for new bar form
+function autocompleteNew() {
+    var options = {
+        componentRestrictions: { country: 'fr'}
+    }
+    var input = (document.getElementById('bar_address'));
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
 }

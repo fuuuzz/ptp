@@ -2,27 +2,30 @@
 
   <h3><%= @bar.name %></h3>
   <p class="address">
-    <%= @bar.address %>
+    <%= dont_show_country(@bar.address) %>
   </p>
+  <p class="page-distance"></p>
 
   <div class="under">
 
-      <% if !@bar.start_happy.nil? && !@bar.end_happy.nil? && !@bar.price_happy.nil?%>
+      <% if !@bar.start_happy.nil? && !@bar.end_happy.nil? && @bar.start_happy != @bar.end_happy %>
         <div class="left">
           <p class="price">
-            <%= transform_price(@bar.price) %>€
+            <%= transform_price(@bar.price, false) %>€
           </p>
         </div>
         <div class="right">
           <div class="happy-hours">
             <p class="happy-title">HAPPY <span class="bold">HOURS</span></p>
             <p class="hours"><%= @bar.start_happy.hour %>H<%= (@bar.start_happy.min > 0) ? @bar.start_happy.min : nil %> - <%= @bar.end_happy.hour %>H<%= (@bar.end_happy.min > 0) ? @bar.end_happy.min : nil %></p>
-            <p class="happy-price"><%= transform_price(@bar.price_happy) %>€</p>
+            <% if !@bar.price_happy.nil? %>
+                <p class="happy-price"><%= transform_price(@bar.price_happy, false) %>€</p>
+            <% end %>
           </div>
         </div>
       <% else %>
         <p class="price">
-          <%= transform_price(@bar.price) %>€
+          <%= transform_price(@bar.price, false) %>€
         </p>
       <% end %>
 
