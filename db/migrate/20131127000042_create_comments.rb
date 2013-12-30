@@ -4,7 +4,6 @@ class CreateComments < ActiveRecord::Migration
       t.string :commenter
       t.integer :rate
       t.references :bar
-      t.references :member
 
       t.timestamps
     end

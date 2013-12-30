@@ -1,14 +1,24 @@
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
+<div id="fb-root"></div>
 
 <div id="header">
   <%= image_tag "Logo_beta.png" %>
+
   <div id="btn-opt">
     +
   </div>
 </div>
 <div id="options">
   <input id="pac-input" class="controls" type="search" placeholder="Voir les bars à..." >
+  <!--<div id="user_nav">-->
+    <!--<% if current_user %>-->
+        <!--Signed in as <strong><%= current_user.name %></strong>!-->
+        <!--<%= link_to "Sign out", signout_path, id: "sign_out" %>-->
+    <!--<% else %>-->
+        <!--<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>-->
+    <!--<% end %>-->
+  <!--</div>-->
 </div>
   
 <div id="map"></div>
@@ -21,5 +31,11 @@
   <div id="page-container">
     <div id="bar-page"></div>
   </div>
+  <div id="nobar" style="display:none;">
+    <div class="container">
+      <p>Aucun Bar trouvé aux alentours ! </br> <span>Vous connaissez un bar dans le coin ? </br> <a href="http://m.payetapinte.fr/gerant-dun-bar/">Soumettez le à Paye Ta Pinte!</a></span></p>
+    </div>
+  </div>
 </div>
 
+<!--<div id="fb"></div>-->

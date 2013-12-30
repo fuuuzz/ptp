@@ -62,23 +62,36 @@
     left: 0;
     z-index: 10;
   }
+}
 
-  #loader{
-    z-index: 20;
-    width: 100%;
-    height: 100%;
-    position: absolute;
+#nobar{
+  width: 50%;
+  height: 200px;
+  top: 0;
+  position: relative;
+  z-index: 100;
+  .container{
+    height: 200px;
     top: 0;
-    left: 0;
-    background-color: $grey;
-    img{
-      width: 48px;
-      height: 48px;
-      position: absolute;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-family: $mtserra;
+    font-size: 15px;
+    position: relative;
+    p{
+      position: relative;
       top: 50%;
-      left: 50%;
-      margin-top: -24px;
-      margin-left: -24px;
+      span{
+        display: block;
+        margin-top: 10px;
+        font-size: 12px;
+      }
+      a{
+        font-size: 14px;
+        text-decoration: none;
+        color: $yellow;
+      }
     }
   }
 }
@@ -100,4 +113,15 @@
     margin-top: -33px;
     margin-left: -33px;
   }
+}
+
+#fb{
+  width: 300px;
+  height: 200px;
+  position: absolute;
+  z-index: 2000;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -150px;
 }

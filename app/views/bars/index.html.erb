@@ -1,8 +1,13 @@
-<h1>Listing bars</h1>
+<h1>Listing des <%= @bars.length%> bars !</h1>
 <h2><%= link_to 'New Bar', new_bar_path %></h2>
+
+<div class="info">
+
+</div>
 
 <table id="admin-table-bars">
   <tr>
+    <th>N°</th>
     <th><%= sortable "name", "Nom" %></th>
     <th><%= sortable "price", "Prix" %></th>
     <th>Adresse</th>
@@ -12,14 +17,15 @@
 
   </tr>
 
-<% @bars.each do |bar| %>
+<% @bars.each_with_index do |bar, index| %>
   <tr>
+    <td><%= index+1 %></td>
     <td><%= bar.name %></td>
     <td><%= bar.price %></td>
     <td><%= bar.address %></td>
     <td>
       <% if !bar.start_happy.nil? && !bar.end_happy.nil? && bar.start_happy != bar.end_happy %>
-        <%= bar.start_happy.hour %>H<%= bar.start_happy.min %> - <%= bar.end_happy.hour %>H<%= bar.end_happy.min %>
+        <%= bar.start_happy.strftime("%R") %> - <%= bar.end_happy.strftime("%R") %>
       <% else %>
         no
       <% end %>
@@ -32,7 +38,7 @@
       <% end %>
     </td>
     <td>
-      <%= "#{bar.created_at.day }/#{bar.created_at.month}/#{bar.created_at.year} à #{bar.created_at.hour}h#{bar.created_at.min}" %>
+      <%= "#{bar.created_at.strftime("Le %d/%m/%y à %R")}" %>
     </td>
     <td><%= link_to 'Show', bar %></td>
     <td><%= link_to 'Edit', edit_bar_path(bar) %></td>

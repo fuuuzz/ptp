@@ -1,24 +1,14 @@
 Payetapinte::Application.routes.draw do
 
-  resources :comments
+  match 'auth/:provider/callback', to: 'sessions#create'
+  match 'auth/failure', to: redirect('/')
+  match 'signout', to: 'sessions#destroy', as: 'signout'
 
-  devise_for :members
-
-  resources :bars do
-    resources :comments
-  end
-
-  resources :members do
-    resources :bars
-    resources :comments
-  end
+  resources :bars
 
   resources :preview
 
   resources :page
-
-  get "members/index"
-  get "members/show"
 
   root :to => "welcome#index"
 

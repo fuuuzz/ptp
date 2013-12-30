@@ -1,16 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  layout :layout_by_resource
-
-  protected
-
-  def layout_by_resource
-    if devise_controller?
-      "ajax"
-    else
-      "application"
-    end
+  private
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+  helper_method :current_user
+
+  layout "application"
+
 end
 

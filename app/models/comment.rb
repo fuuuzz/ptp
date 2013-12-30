@@ -1,7 +1,6 @@
 class Comment < ActiveRecord::Base
 
   belongs_to :bar
-  belongs_to :member
 
   attr_accessible :commenter, :rate, :author
 
