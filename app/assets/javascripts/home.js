@@ -1,12 +1,22 @@
 $(window).ready(function(){
+    barState = true;
+
     init();
+    document.addEventListener('touchmove', function(event) {
+        if(event.target.parentNode.className.indexOf('noBounce') != -1 || event.target.className.indexOf('noBounce') != -1 ) {
+            event.preventDefault(); }
+    }, false);
+
+    var scrollable = document.getElementById("cache-container");
+    new ScrollFix(scrollable);
 })
 
 
 function init(){
     showHideOptions();
     map();
-    /***    
+    swipeBarsContainer();
+    /***
     hidePhoneBar(); 
     setupLoader()
     */
@@ -27,14 +37,56 @@ function showHideOptions(){
                 $(this).hide()
             });
             isOpened=false;
-            $btnOptions.text('+');
+//            $btnOptions.text('+');
         }else{
             $optionsBox.show();
             $optionsBox.animate({top: 60}, 300);
             isOpened=true;
-            $btnOptions.text('-');
+//            $btnOptions.text('-');
         }
     })
+}
+
+function swipeBarsContainer(){
+    window.addEventListener('load', function() {
+        var $barsCont = document.getElementById('bars'),
+            $container = $('#cache-container'),
+            $languette = document.getElementById('languette');
+
+
+        Hammer($languette).on("swipedown dragdown", function(event) {
+            if (barState){
+                $('#bars').animate({bottom: "-140"}, 300);
+                barState = false;
+            }
+            else return
+        });
+        Hammer($languette).on("swipeup dragup", function(event) {
+            if (!barState){
+                $('#bars').animate({bottom: "0"}, 300);
+                barState = true;
+            }
+            else return
+        });
+
+
+
+
+    }, false);
+}
+
+function open_rate_box(){
+
+    $('#rate').on('click', function(){
+        var $newRate = $('#new-rate');
+        $newRate.fadeIn();
+    })
+}
+
+function close_rate_box(){
+    var $newRate = $('#new-rate');
+
+    $newRate.fadeOut();
 }
 
 /***

@@ -11,7 +11,10 @@
     window.fbAsyncInit = function() {
         FB.init({
             appId: '435803716520289',
-            cookie: true
+            channelUrl : 'http://localhost:3000' ,
+            status : true, // check login status
+            cookie : true, // enable cookies to allow the server to access the session
+            xfbml  : true  // parse XFBML
         });
         $('#sign_in').click(function(e) {
             e.preventDefault();
@@ -32,3 +35,4 @@
     };
 
 }).call(this);
+

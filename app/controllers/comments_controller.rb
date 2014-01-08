@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
     @bar = Bar.find(params[:bar_id])
     @comment = @bar.comments.create(params[:comment])
 
+    redirect_to root_path
   end
 
   def update
@@ -25,5 +26,6 @@ class CommentsController < ApplicationController
     @bar = Bar.find(params[:bar_id])
     @comment = @bar.comments.find(params[:id])
     @comment.destroy
+    redirect_to root_path
   end
 end

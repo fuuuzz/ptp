@@ -6,7 +6,7 @@
     </div>
     <div class="main prev-bloc">
       <div class="name-container">
-        <h2><%= @bar.name %></h2>
+        <h2><%= sanitize(truncate(@bar.name), :length => 30)%></h2>
       </div>
       <p class="distance"></p>
 

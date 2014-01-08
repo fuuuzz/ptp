@@ -26,6 +26,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'modernizr-rails', '~> 2.7.0'
 
 group :development do
   gem 'annotate', ">=2.5.0"

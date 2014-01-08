@@ -1,0 +1,10 @@
+<%= form_for([@bar, Comment.new]) do |f| %>
+    <p>
+      <%= f.label :rate %><br />
+      <%= f.text_field :rate %>
+    </p>
+    <%= hidden_field(:comment, :author, :value => current_user.name) %>
+    <p>
+      <%= f.submit %>
+    </p>
+<% end %>
