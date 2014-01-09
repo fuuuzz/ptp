@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(:version => 20131228170227) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "address"
-    t.integer  "member_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "location"
@@ -39,7 +38,6 @@ ActiveRecord::Schema.define(:version => 20131228170227) do
   end
 
   add_index "comments", ["bar_id", "member_id"], :name => "index_comments_on_bar_id_and_member_id", :unique => true
-  add_index "comments", ["bar_id"], :name => "index_comments_on_bar_id"
   add_index "comments", ["member_id"], :name => "index_comments_on_member_id"
 
   create_table "users", :force => true do |t|
