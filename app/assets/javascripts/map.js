@@ -485,6 +485,7 @@
                         open_rate_box();
 
 
+
                         $('.close').on('click', function(){
                             $bar.parent().removeClass('prev-opened');
                             if (barMarker.icon.url == iconUrl)

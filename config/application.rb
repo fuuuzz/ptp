@@ -61,5 +61,21 @@ module Payetapinte
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #Config Mailer
+    config.action_mailer.smtp_settings = {
+        :address              => "mail-a.easy-hebergement.net",
+        :port                 => 587,
+        :domain               => "payetapinte.fr",
+        :user_name            => "bienvenue@payetapinte.fr",
+        :password             => "ptp2013mailbar0908",
+        :authentication       => :plain,
+        :enable_starttls_auto => true
+    }
+
+    config.action_mailer.default_url_options = {
+        :host => "payetapinte.fr"
+    }
+
   end
 end

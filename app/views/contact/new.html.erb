@@ -1,0 +1,48 @@
+<%= form_for @submission, :url => contact_path do |f| %>
+    <% if @submission.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@submission.errors.count, "error") %> prohibited this bar from being saved:</h2>
+
+          <ul>
+            <% @submission.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <fieldset class="fields">
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :address %>
+        <%= f.text_field :address %>
+      </div>
+
+      <div class="field">
+        <%= f.label :price %>
+        <%= f.text_field :price %>
+      </div>
+
+      <div class="happyhours">
+        <h4>Début happy :</h4>
+        <%= f.text_field :happy_start%>
+        <h4>Fin happy :</h4>
+        <%= f.text_field :happy_end%>
+        <h4>Prix pendant l'happy hour :</h4>
+        <%= f.text_field :happy_price, placeholder: 'Prix en Happy Hours...' %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+      </div>
+
+    </fieldset>
+
+    <fieldset class="actions">
+      <%= f.submit "Send" %>
+    </fieldset>
+<% end %>

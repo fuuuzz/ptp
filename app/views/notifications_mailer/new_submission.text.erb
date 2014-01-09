@@ -1,0 +1,22 @@
+Soumission d'un bar depuis l'app !
+
+De :  <%= @submission.email %>
+
+Nom du bar : <%= @submission.name %>
+
+Prix de la Pinte : <%= @submission.price %>
+
+Adresse du Bar : <%= @submission.address %>
+
+Happy Hours : <% if @submission.happy_start != "" && @submission.happy_end != "" && @submission.happy_price != "" %>
+
+Début : <%= @submission.happy_start %>
+Fin : <%= @submission.happy_end %>
+Prix pendant l'happy : <%= @submission.happy_price %>
+
+<% else %>
+
+Non renseigné
+
+<% end %>
+
