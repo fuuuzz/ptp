@@ -1,6 +1,6 @@
 class BarsController < ApplicationController
   layout "admin" #,:only =>  [:new]
-  http_basic_authenticate_with name: "lepetitchat", password: "ilestmignon", except: [:show, :index]
+  http_basic_authenticate_with :name => ENV["ADMIN_AUTH"], :password => ENV["ADMIN_PASSWORD"]
   helper_method :sort_column, :sort_direction
 
   # GET /bars

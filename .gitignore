@@ -16,3 +16,5 @@
 
 #Ignore the database.yml --> PC vs Mac user
 /config/database.yml
+# Ignore application configuration
+/config/application.yml
