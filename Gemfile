@@ -12,6 +12,8 @@ gem 'omniauth-facebook'
 
 gem 'pg'
 
+gem 'figaro'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -26,6 +28,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'modernizr-rails', '~> 2.7.0'
 
 group :development do
   gem 'annotate', ">=2.5.0"

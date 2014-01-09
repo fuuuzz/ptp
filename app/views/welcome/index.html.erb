@@ -2,30 +2,34 @@
 <p class="alert"><%= alert %></p>
 <div id="fb-root"></div>
 
-<div id="header">
+<div id="header" class="noBounce">
   <%= image_tag "Logo_beta.png" %>
 
   <div id="btn-opt">
-    +
+    <%= image_tag "icons/loupe.png" %>
   </div>
 </div>
 <div id="options">
-  <input id="pac-input" class="controls" type="search" placeholder="Voir les bars à..." >
-  <!--<div id="user_nav">-->
-    <!--<% if current_user %>-->
-        <!--Signed in as <strong><%= current_user.name %></strong>!-->
-        <!--<%= link_to "Sign out", signout_path, id: "sign_out" %>-->
-    <!--<% else %>-->
-        <!--<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>-->
-    <!--<% end %>-->
-  <!--</div>-->
+  <div id="search">
+    <input id="pac-input" class="controls" type="search" placeholder="Voir les bars à..." >
+  </div>
+  <div id="user_nav">
+    <% if current_user %>
+        <%= image_tag current_user.image %>
+        <p class="user-name"><%= current_user.name %></p>
+        <p class="signout"><%= link_to "Déconnexion", signout_path, id: "sign_out" %></p>
+    <% else %>
+        <p class='signin'><%= link_to "Connexion", "/auth/facebook", id: "sign_in" %></p>
+    <% end %>
+  </div>
 </div>
   
 <div id="map"></div>
 
 <div id="bars">
-  <div id="cache-container">
-    <div id="bars-container"></div>
+  <div id="languette" class="noBounce"><%= image_tag "icons/languette.png" %></div>
+  <div id="cache-container" class="noBounce">
+    <div id="bars-container" class="noBounce"></div>
   </div>
 
   <div id="page-container">

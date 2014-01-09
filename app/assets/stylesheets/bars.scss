@@ -21,7 +21,8 @@
     left: 0;
     width: 100%;
     background-color: $grey;
-    overflow-y: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
   }
   #bars-container{
     width: 50%;
@@ -51,7 +52,8 @@
             height: 40px;
             display: table;
             text-align: center;
-            width: 80%;
+            width: 70%;
+            margin-left: 1%;
           }
           h2{
             margin: 2px auto 0;
@@ -61,6 +63,7 @@
             text-align: center;
             display: table-cell;
             vertical-align: middle;
+            font-weight: bolder;
           }
           .distance{
             font-size: 14px;
@@ -85,9 +88,9 @@
           }
         }
         .more-btn{
-          width: 9%;
+          width: 7%;
           height: 38px;
-          margin-top: 10px;
+          margin-top: 14px;
           background: image-url("icons/white-right.png") no-repeat;
           float:right;
         }
@@ -114,7 +117,7 @@
     z-index: 300;
     bottom:0;
     right: 0;
-    height: 200px;
+    height: 220px;
     width: 50%;
     color: white;
     .open {
@@ -130,10 +133,13 @@
         font-size: 26px;
         color: $yellow;
         max-width: 80%;
-        margin: 20px auto 5px;
+        margin: 10px auto 0px;
         font-family: $mtserra;
         font-weight: bolder;
         text-transform: uppercase;
+      }
+      h3.long-name{
+        font-size: 20px;
       }
       .address{
         font-size: 12px;
@@ -147,9 +153,56 @@
         text-align: center;
         padding-top: 3px;
         font-weight: lighter;
-        font-size: 14px;
+        font-size: 12px;
         span{
-          font-size: 17px;
+          font-size: 16px;
+        }
+      }
+      .plus{
+        margin-top: 10px;
+        height: 30px;
+        width: 100%;
+        background-color: $yellow;
+        .direction{
+          width: 50%;
+          height: 30px;
+          vertical-align: top;
+          display: inline-block;
+          float: left;
+          img{
+            height: 17px;
+            width: 17px;
+            margin: 6px;
+            margin-left: 15px;
+            display: inline-block;
+          }
+          p{
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 7px;
+            a{
+              text-decoration: none;
+              color: #000000;
+              text-transform: uppercase;
+              font-weight: bolder;
+              font-size: 14px;
+            }
+          }
+        }
+        #rate{
+          width: 50%;
+          height: 30px;
+          vertical-align: top;
+          display: table;
+          float: left;
+          p{
+            color: #000000;
+            font-size: 12px;
+            text-transform: uppercase;
+            vertical-align: middle;
+            text-align: center;
+            display: table-cell;
+          }
         }
       }
       .under{
@@ -200,12 +253,26 @@
 
       .close {
         position: absolute;
-        top: 23px;
+        top: 12px;
         left: 10px;
         cursor: pointer;
+        img{
+          height: 24px;
+        }
       }
     }
   }
+}
+#new-rate{
+  width: 200px;
+  height: 100px;
+  background-color: rgba(51, 51, 51, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -100px;
+  z-index: 1000;
 }
 
 #new-bar{

@@ -2,7 +2,9 @@
   width: 100%;
   height: 100%;
   display: block;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   margin: 0 auto;
   overflow: hidden;
   font-family:$mtserra;
@@ -15,21 +17,23 @@
     width: 100%;
     background-color: $grey;
     img{
-      width: 230px;
+      width: 200px;
       height: auto;
       margin: 13px auto 0;
       display: block;
     }
   }
   #btn-opt{
-    color: white;
-    font-size: 30px;
     position: absolute;
-    top: 15px;
-    right: 10px;
-    width: 25px;
-    height: 20px;
-    text-align: center;
+    top: 18px;
+    right: 15px;
+    width: 18px;
+    height: 18px;
+    img{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
   }
   #options{
     height: 40px;
@@ -38,21 +42,58 @@
     position: absolute;
     z-index: 90;
     top: -10px;
-    input{
-      width: 80%;
-      height:33px;
-      margin: 0px auto;
-      display: block;
-      border-radius: 7px;
+    font-family: $mtserra;
+    #search{
+      width: 69%;
+      height:30px;
+      float: left;
+      margin-left: 1%;
+      input{
+        width: 100%;
+        height:30px;
+        display: block;
+        border-radius: 1px;
+        border:none;
+        background-color: #eee;
+        font-family: $mtserra;
+        font-size: 14px;
+        &:focus{
+          outline: 0;
+        }
+      }
+      ::-webkit-input-placeholder {
+        color:#777;
+        padding-left: 4px ;
+      }
+      ::-moz-placeholder {
+        color:#333;
+        padding-left: 4px ;
+      }
     }
-    ::-webkit-input-placeholder { 
-      color:#000; 
-      padding-left: 4px ;
+    #user_nav{
+      width: 27%;
+      margin-left: 2%;
+      float: left;
+      img{
+        height: 30px;
+        width: 30px;
+        border-radius: 12px;
+        margin-right:5px;
+        float: left;
+      }
+      p.user-name{
+        color: #ffffff;
+        font-size: 11px;
+      }
+      p.signout, .signin{
+        font-size: 10px;
+        a{
+          text-decoration: none;
+          color: $yellow;
+        }
+      }
     }
-    ::-moz-placeholder {
-      color:#000; 
-      padding-left: 4px ;
-    }
+
   }
   #map{
     width: 100%;
@@ -63,7 +104,20 @@
     z-index: 10;
   }
 }
-
+#languette{
+  width: 50%;
+  height: 20px;
+  position: relative;
+  top: -20px;
+  background-color: rgba(51,51,51,0.7);
+  z-index: 200;
+  img{
+    margin: 0 auto;
+    width: 27px;
+    padding-top: 5px;
+    display: block;
+  }
+}
 #nobar{
   width: 50%;
   height: 200px;

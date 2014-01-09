@@ -1,7 +1,7 @@
 class Bar < ActiveRecord::Base
   attr_accessible :address, :latitude, :longitude, :location, :name, :price, :start_happy, :end_happy, :price_happy
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   validates :name, presence: true
   validates :price, presence: true,

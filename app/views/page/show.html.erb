@@ -1,10 +1,25 @@
 <div id="fiche-bar">
-
-  <h3><%= @bar.name %></h3>
+  <% if @bar.name.length < 25 %>
+    <h3><%= @bar.name %></h3>
+  <% else %>
+      <h3 class="long-name"><%= @bar.name %></h3>
+  <% end %>
   <p class="address">
-    <%= dont_show_country(@bar.address) %>
+    <%= dont_show_country(@bar.address) %> - <small class="page-distance"></small>
   </p>
-  <p class="page-distance"></p>
+
+  <div class="plus">
+    <div class="direction">
+      <%= image_tag 'icons/direction-icon.png' %>
+    </div>
+    <div id="rate">
+      <% if give_bar_rate(@bar) == -1 %>
+          <p>Soyez le premier à noter ce bar !</p>
+      <% else %>
+        <p><%= give_bar_rate(@bar) %></p>
+      <% end %>
+    </div>
+  </div>
 
   <div class="under">
 
@@ -33,4 +48,10 @@
 
   <div class="close"><%= image_tag "icons/less.png" %></div>
 
+  <div id="new-rate" style='display:none;'>
+    <div id="comments">
+      <%= render "comments/bar_comments" %>
+    </div>
+  </div>
 </div>
+

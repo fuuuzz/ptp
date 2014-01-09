@@ -17,9 +17,11 @@
       <%= @bar.address %>
     </p>
 
+      <h2>Comments</h2>
+      <div id="comments">
+        <%= render "comments/bar_comments" %>
+      </div>
 
-    <%= link_to 'Edit', edit_bar_path(@bar) %> |
+  <%= link_to 'Edit', edit_bar_path(@bar) %> |
     <%= link_to 'Back', bars_path %> -->
 </div>
-
-

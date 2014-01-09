@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131228170227) do
+ActiveRecord::Schema.define(:version => 20140106112554) do
 
   create_table "bars", :force => true do |t|
     t.string   "name"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(:version => 20131228170227) do
     t.string   "address"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.string   "location"
     t.time     "start_happy"
     t.time     "end_happy"
     t.float    "price_happy"
@@ -31,14 +30,12 @@ ActiveRecord::Schema.define(:version => 20131228170227) do
     t.string   "commenter"
     t.integer  "rate"
     t.integer  "bar_id"
-    t.integer  "member_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "author"
   end
 
-  add_index "comments", ["bar_id", "member_id"], :name => "index_comments_on_bar_id_and_member_id", :unique => true
-  add_index "comments", ["member_id"], :name => "index_comments_on_member_id"
+  add_index "comments", ["bar_id"], :name => "index_comments_on_bar_id"
 
   create_table "users", :force => true do |t|
     t.string   "provider"
@@ -48,6 +45,8 @@ ActiveRecord::Schema.define(:version => 20131228170227) do
     t.datetime "oauth_expires_at"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.string   "image"
+    t.string   "friends"
   end
 
 end

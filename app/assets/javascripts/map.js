@@ -12,38 +12,23 @@
     iconUserUrl = 'http://payetapinte.fr/assets/img/icons/userMarker.png';
 
     var markerIcon = new google.maps.MarkerImage(
-        iconUrl,
-        null, /* size is determined at runtime */
-        null, /* origin is 0,0 */
-        null, /* anchor is bottom center of the scaled image */
+        iconUrl, null,  null, null,
         new google.maps.Size(34, 44)
         ),
     markerBigIcon = new google.maps.MarkerImage(
-        iconUrl,
-        null, /* size is determined at runtime */
-        null, /* origin is 0,0 */
-        null, /* anchor is bottom center of the scaled image */
+        iconUrl, null,  null, null,
         new google.maps.Size(51, 66)
         ),
     markerKing = new google.maps.MarkerImage(
-        iconKingUrl,
-        null, /* size is determined at runtime */
-        null, /* origin is 0,0 */
-        null, /* anchor is bottom center of the scaled image */
+        iconKingUrl, null,  null, null,
         new google.maps.Size(34, 53)
         ),
     markerKingBig = new google.maps.MarkerImage(
-        iconKingUrl,
-        null, /* size is determined at runtime */
-        null, /* origin is 0,0 */
-        null, /* anchor is bottom center of the scaled image */
+        iconKingUrl, null,  null, null,
         new google.maps.Size(51, 80)
         ),
     markerUser = new google.maps.MarkerImage(
-        iconUserUrl,
-        null, /* size is determined at runtime */
-        null, /* origin is 0,0 */
-        null, /* anchor is bottom center of the scaled image */
+        iconUserUrl, null,  null, null,
         new google.maps.Size(30, 30)
     );
 
@@ -199,9 +184,7 @@
             //when user drag map
             google.maps.event.addListener(map, 'dragend', function() {
                 aroundBars = getBarsAround(bars);
-                if(! aroundBars[0]){
-                    displayNoBar('block');
-                }else{
+                if(aroundBars[0]){
                     displayNoBar('none');
                     CreateOrDeleteBar(markers, aroundBars);
                 }
@@ -211,9 +194,7 @@
             //when user zoom map
             google.maps.event.addListener(map, 'zoom_changed', function() {
                 aroundBars = getBarsAround(bars);
-                if(! aroundBars[0]){
-                    displayNoBar('block');
-                }else{
+                if(aroundBars[0]){
                     displayNoBar('none');
                     CreateOrDeleteBar(markers, aroundBars);
                 }
@@ -304,67 +285,10 @@
 
         //Screen the bar page
         function showBarPage(bar){
-            var $bar = $('.preview-container').find("[data-id-bar="+ bar[0] +"]"),
-            $barsContainer = $('#bars'),
-            Latlng,
-            isLoaded = false;
+            var $bar = $('.preview-container').find("[data-id-bar="+ bar[0] +"]");
 
             $bar.on('click', function(){
-                if (!isLoaded){
-                    $(this).parent().addClass('prev-opened');
-                    isLoaded = true;
-                    var previewUrl = window.location.origin + '/page/' + bar[0];
-                    $.ajax({
-                        url: previewUrl,
-                        cache: true
-                    })
-                    .done(function( page ){
-                        $( "#bar-page" ).append( page );
-                        $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
-
-                        //Set the map
-                        Latlng = new google.maps.LatLng(bar[2], bar[3]);
-                        map.panTo(Latlng);
-                        map.setZoom(16);
-
-                        //Set the marker
-                        for (i = 0; i < markers.length; i++) {
-                            if(markers[i][0] == bar[0]){
-                                var barMarker = markers[i][1];
-                                if (barMarker.icon.url == iconUrl)
-                                    barMarker.setIcon(markerBigIcon);
-                                if (barMarker.icon.url == iconKingUrl)
-                                    barMarker.setIcon(markerKingBig);
-                            }else{
-                                if (markers[i][1].icon.url == iconUrl)
-                                    markers[i][1].setIcon(markerIcon);
-                                if (markers[i][1].icon.url == iconKingUrl)
-                                    markers[i][1].setIcon(markerKing);
-                            }
-                        }
-
-                        //Set the distance
-                        var $distanceC = $('#fiche-bar').find('.page-distance'),
-                            distance = bar[4];
-                            $distanceC.append("à "+transformDistance(bar[4]));
-
-
-                        $('.close').on('click', function(){
-                            $bar.parent().removeClass('prev-opened');
-                            if (barMarker.icon.url == iconUrl)
-                                barMarker.setIcon(markerIcon);
-                            if (barMarker.icon.url == iconKingUrl)
-                                barMarker.setIcon(markerKing);
-
-                            map.setZoom(15);
-                            $barsContainer
-                            .animate({left: 0}, 300, function(){
-                                $('#fiche-bar').remove();
-                            });
-                            isLoaded = false;
-                        })
-                    });
-                }
+                setupBarPage(bar);
             })
         }
 
@@ -410,49 +334,11 @@
             google.maps.event.addListener(marker[1], 'click', function() {
                 //Moving map center to a marker when clicking on it
                 var Latlng = new google.maps.LatLng(bar[2], bar[3]);
-                map.panTo(Latlng); 
+                map.panTo(Latlng);
 
-                var previewUrl = window.location.origin + '/page/' + bar[0];
+//            setupBarPage(bar);
 
-                $.ajax({
-                    url: previewUrl,
-                    cache: true
-                })
-                .done(function( page ) {
-                    $( "#bar-page" ).append( page );
-                    $barsContainer.animate({left: -($('#bars').width()/2)}, 300);
-
-                    $('.close').on('click', function(){
-                        if (marker[1].icon.url == iconUrl)
-                            marker[1].setIcon(markerIcon);
-                        if (marker[1].icon.url == iconKingUrl)
-                            marker[1].setIcon(markerKing);
-
-                        map.setZoom(15);
-                        $barsContainer
-                            .animate({left: 0}, 300, function(){
-                                $('#fiche-bar').remove();
-                            });
-
-                        isLoaded = false;
-                    })
-                })
-
-                for (i = 0; i < markers.length; i++) {
-                     if (markers[i][1].icon.url == iconUrl)
-                         markers[i][1].setIcon(markerIcon);
-                     if (markers[i][1].icon.url == iconKingUrl)
-                         markers[i][1].setIcon(markerKing);
-                }
-
-             if (marker[1].icon.url == iconUrl)
-                 marker[1].setIcon(markerBigIcon);
-             if (marker[1].icon.url == iconKingUrl)
-                 marker[1].setIcon(markerKingBig);
-
-             map.setZoom(16);
-
-             scrollBarsList(marker);
+            scrollBarsList(marker);
          });
 }
 
@@ -472,7 +358,7 @@
                 if (posVSid[index]==barId)
                    barPos = index;
            })
-            var time = 500+(Math.abs( ($container.scrollTop()-(barHeight*barPos))));
+            var time = 200+(Math.abs( ($container.scrollTop()-(barHeight*barPos))));
             $container.animate({scrollTop: barHeight*barPos}, time);
         }
 
@@ -544,6 +430,82 @@
                 searchBox.setBounds(bounds);
             });
         }
+        function setupBarPage(bar){
+            var $bar = $('.preview-container').find("[data-id-bar="+ bar[0] +"]"),
+                $barsContainer = $('#bars'),
+                isLoaded = false;
+
+            if (!isLoaded){
+                console.log('loaaaad');
+                $bar.parent().addClass('prev-opened');
+                isLoaded = true;
+                var previewUrl = window.location.origin + '/page/' + bar[0];
+                $.ajax({
+                    url: previewUrl,
+                    cache: true
+                })
+                    .done(function( page ){
+
+                        $('#bars').animate({bottom: "0"}, 300);
+                        barState = true;
+                        $( "#bar-page" ).append(page);
+                        $barsContainer.animate({left: -($barsContainer.width()/2)}, 300);
+
+                        //Set the map
+                        Latlng = new google.maps.LatLng(bar[2], bar[3]);
+                        map.panTo(Latlng);
+//                        map.setZoom(16);
+
+                        //Set the marker
+                        for (i = 0; i < markers.length; i++) {
+                            if(markers[i][0] == bar[0]){
+                                var barMarker = markers[i][1];
+                                if (barMarker.icon.url == iconUrl)
+                                    barMarker.setIcon(markerBigIcon);
+                                if (barMarker.icon.url == iconKingUrl)
+                                    barMarker.setIcon(markerKingBig);
+                            }else{
+                                if (markers[i][1].icon.url == iconUrl)
+                                    markers[i][1].setIcon(markerIcon);
+                                if (markers[i][1].icon.url == iconKingUrl)
+                                    markers[i][1].setIcon(markerKing);
+                            }
+                        }
+
+                        //Set the distance
+                        var $distanceC = $('#fiche-bar').find('.page-distance'),
+                            distance = bar[4],
+                            $directionC = $('#fiche-bar').find('.direction');
+                        $distanceC.append("à "+transformDistance(bar[4]));
+
+                        //Set the link to plan
+                        $directionC.append('<p><a href=\"http://maps.apple.com/maps?saddr='+user[0]+', '+user[1]+'&daddr='+bar[2]+', '+bar[3]+'\">Itinéraire</a></p>')
+
+
+                        open_rate_box();
+
+
+                        $('.close').on('click', function(){
+                            $bar.parent().removeClass('prev-opened');
+                            if (barMarker.icon.url == iconUrl)
+                                barMarker.setIcon(markerIcon);
+                            if (barMarker.icon.url == iconKingUrl)
+                                barMarker.setIcon(markerKing);
+
+                            map.setZoom(15);
+                            $barsContainer
+                                .animate({left: 0}, 300, function(){
+                                    $('#fiche-bar').remove();
+                                });
+                            isLoaded = false;
+
+                            close_rate_box();
+
+                        })
+                    });
+            }
+//             map.setZoom(16);
+        }
     }
 }
 
@@ -569,7 +531,7 @@ function displayNoBar(display){
 
         $nobar.show();
 
-        $text.height($text.height()).css("marginTop", ($text.height()/ -2))
+        $text.height($text.height()).css("marginTop", -$text.height() )
     }
     else if (display == 'none'){
         $("#nobar").hide();

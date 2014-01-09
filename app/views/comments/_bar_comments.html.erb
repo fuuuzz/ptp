@@ -1,0 +1,12 @@
+
+    <% if current_user.nil? %>
+        <p><%= link_to "Connectez vous", "/auth/facebook", id: "sign_in_two" %>pour noter ce bar</p>
+    <% else
+
+        if user_already_comment(@bar, current_user)  %>
+            <p>Vous avez déjà noté ce bar</p>
+        <% else  %>
+            <%= render "comments/form" %>
+        <% end %>
+
+    <% end %>
