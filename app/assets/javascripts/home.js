@@ -9,6 +9,8 @@ $(window).ready(function(){
 
     var scrollable = document.getElementById("cache-container");
     new ScrollFix(scrollable);
+    var contact = document.getElementById("new_submission");
+    new ScrollFix(contact);
 })
 
 
@@ -16,20 +18,20 @@ function init(){
     showHideOptions();
     map();
     swipeBarsContainer();
-    /***
-    hidePhoneBar(); 
-    setupLoader()
-    */
-    
+    showHideNotice();
 }
 
 // Show or Hide option panel (search bar)
 function showHideOptions(){
     var $optionsBox = $('#options'),
         $btnOptions = $('#btn-opt'),
-        isOpened = false;
+        isOpened = false,
+        $btnMenu = $('#menu-icon'),
+        $menuBox = $('#menu'),
+        $closeBtn = $('#close-icon');
 
     $optionsBox.hide();
+    $menuBox.hide();
 
     $btnOptions.on('click', function(){
         if (isOpened){
@@ -37,13 +39,65 @@ function showHideOptions(){
                 $(this).hide()
             });
             isOpened=false;
-//            $btnOptions.text('+');
         }else{
             $optionsBox.show();
-            $optionsBox.animate({top: 60}, 300);
+            $optionsBox.animate({top: 45}, 300);
             isOpened=true;
-//            $btnOptions.text('-');
         }
+    })
+    $btnMenu.on('click', function(){
+        if (isOpened){
+            $menuBox.animate({top: -40}, 300, function(){
+                $(this).hide()
+            });
+            isOpened=false;
+        }else{
+            $menuBox.show();
+            $menuBox.animate({top: 45}, 300);
+            isOpened=true;
+        }
+    })
+
+    var $submissionBtn = $('#submission-btn'),
+        $fullPop = $('#full-popin'),
+        previewUrl = window.location.origin + '/contact';
+
+
+    $submissionBtn.on('click', function(){
+        $.ajax({
+            url: previewUrl,
+            cache: true
+        })
+            .done(function( page ){
+
+                $btnMenu.hide();
+                $btnOptions.hide();
+                $closeBtn.show();
+
+                $menuBox.animate({top: -40}, 300, function(){
+                    $(this).hide()
+                });
+                isOpened=false;
+
+                $fullPop.append(page);
+
+                $fullPop.fadeIn();
+
+                init_submission();
+
+                $closeBtn.on('click', function(){
+                    $fullPop.fadeOut(function(){
+                        $fullPop.children().remove();
+                    })
+                    $closeBtn.hide();
+                    $btnOptions.show();
+                    $btnMenu.show();
+                })
+
+
+            })
+
+
     })
 }
 
@@ -68,10 +122,6 @@ function swipeBarsContainer(){
             }
             else return
         });
-
-
-
-
     }, false);
 }
 
@@ -89,143 +139,15 @@ function close_rate_box(){
     $newRate.fadeOut();
 }
 
-/***
-function setupLoader(){
-    $('#loading').hide()
-        .ajaxStart(function() {
-            $(this).show();
-        })
-        .ajaxStop(function() {
-            $(this).hide();
-        });
-}
+function showHideNotice(){
+    var $noticeBox = $('.notice');
 
-
-
-function setupPanelOthers(){
-    var $panelOthers = $('#others'),
-        phoneHeight = $('#mobile-container').height(),
-        barsHeight = $('#bars').height(),
-        headerHeight = $('#header').height();
-
-
-    $panelOthers.height(phoneHeight-headerHeight);
-
-   
-    //Add a bar
-    var $addBar = $('#add-bar'),
-        $loginBtn = $('.login-btn');
-
-    $addBar.on('click', function(){
-       showAddBarInterface();
-    });
-    $loginBtn.on('click', function(){
-        showAddBarInterface();
-    });
-
-    function showAddBarInterface(){
-        $.ajax({
-            url:  window.location.origin + '/bars/new',
-            cache: true
-        })
-        .done(function( newbar ) {
-
-            openPanelOthers(newbar);
-            $addBar.hide();
-            $('#close-new').on('click', function(){
-                closePanelOthers();
-                $addBar.show();
-            })
-        });
-    }
-
-    function closePanelOthers(){
-        $panelOthers.animate({left:'100%'}, 300, function(){
-            $panelOthers.contents().remove();
-        });
-    }
-    function openPanelOthers(within){
-        $panelOthers.append( within );
-        $panelOthers.animate({left: 0}, 300);
+    if ($noticeBox.is(':empty')){
+        $noticeBox.hide();
+    }else{
+        $noticeBox.show().delay(3000).fadeOut();
     }
 }
-
-//Show the sign in menu
-function showSignIn(){
-    var $signIn = $('#signIn');
-    $.ajax({
-        url:  window.location.origin + '/members/sign_in',
-        cache: true
-    })
-    .done(function( signin ) {
-        $signIn.append( signin );
-    });
-}
-//Show the Sign Up menu
-function showSignUp(){
-    var $signIn = $('#signIn');
-    $.ajax({
-        url:  window.location.origin + '/members/sign_up',
-        cache: true
-    })
-    .done(function( signup ) {
-        $signIn.contents().remove();
-        $signIn.append(
-            "<div id='SignUp>'" + signup + "</div>"
-        )
-    });
-}
-
-
-function transformPrice(a){
-    var price = ('"'+a+'"')
-    var newPrice = price.replace('.', ',');
-    console.log(newPrice);
-
-    return(newPrice);
-}
-
-
-function createStars(jauge, rate){
-    jauge.width((rate/5*100)+'%');
-}
-
-function hidePhoneBar(){
-    var page = document.getElementById('mobile-container'),
-        ua = navigator.userAgent,
-        iphone = ~ua.indexOf('iPhone') || ~ua.indexOf('iPod'),
-        ipad = ~ua.indexOf('iPad'),
-        ios = iphone || ipad,
-    // Detect if this is running as a fullscreen app from the homescreen
-        fullscreen = window.navigator.standalone,
-        android = ~ua.indexOf('Android'),
-        lastWidth = 0;
-
-    if (android) {
-        window.onscroll = function() {
-            page.style.height = window.innerHeight + 'px'
-        }
-    }
-    var setupScroll = window.onload = function() {
-        if (ios) {
-            var height = document.documentElement.clientHeight;
-            if (iphone && !fullscreen) height += 60;
-            page.style.height = height + 'px';
-        } else if (android) {
-            page.style.height = (window.innerHeight + 56) + 'px'
-        }
-        setTimeout(scrollTo, 0, 0, 1);
-    };
-    (window.onresize = function() {
-        var pageWidth = page.offsetWidth;
-        if (lastWidth == pageWidth) return;
-        lastWidth = pageWidth;
-        setupScroll();
-    })();
-
-}
-*/
-
 //Autocomplete for new bar form
 function autocompleteNew() {
     var options = {

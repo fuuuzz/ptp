@@ -1,4 +1,5 @@
 class ContactController < ApplicationController
+  layout "ajax"
 
   def new
     @submission = Submission.new
@@ -9,7 +10,7 @@ class ContactController < ApplicationController
 
     if @submission.valid?
       NotificationsMailer.new_submission(@submission).deliver
-      redirect_to(root_path, :notice => "Message was successfully sent.")
+      redirect_to(root_path, :notice => "Merci ! Votre message à bien été envoyé !")
     else
       flash.now.alert = "Please fill all fields."
       render :new

@@ -1,0 +1,30 @@
+<div style='display: block; background-color: #ffe02d; width:100%; min-height: 470px;'>
+<div style='width: 80%; display: block; margin: 0 auto; background-color: #fff; padding: 10px 20px  20px; border-radius: 20px;top: 23px;position: relative;'>
+  <h3>Soumission d'un bar depuis l'app !</h3>
+
+  <p>De :  <%= @submission.email %></p>
+
+  <hr>
+  <img src="http://payetapinte.fr/assets/img/mail/logo_2.png" style='float: left; width: 150px; margin-top: 10px;height: 150px;'/>
+  <h3>Nom du bar : <br><span style="font-size:22px;"><%= @submission.name %></span></h3>
+
+  <h3>Prix de la Pinte : <br><span style="font-size:25px;"><%= @submission.price %>€</span></h3>
+
+  <h3>Adresse du Bar : <br><span style="font-size:18px;"><%= @submission.address %></span></h3>
+
+  <hr>
+
+  <% if @submission.happy_start != "" && @submission.happy_end != "" && @submission.happy_price != "" %>
+      <h3>Happy Hours :</h3>
+      <h4>Début : <%= @submission.happy_start %></h4>
+      <h4>Fin : <%= @submission.happy_end %></h4>
+      <h4>Prix pendant l'happy : <span style="font-size:16px;"><%= @submission.happy_price %>€</span></h4>
+
+
+  <% else %>
+
+      <h3>Happy Hours non renseigné !</h3>
+
+  <% end %>
+</div>
+</div>

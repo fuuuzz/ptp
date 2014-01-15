@@ -28,9 +28,9 @@
         <h3>Happy Hours ! </h3>
         <small>Si il n'y a pas d'happy hour, ou qu'elles n'ont pas été renseignées, laissez les valeurs "début" et "fin" égales. </small>
         <h4>Début happy :</h4>
-        <%= f.time_select :start_happy%>
+        <%= f.time_select :start_happy, :ignore_date => true %>
         <h4>Fin happy :</h4>
-        <%= f.time_select :end_happy%>
+        <%= f.time_select :end_happy, :ignore_date => true %>
         <h4>Prix pendant l'happy hour :</h4>
         <%= f.text_field :price_happy, placeholder: 'Prix en Happy Hours...' %>
       </div>
