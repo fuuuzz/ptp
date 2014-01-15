@@ -1,12 +1,11 @@
 <h1>Listing des <%= @bars.length%> bars !</h1>
 <h2><%= link_to 'New Bar', new_bar_path %></h2>
-
 <div class="info">
 
 </div>
 
-<table id="admin-table-bars">
-  <tr>
+<table class="table table-striped datatable-searchable">
+  <tr class="top-table">
     <th>N°</th>
     <th><%= sortable "name", "Nom" %></th>
     <th><%= sortable "price", "Prix" %></th>
@@ -14,7 +13,9 @@
     <th>HappyHours</th>
     <th><%= sortable "price_happy", "Happy Prix !" %></th>
     <th><%= sortable "created_at", "Création" %></th>
-
+    <th>Show</th>
+    <th>Edit</th>
+    <th>Destroy</th>
   </tr>
 
 <% @bars.each_with_index do |bar, index| %>
@@ -41,9 +42,19 @@
       <!--#{bar.created_at.strftime("Le %d/%m/%y à %R")}-->
       <%= "#{time_ago_in_words(bar.created_at)}" %>
     </td>
-    <td><%= link_to 'Show', bar %></td>
-    <td><%= link_to 'Edit', edit_bar_path(bar) %></td>
-    <td><%= link_to 'Destroy', bar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+      <%= link_to bar do %>
+        <i class="glyphicon glyphicon-new-window"></i>
+      <% end %>
+    </td>
+    <td><%= link_to edit_bar_path(bar) do %>
+      <i class="glyphicon glyphicon-edit"></i>
+      <% end %>
+    </td>
+    <td><%= link_to bar, method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <i class="glyphicon glyphicon-minus-sign"></i>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
