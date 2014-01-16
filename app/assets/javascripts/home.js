@@ -11,6 +11,8 @@ $(window).ready(function(){
     new ScrollFix(scrollable);
     var contact = document.getElementById("new_submission");
     new ScrollFix(contact);
+    var map = document.getElementById("map");
+    new ScrollFix(map);
 })
 
 

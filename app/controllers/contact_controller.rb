@@ -10,7 +10,7 @@ class ContactController < ApplicationController
 
     if @submission.valid?
       NotificationsMailer.new_submission(@submission).deliver
-      redirect_to(root_path, :notice => "Merci ! Votre message à bien été envoyé !")
+      redirect_to(root_path, :notice => "Merci de ta participation !")
     else
       flash.now.alert = "Please fill all fields."
       render :new
