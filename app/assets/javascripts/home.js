@@ -125,19 +125,7 @@ function swipeBarsContainer(){
     }, false);
 }
 
-function open_rate_box(){
 
-    $('#rate').on('click', function(){
-        var $newRate = $('#new-rate');
-        $newRate.fadeIn();
-    })
-}
-
-function close_rate_box(){
-    var $newRate = $('#new-rate');
-
-    $newRate.fadeOut();
-}
 
 function showHideNotice(){
     var $noticeBox = $('.notice');
