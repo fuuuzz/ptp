@@ -1,8 +1,15 @@
 
 function open_rate_box(){
 
-    var $star = $(".star");
-    var $rateInput = $("#comment_rate");
+    var $star = $(".star"),
+        $rateInput = $("#comment_rate"),
+        $rateContainer = $('#new-rate');
+
+    $rateContainer.css({
+        top: -($(window).height()/2-220)
+    })
+
+
 
     $star.on("click",function(){
         var rate = $(this).data('value');
@@ -30,15 +37,13 @@ function open_rate_box(){
 }
 
 function close_rate_box(){
-    var $newRate = $('#new-rate');
+    var $newRate = $('#new-rate'),
+        $close =   $('#close-btn');
+    console.log($close);
 
-    $('html').click(function() {
+    $close.on('click', function(){
         $newRate.fadeOut();
-    });
-
-    $('#new-rate').click(function(event){
-        event.stopPropagation();
-    });
+    })
 }
 
 function showRate() {

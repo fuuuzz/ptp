@@ -3,7 +3,7 @@
 <% else
 
     if user_already_comment(@bar, current_user)  %>
-        <p>Vous avez déjà noté ce bar</p>
+        <p class="already-noted">Vous avez déjà noté ce bar</p>
     <% else  %>
         <p> Votre Note : </p>
         <%= render "comments/form" %>
