@@ -1,10 +1,14 @@
 <%= form_for([@bar, Comment.new]) do |f| %>
-    <p>
-      <%= f.label :rate %><br />
-      <%= f.text_field :rate %>
-    </p>
+    <div class="stars-c">
+      <div class="star" data-value="1"><%= image_tag 'icons/star_white.png' %></div>
+      <div class="star" data-value="2"><%= image_tag 'icons/star_white.png' %></div>
+      <div class="star" data-value="3"><%= image_tag 'icons/star_white.png' %></div>
+      <div class="star" data-value="4"><%= image_tag 'icons/star_white.png' %></div>
+      <div class="star" data-value="5"><%= image_tag 'icons/star_white.png' %></div>
+    </div>
+    <%= f.hidden_field :rate %>
     <%= hidden_field(:comment, :author, :value => current_user.name) %>
     <p>
-      <%= f.submit %>
+      <%= f.submit 'NOTER !', class:'rate-sub' %>
     </p>
 <% end %>

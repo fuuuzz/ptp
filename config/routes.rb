@@ -1,7 +1,11 @@
 Payetapinte::Application.routes.draw do
+
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')
   match 'signout', to: 'sessions#destroy', as: 'signout'
+
+  match 'contact' => 'contact#new', :as => 'contact', :via => :get
+  match 'contact' => 'contact#create', :as => 'contact', :via => :post
 
   resources :bars do
     resources :comments

@@ -1,0 +1,52 @@
+<%= form_for @submission, :url => contact_path do |f| %>
+    <% if @submission.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@submission.errors.count, "error") %> prohibited this bar from being saved:</h2>
+          <ul>
+            <% @submission.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+  <fieldset id="fields" class="noBounce">
+    <div id="submission-form" class="noBounce">
+      <div class="noBounce">
+      <h4>Vous connaissez un <span>bar</span> qui ne figure pas sur notre carte ?</h4>
+      <div id="form-container">
+        <div class="field">
+          <%= f.text_field :name, placeholder: 'Nom du bar', class:'text' %>
+        </div>
+        <div class="field">
+          <%= f.text_field :address, placeholder: 'Adresse, Ville, Code Postal', class:'text' %>
+        </div>
+        <div class="field">
+          <p>La pinte est à <%= f.number_field :price, class:'price ', step:'any' %>€</p>
+        </div>
+        <div class="field">
+           <p>Y'a-t-il un happy hour ?</p>
+        </div>
+        <div class="field">
+           <div class="yes"><span>OUI</span></div>
+           <div class="no"><span>NON</span></div>
+        </div>
+        <div class="happy-option">
+          <div class="field">
+            <p class="timebox">DE  <input type='time' id='submission_happy_start' name='submission[happy_start]' class='time' value='00:00'/> À  <input type='time' id='submission_happy_end' name='submission[happy_end]' class='time' value='00:00'/></p>
+          </div>
+          <div class="field">
+            <p>Prix pendant l'happy : <%= f.number_field :happy_price, class:'price happy' %>€</p>
+          </div>
+        </div>
+        <div class="field">
+          <%= f.email_field :email, placeholder: 'Votre email', class:'text', :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
+        </div>
+      </div>
+      <fieldset class="actions">
+        <%= f.submit "ENVOYER !", :id => 'send-it', onclick: 'submission_confirm()' %>
+      </fieldset>
+    </div>
+    </div>
+  </fieldset>
+<% end %>
+

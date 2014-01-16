@@ -16,7 +16,13 @@
       <% if give_bar_rate(@bar) == -1 %>
           <p>Soyez le premier à noter ce bar !</p>
       <% else %>
-        <p><%= give_bar_rate(@bar) %></p>
+          <div id="rate-c" data-rate="<%= give_bar_rate(@bar) %>">
+            <div class="rate-s" > <%= image_tag 'icons/star.png' %></div>
+            <div class="rate-s" > <%= image_tag 'icons/star.png' %></div>
+            <div class="rate-s" > <%= image_tag 'icons/star.png' %></div>
+            <div class="rate-s" > <%= image_tag 'icons/star.png' %></div>
+            <div class="rate-s" > <%= image_tag 'icons/star.png' %></div>
+          </div>
       <% end %>
     </div>
   </div>
@@ -45,13 +51,13 @@
       <% end %>
 
   </div>
-
-  <div class="close"><%= image_tag "icons/less.png" %></div>
-
   <div id="new-rate" style='display:none;'>
     <div id="comments">
       <%= render "comments/bar_comments" %>
+      <div id="close-btn">
+        <%=	image_tag 'icons/close-button.png'  %>
+      </div>
     </div>
   </div>
+  <div class="close"><%= image_tag "icons/less.png" %></div>
 </div>
-
