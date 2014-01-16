@@ -1,36 +1,27 @@
 
-function rating(){
-
-    ///////////
-    // Notation
-    ///////////
-    var srcIn='design/star_in.gif'; //image au survol
-    var srcOut='design/star_out.gif'; // image non survolée
-
-    // Obtenir id numérique des étoiles au format star_numero
-    function idNum(id)
-    {
-        var id=id.split('_');
-        var id=id[1];
-        return id;
-    }
-
-    // Survol des étoiles
-    $('.star').hover(function(){
-        var id=idNum($(this).attr('id')); // id numérique de l'étoile survolée
-        var nbStars=$('.star').length; // Nombre d'étoiles de la classe .star
-        var i; // Variable d'incrémentation
-        for (i=1;i<=nbStars;i++)
-        {
-            if(i<=id) $('#star_'+i).attr({src:srcIn});
-            else if(i>id) $('#star_'+i).attr({src:srcOut});
-            if(i==id)$('#note').attr({value:i}); // affectation de la note au formulaire
-        }
-    },function(){});
-
-})
-
 function open_rate_box(){
+
+    var $star = $(".star");
+    var $rateInput = $("#comment_rate");
+
+    $star.on("click",function(){
+        var rate = $(this).data('value');
+        $star.each(function(index){
+            if(index<rate){
+                $(this).css({
+                    opacity:1
+                });
+            }
+            else{
+                $(this).css({
+                    opacity:0.5
+                });
+            }
+        })
+
+        $rateInput.val(rate);
+        console.log(rateInput);
+    })
 
     $('#rate').on('click', function(){
         var $newRate = $('#new-rate');
@@ -41,5 +32,33 @@ function open_rate_box(){
 function close_rate_box(){
     var $newRate = $('#new-rate');
 
-    $newRate.fadeOut();
+    $('html').click(function() {
+        $newRate.fadeOut();
+    });
+
+    $('#new-rate').click(function(event){
+        event.stopPropagation();
+    });
+}
+
+function showRate() {
+    var rateShow = $('#rate-c').data('rate'),
+        $divStar = $('.rate-s');
+    console.log($divStar);
+
+    $divStar.each(function(index){
+        console.log(index);
+        if(index<rateShow){
+            $(this).css({
+                opacity:1
+            });
+        }
+        else{
+            $(this).css({
+                opacity:0.5
+             });
+        }
+    })
+    console.log(rateShow);
+
 }

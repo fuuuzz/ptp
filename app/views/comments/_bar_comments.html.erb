@@ -1,10 +1,11 @@
 <% if current_user.nil? %>
-    <p><%= link_to "Connectez vous", "#", id: "sign_in_two", :class => "popup", :"data-width" => 600, :"data-height" => 400 %>pour noter ce bar, </p>
+    <p class="cntfb-rate">Veuillez-vous connecter pour noter le bar !</p>
 <% else
 
     if user_already_comment(@bar, current_user)  %>
         <p>Vous avez déjà noté ce bar</p>
     <% else  %>
+        <p> Votre Note : </p>
         <%= render "comments/form" %>
     <% end %>
 

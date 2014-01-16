@@ -484,8 +484,9 @@
 
                         //Set the link to plan
                         $directionC.append('<p><a href=\"http://maps.apple.com/maps?saddr='+user[0]+', '+user[1]+'&daddr='+bar[2]+', '+bar[3]+'\">Itinéraire</a></p>')
-
+                        showRate();
                         open_rate_box();
+
 
                         $('.close').on('click', function(){
                             $bar.parent().removeClass('prev-opened');
