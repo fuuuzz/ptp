@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(:version => 20140106112554) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "address"
+    t.integer  "member_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "location"
     t.time     "start_happy"
     t.time     "end_happy"
     t.float    "price_happy"
@@ -30,12 +32,34 @@ ActiveRecord::Schema.define(:version => 20140106112554) do
     t.string   "commenter"
     t.integer  "rate"
     t.integer  "bar_id"
+    t.integer  "member_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "author"
   end
 
+  add_index "comments", ["bar_id", "member_id"], :name => "index_comments_on_bar_id_and_member_id", :unique => true
   add_index "comments", ["bar_id"], :name => "index_comments_on_bar_id"
+  add_index "comments", ["member_id"], :name => "index_comments_on_member_id"
+
+  create_table "members", :force => true do |t|
+    t.string   "email",                                 :default => "", :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                         :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "name"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
+    t.string   "password"
+  end
+
+  add_index "members", ["name"], :name => "index_members_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "provider"
