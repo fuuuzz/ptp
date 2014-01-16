@@ -8,20 +8,48 @@
   <div id="btn-opt">
     <%= image_tag "icons/loupe.png" %>
   </div>
+  <div id="btn-menu">
+    <%= image_tag "icons/menu-btn@2x.png", id:'menu-icon' %>
+    <%= image_tag "icons/close-btn@2x.png", id:'close-icon', style:'display:none;'%>
+  </div>
 </div>
 <div id="options">
   <div id="search">
     <input id="pac-input" class="controls" type="search" placeholder="Voir les bars à..." >
   </div>
+</div>
+<div id="menu">
+  <ul>
+    <li class="triangle"></li>
+    <li>
+      <div class="icon">
+        <%= image_tag "icons/addbar@x2.png" %>
+      </div>
+      <%= link_to "Suggérer un bar", '#', id:'submission-btn' %>
+    </li>
+
+    <li class="fb-connect">
+      <% if current_user %>
+          <div class="icon">
+            <%= image_tag current_user.image, class:'user-img' %>
+          </div>
+          <span class="user-name"><%= current_user.name %></span>
+          <span class="signout"><%= link_to "Déconnexion", signout_path, id: "sign_out" %></span>
+      <% else %>
+          <div class="icon">
+            <%= image_tag "icons/fb@2x.png" %>
+          </div>
+          <span class='signin'><%= link_to "Connectez-vous via Facebook", "/auth/facebook", id: "sign_in" %></span>
+      <% end %>
+    </li>
+  </ul>
   <div id="user_nav">
-    <% if current_user %>
-        <%= image_tag current_user.image %>
-        <p class="user-name"><%= current_user.name %></p>
-        <p class="signout"><%= link_to "Déconnexion", signout_path, id: "sign_out" %></p>
-    <% else %>
-        <p class='signin'><%= link_to "Connexion", "/auth/facebook", id: "sign_in" %></p>
-    <% end %>
+
   </div>
+</div>
+
+<div id="full-popin" style='display:none'>
+   <!--call ajax here-->
 </div>
   
 <div id="map"></div>

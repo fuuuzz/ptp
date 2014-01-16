@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails'
 gem 'rails_12factor'
 gem 'json', '1.8.1'
 gem 'geocoder'
@@ -33,6 +33,8 @@ gem 'modernizr-rails', '~> 2.7.0'
 group :development do
   gem 'annotate', ">=2.5.0"
 end
+
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

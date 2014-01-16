@@ -5,7 +5,8 @@
     var bars = getBarsLocation(),
     i,
     distance = '',
-    date = new Date();
+    date = new Date(),
+    minMapZoom = 14;
 
     var iconUrl = 'http://payetapinte.fr/assets/img/icons/marker.png',
     iconKingUrl = 'http://payetapinte.fr/assets/img/icons/markerCheaper.png',
@@ -148,7 +149,7 @@
     // Generate map and markers :
     function setup_map(position){
 
-        // Map is gonna be loaded, we can safely remove the loader 
+        // Map is gonna be loaded, we can safely remove the loader
         $('#loading').hide() ;
 
         if (position == null){
@@ -193,6 +194,9 @@
 
             //when user zoom map
             google.maps.event.addListener(map, 'zoom_changed', function() {
+
+                if (map.getZoom() < minMapZoom) map.setZoom(minMapZoom);
+
                 aroundBars = getBarsAround(bars);
                 if(aroundBars[0]){
                     displayNoBar('none');
@@ -481,9 +485,7 @@
                         //Set the link to plan
                         $directionC.append('<p><a href=\"http://maps.apple.com/maps?saddr='+user[0]+', '+user[1]+'&daddr='+bar[2]+', '+bar[3]+'\">Itinéraire</a></p>')
 
-
                         open_rate_box();
-
 
                         $('.close').on('click', function(){
                             $bar.parent().removeClass('prev-opened');
