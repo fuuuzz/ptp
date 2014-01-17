@@ -30,7 +30,7 @@
         ),
     markerUser = new google.maps.MarkerImage(
         iconUserUrl, null,  null, null,
-        new google.maps.Size(30, 30)
+        new google.maps.Size(20, 20)
     );
 
     function ajustOptionsMap(user) {
@@ -180,7 +180,17 @@
             // Search Bar completion
             searchPlace();
 
-            /*** setupPanelOthers(); */
+//            var circleUser = new google.maps.Circle({
+//                position: new google.maps.LatLng(user[0], user[1]),
+//                radius:300000,
+//                map: map,
+//                strokeColor: '#FF0000',
+//                strokeOpacity: 0.8,
+//                strokeWeight: 2,
+//                fillColor: '#FF0000',
+//                fillOpacity: 0.35,
+//                clickable: false
+//            });
 
             //when user drag map
             google.maps.event.addListener(map, 'dragend', function() {
@@ -189,7 +199,6 @@
                     displayNoBar('none');
                     CreateOrDeleteBar(markers, aroundBars);
                 }
-
             }),
 
             //when user zoom map
@@ -212,8 +221,8 @@
             var UserMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(user[0], user[1]),
                 map: map,
-                animation: google.maps.Animation.DROP
-//                icon: markerUser
+                animation: google.maps.Animation.DROP,
+                icon: markerUser
             });
             return UserMarker;
         }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140106112554) do
+ActiveRecord::Schema.define(:version => 20140116234012) do
 
   create_table "bars", :force => true do |t|
     t.string   "name"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20140106112554) do
     t.datetime "updated_at",       :null => false
     t.string   "image"
     t.string   "friends"
+    t.string   "email"
   end
 
 end
