@@ -44,15 +44,15 @@
     </td>
     <td>
       <%= link_to bar do %>
-        <i class="glyphicon glyphicon-new-window"></i>
+        <%= image_tag('icons/show.png')%>
       <% end %>
     </td>
     <td><%= link_to edit_bar_path(bar) do %>
-      <i class="glyphicon glyphicon-edit"></i>
+      <%= image_tag('icons/edit.png')%>
       <% end %>
     </td>
     <td><%= link_to bar, method: :delete, data: { confirm: 'Are you sure?' } do %>
-        <i class="glyphicon glyphicon-minus-sign"></i>
+        <%= image_tag('icons/delete.png')%>
       <% end %>
     </td>
   </tr>
