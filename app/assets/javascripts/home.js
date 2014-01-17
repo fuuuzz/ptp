@@ -62,7 +62,8 @@ function showHideOptions(){
 
     var $submissionBtn = $('#submission-btn'),
         $fullPop = $('#full-popin'),
-        previewUrl = window.location.origin + '/contact';
+        previewUrl = window.location.origin + '/contact',
+        $noBarBtn = $('#open-submission');
 
 
     $submissionBtn.on('click', function(){
@@ -98,8 +99,40 @@ function showHideOptions(){
 
 
             })
+    })
+    $noBarBtn.on('click', function(){
+        $.ajax({
+            url: previewUrl,
+            cache: true
+        })
+            .done(function( page ){
+
+                $btnMenu.hide();
+                $btnOptions.hide();
+                $closeBtn.show();
+
+                $menuBox.animate({top: -40}, 300, function(){
+                    $(this).hide()
+                });
+                isOpened=false;
+
+                $fullPop.append(page);
+
+                $fullPop.fadeIn();
+
+                init_submission();
+
+                $closeBtn.on('click', function(){
+                    $fullPop.fadeOut(function(){
+                        $fullPop.children().remove();
+                    })
+                    $closeBtn.hide();
+                    $btnOptions.show();
+                    $btnMenu.show();
+                })
 
 
+            })
     })
 }
 
