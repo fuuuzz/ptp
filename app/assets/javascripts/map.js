@@ -138,7 +138,7 @@
         };
 
         function error(err) {
-            alert('Nous ne sommes pas parvenu à vous Géolocaliser ! :-(');
+            // alert('Nous ne sommes pas parvenu à vous Géolocaliser ! :-(');
                 setup_map(null);
         };
 
@@ -153,7 +153,7 @@
         $('#loading').hide() ;
 
         if (position == null){
-            var user = [44.8356423, -0.5729913]; // Actual default : Bordeaux
+            var user = [48.8374242, 2.3573167]; // Actual default : Paris
         }else{
             var user = [position.coords.latitude, position.coords.longitude];
         }
