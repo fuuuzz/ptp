@@ -68,7 +68,7 @@ module Payetapinte
         :port                 => 587,
         :domain               => "payetapinte.fr",
         :user_name            => "bienvenue@payetapinte.fr",
-        :password             => ENV_PASSMAIL
+        :password             => ENV["PASSMAIL"]
         :authentication       => :plain,
         :enable_starttls_auto => true
     }
